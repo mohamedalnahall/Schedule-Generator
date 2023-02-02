@@ -1,0 +1,118 @@
+body[theme='yellow'] {
+    --white: white;
+    --black: black;
+    --background: #eeeeee;
+    --main: #ffc700;
+    --main-txt: #dfa000;
+    --red: #ff4d00;
+    --tmain: #ffc80026;
+    --tred: #ff4e0026;
+    --gray: #ececec;
+    --gray-2: #e1e1e1;
+    --gray-3: #cacaca;
+    --gray-txt: #808080;
+    --gray-2-txt: #656565;
+
+    --transition: 200ms;
+}
+
+.small {
+    font-size: 12px;
+}
+
+/* centerd row */
+.crow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* right row */
+.rrow {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+/* space-between row */
+.srow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.gap-8 {
+    gap: 8px
+}
+
+.gap-14 {
+    gap: 14px
+}
+
+.gap-26 {
+    gap: 26px
+}
+
+.bg-main {
+    background-color: var(--main);
+}
+
+.bg-gray {
+    background-color: var(--gray);
+}
+
+.bg-gray-2 {
+    background-color: var(--gray-2);
+}
+
+.bg-gray-3 {
+    background-color: var(--gray-3);
+}
+
+.bg-gray-txt {
+    background-color: var(--gray-txt);
+}
+
+.bg-gray-2-txt {
+    background-color: var(--gray-2-txt);
+}
+
+.c-black {
+    color: var(--black);
+}
+
+.c-gray-2 {
+    color: var(--gray-2-txt);
+}
+
+.c-main {
+    color: var(--main-txt);
+}
+
+.fit-content-master>* {
+    width: fit-content;
+}
+
+.scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-left: 10px;
+    border-radius: 0;
+}
+
+.transy {
+    transition: var(--transition);
+}
+
+.pointer {
+    cursor: pointer;
+}

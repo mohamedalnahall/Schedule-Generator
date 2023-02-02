@@ -1,0 +1,234 @@
+@font-face {
+    font-family: NotoKufiArabic;
+    src: url(NotoKufiArabic.ttf);
+}
+
+* {
+    font-family: NotoKufiArabic;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: var(--gray-txt);
+    margin: 0;
+    padding: 0;
+    border-radius: 40px;
+}
+
+body {
+    user-select: none;
+}
+
+h1 {
+    color: var(--black);
+    font-size: 22px;
+    font-weight: 500;
+}
+
+h2 {
+    color: var(--black);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    border: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+body>div {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    min-width: 820px;
+    max-width: 1081px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body>div>* {
+    width: 100%;
+}
+
+body>div>div {
+    height: 31.22vw;
+    min-height: 512px;
+    max-height: 675px;
+    background-color: white;
+    padding: 30px;
+}
+
+header>div {
+    width: 0;
+    height: 0;
+    border-top: 9px solid transparent;
+    border-right: 16px solid var(--gray-2);
+
+    border-bottom: 9px solid transparent;
+
+    border-radius: 0px;
+}
+
+header>a {
+    height: 30px;
+    padding: 0 15px;
+}
+
+header>a:hover {
+    background-color: var(--tmain);
+    color: var(--main-txt);
+    transition: var(--transition);
+}
+
+header>a:hover>svg {
+    stroke: var(--main-txt);
+    transition: var(--transition);
+}
+
+.unit {
+    flex-shrink: 0;
+    height: 45px;
+    width: 100%;
+    padding: 0 25px;
+    color: var(--gray-2-txt);
+}
+
+.or-line {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+}
+
+.or-line>span:first-child,
+.or-line>span:last-child {
+    height: 1px;
+    width: calc(50% - 14px);
+}
+
+.unwanted {
+    color: var(--red);
+    background-color: var(--tred) !important;
+    border: 1px solid var(--red);
+}
+
+.unwanted>div {
+    height: 14px;
+    width: 14px;
+    position: relative;
+}
+
+.unwanted>div>div {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 14px;
+    background-color: var(--red);
+    transform-origin: center;
+}
+
+.unwanted>div>div:first-child {
+    transform: rotate(45deg);
+}
+
+.unwanted>div>div:last-child {
+    transform: rotate(-45deg);
+}
+
+#time_slider {
+    margin: 8px 9px 0;
+    position: relative;
+}
+
+#time_slider>div:first-child>div {
+    background-color: var(--gray-txt);
+    margin: 0 1px;
+    width: 1px;
+    height: 15px;
+}
+
+#time_slider>div:first-child>div.coverd {
+    background-color: var(--main);
+    margin: 0;
+    width: 3px;
+    height: 15px;
+}
+
+#time_slider>div:nth-child(2)>div {
+    transform: translateX(-50%);
+}
+
+#time_slider>div:last-child {
+    width: calc(var(--end) - var(--start));
+    height: 3px;
+    position: absolute;
+    right: var(--start);
+    top: -1px;
+}
+
+#time_slider>div:last-child>div:first-child {
+    content: '';
+    background-color: var(--main);
+    width: 17px;
+    height: 17px;
+    transform: translateX(50%);
+    position: absolute;
+    right: 0;
+    top: -7px;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+#time_slider>div:last-child>div:last-child {
+    content: '';
+    background-color: var(--main);
+    width: 17px;
+    height: 17px;
+    transform: translateX(-50%);
+    position: absolute;
+    left: 0;
+    top: -7px;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.selected {
+    color: var(--main-txt);
+    background-color: var(--tmain) !important;
+    border: 2px solid var(--main);
+}
+
+.selected>div {
+    height: 16px;
+    width: 16px;
+    position: relative;
+}
+
+.selected>div>div {
+    position: absolute;
+    top: 0;
+    width: 3px;
+    background-color: var(--main);
+    transform-origin: bottom;
+}
+
+.selected>div>div:first-child {
+    transform: rotate(45deg);
+    height: 16px;
+}
+
+.selected>div>div:last-child {
+    transform: translateY(100%) rotate(-45deg);
+    height: 8px;
+    margin-right: -1px;
+}
