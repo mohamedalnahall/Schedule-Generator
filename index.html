@@ -8,23 +8,84 @@
     <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="css/framework.css">
 </head>
-<body theme="yellow" style="background-color: #eee;">
+<body theme="light yellow" style="background-color: var(--background);">
     <div class="gap-14">
-        <header class="rrow gap-14">
-            <div></div>
-            <h1>مولد الجداول</h1>
-            <a href="https://github.com/mohamedalnahall/Schedule-Generator" class="small crow c-gray-2 bg-gray-2">بواسطة __ محمد مدحت النحال
-                <svg xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;" width="22" height="17" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
+        <header class="srow">
+            <div class="rrow gap-14">
+                <svg xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="var(--gray-3)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M14 6l-6 6l6 6v-12"></path>
                 </svg>
-            </a>
+                <h1>مولد الجداول</h1>
+                <a href="https://github.com/mohamedalnahall/Schedule-Generator" class="small crow c-gray-2 bg-gray-2">بواسطة __ محمد مدحت النحال
+                    <svg xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;" width="22" height="17" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="column gap-14 bg-gray-2 pointer small" style="height: 30px; transition: height; transition-duration: var(--transition);" onclick="openThemePanel(this);">
+                <div class="srow" style="margin-top: 3px;">
+                    <div class="crow">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 21v-4a4 4 0 1 1 4 4h-4"></path>
+                            <path d="M21 3a16 16 0 0 0 -12.8 10.2"></path>
+                            <path d="M21 3a16 16 0 0 1 -10.2 12.8"></path>
+                            <path d="M10.6 9a9 9 0 0 1 4.4 4.4"></path>
+                        </svg>
+                        <div class="c-gray-2">
+                            المظهر
+                        </div>
+                    </div>
+                    <svg class="arrow transy" style="transform-origin: center;" xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9l6 6l6 -6"></path>
+                    </svg>
+                </div>
+                <div class="themes column gap-8">
+                    <span class="word-line srow">
+                        <span class="bg-gray-3"></span>
+                        <span>فاتح</span>
+                        <span class="bg-gray-3"></span>
+                    </span>
+                    <div class="srow transy" onclick="document.body.setAttribute('theme','light ucas')">مظهر يوكاس
+                        <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
+                    </div>
+                    <div class="srow transy" onclick="document.body.setAttribute('theme','light yellow')">مظهر اصفر
+                        <div style="background-color: #ffc700;"></div>
+                    </div>
+                    <div class="srow transy" onclick="document.body.setAttribute('theme','light green')">مظهر اخضر
+                        <div style="background-color: #27df55;"></div>
+                    </div>
+                    <div class="srow transy" onclick="document.body.setAttribute('theme','light blue')">مظهر ازرق
+                        <div style="background: #1c90f0;"></div>
+                    </div>
+                    <span class="word-line srow">
+                        <span class="bg-gray-3"></span>
+                        <span>غامق</span>
+                        <span class="bg-gray-3"></span>
+                    </span>
+                    <div class="srow transy" onclick="document.body.setAttribute('theme','dark ucas')">مظهر يوكاس
+                        <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
+                    </div>
+                    <div class="srow transy" onclick="document.body.setAttribute('theme','dark yellow')">مظهر اصفر
+                        <div style="background-color: #dbac00;"></div>
+                    </div>
+                    <div class="srow transy" onclick="document.body.setAttribute('theme','dark green')">مظهر اخضر
+                        <div style="background-color: #27c400;"></div>
+                    </div>
+                    <div class="srow transy" onclick="document.body.setAttribute('theme','dark blue')">مظهر ازرق
+                        <div style="background-color: #0070cc;"></div>
+                    </div>
+                    <span></span>
+                    <span></span>  
+                </div>
+            </div>
         </header>
-        <div class="srow">
+        <div class="bg-white srow">
             <div class="column gap-14" style="height: 100%; width: 35%;">
                 <input type="text" placeholder="الرقم الجامعي" class="unit bg-gray c-black">
                 <input type="password" placeholder="كلمة المرور" class="unit bg-gray c-black">
-                <button class="unit bg-main srow c-black">ربط حساب يوكاس
-                    <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 350" width="14" height="27" fill="var(--black)">
+                <button class="unit bg-main srow c-over-main">ربط حساب يوكاس
+                    <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 350" width="14" height="27" fill="var(--over-main)">
                         <g>
                             <path d="m68.9 327.5c-71.5-111.1 5.3-182.2 5.3-182.2 0 0-40.6 78.9 20 150.3z"/>
                             <path d="m68.9 327.5c76.4-127.5-35.9-265.9-35.9-265.9l43.9-39.9c119.4 200.2-8 305.8-8 305.8z"/>
@@ -33,7 +94,7 @@
                         </g>
                     </svg>
                 </button>
-                <div class="or-line srow">
+                <div class="word-line srow">
                     <span class="bg-gray-3"></span>
                     <span class="small">او</span>
                     <span class="bg-gray-3"></span>
@@ -52,7 +113,7 @@
             <div style="height: 100%; width: 1px;" class="bg-gray-3"></div>
             <div class="column gap-14" style="height: 100%; width: 60%;">
                 <h1 class="crow">التفضيلات</h1>
-                <div class="rrow c-main">
+                <div class="rrow c-gray-txt">
                     <div style="width: 20px; height: 20px;" class="crow bg-gray">!</div>
                     <div style="margin-right: 8px;">ملاحظة : هذه التفضيلات سيتم تطبيقها ان امكن ذلك</div>
                 </div>
@@ -140,7 +201,7 @@
                             </div>
                             جدول ممتلئ بدون اوقات فراغ تتخلله
                         </choice>
-                        <div class="or-line srow">
+                        <div class="word-line srow">
                             <span class="bg-gray-3"></span>
                             <span class="small">او</span>
                             <span class="bg-gray-3"></span>
@@ -156,8 +217,9 @@
                 </div>
             </div>
         </div>
-        <button style="height: 65px;" class="bg-main"><h1>توليد الجداول</h1></button>
+        <button style="height: 65px;" class="bg-main"><h1 class="c-over-main">توليد الجداول</h1></button>
     </div>
+
     <script src="js/skeleton.js"></script>
 </body>
 </html>

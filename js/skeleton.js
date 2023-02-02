@@ -1,3 +1,23 @@
+let closing;
+function openThemePanel(el) {
+    if (el.style.height == '30px') {
+        el.onmouseleave = () => {
+            closing = setTimeout(() => { el.classList.remove('opend'); }, 100);
+            el.style.height = '30px';
+            el.querySelector(".arrow").removeAttribute("style");
+            el.onmouseleave = null
+        }
+        clearTimeout(closing);
+        el.classList.add('opend');
+        el.querySelector(".arrow").style.transform = 'rotate(180deg)';
+        el.style.height = '429px';
+    } else {
+        closing = setTimeout(() => { el.classList.remove('opend'); }, 100);
+        el.style.height = '30px';
+        el.querySelector(".arrow").removeAttribute("style");
+    }
+}
+
 function timeNodeDrag(e, x) {
     if (e.button === 0) {
         const time_line = document.querySelector("#time_slider>div:first-child");

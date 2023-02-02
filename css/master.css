@@ -70,31 +70,58 @@ body>div>div {
     padding: 30px;
 }
 
-header>div {
-    width: 0;
-    height: 0;
-    border-top: 9px solid transparent;
-    border-right: 16px solid var(--gray-2);
-
-    border-bottom: 9px solid transparent;
-
-    border-radius: 0px;
-}
-
-header>a {
+header>div:first-child>a {
     height: 30px;
     padding: 0 15px;
 }
 
-header>a:hover {
+header>div:first-child>a:hover {
     background-color: var(--tmain);
+    background: var(--tmain);
     color: var(--main-txt);
     transition: var(--transition);
 }
 
-header>a:hover>svg {
+header>div:first-child>a:hover>svg {
     stroke: var(--main-txt);
     transition: var(--transition);
+}
+
+header>div:last-child {
+    padding: 0 10px;
+    width: 180px;
+    position: absolute;
+    left: 0;
+    top: 6px;
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 100;
+}
+
+body[theme='light ucas'] header>div:last-child.opend,
+body[theme='light yellow'] header>div:last-child.opend,
+body[theme='light green'] header>div:last-child.opend,
+body[theme='light blue'] header>div:last-child.opend {
+    background-color: var(--white);
+    box-shadow: 0 2px 4px 3px var(--shadow);
+}
+
+header>div:last-child:hover>div:first-child * {
+    color: var(--black);
+}
+
+header .themes>div {
+    padding: 5px 10px;
+}
+
+header .themes>div:hover {
+    background-color: var(--gray);
+    color: var(--black);
+}
+
+header .themes>div>div {
+    width: 50px;
+    height: 10px;
 }
 
 .unit {
@@ -105,15 +132,19 @@ header>a:hover>svg {
     color: var(--gray-2-txt);
 }
 
-.or-line {
-    width: calc(100% - 20px);
+.word-line {
+    width: 90%;
+    margin: 0 5%;
+}
+
+.word-line>span:nth-child(2) {
     margin: 0 10px;
 }
 
-.or-line>span:first-child,
-.or-line>span:last-child {
+.word-line>span:first-child,
+.word-line>span:last-child {
     height: 1px;
-    width: calc(50% - 14px);
+    width: 50%;
 }
 
 .unwanted {
@@ -159,6 +190,7 @@ header>a:hover>svg {
 
 #time_slider>div:first-child>div.coverd {
     background-color: var(--main);
+    background: var(--main);
     margin: 0;
     width: 3px;
     height: 15px;
@@ -179,6 +211,7 @@ header>a:hover>svg {
 #time_slider>div:last-child>div:first-child {
     content: '';
     background-color: var(--main);
+    background: var(--main);
     width: 17px;
     height: 17px;
     transform: translateX(50%);
@@ -192,6 +225,7 @@ header>a:hover>svg {
 #time_slider>div:last-child>div:last-child {
     content: '';
     background-color: var(--main);
+    background: var(--main);
     width: 17px;
     height: 17px;
     transform: translateX(-50%);
@@ -205,6 +239,7 @@ header>a:hover>svg {
 .selected {
     color: var(--main-txt);
     background-color: var(--tmain) !important;
+    background: var(--tmain) !important;
     border: 2px solid var(--main);
 }
 
@@ -218,7 +253,7 @@ header>a:hover>svg {
     position: absolute;
     top: 0;
     width: 3px;
-    background-color: var(--main);
+    background-color: var(--main-txt);
     transform-origin: bottom;
 }
 
