@@ -46,7 +46,7 @@ button {
     cursor: pointer;
 }
 
-body>div {
+#mainPanel {
     display: flex;
     flex-direction: column;
     width: 50vw;
@@ -58,15 +58,14 @@ body>div {
     transform: translate(-50%, -50%);
 }
 
-body>div>* {
+#mainPanel>* {
     width: 100%;
 }
 
-body>div>div {
+#mainPanel>div {
     height: 31.22vw;
     min-height: 512px;
     max-height: 675px;
-    background-color: white;
     padding: 30px;
 }
 
@@ -137,12 +136,11 @@ header .themes>div>div {
     margin: 0 5%;
 }
 
-.word-line>span:nth-child(2) {
+.word-line>span {
     margin: 0 10px;
 }
 
-.word-line>span:first-child,
-.word-line>span:last-child {
+.word-line>div {
     height: 1px;
     width: 50%;
 }

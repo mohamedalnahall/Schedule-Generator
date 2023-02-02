@@ -16,7 +16,7 @@
             e.matches? document.body.setAttribute("theme", "dark yellow") : document.body.setAttribute("theme", "light yellow");
         });
     </script>
-    <div class="gap-14">
+    <div id="mainPanel" class="gap-14">
         <header class="srow">
             <div class="rrow gap-14">
                 <svg xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="var(--gray-3)" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -49,9 +49,9 @@
                 </div>
                 <div class="themes column gap-8">
                     <span class="word-line srow">
-                        <span class="bg-gray-3"></span>
+                        <div class="bg-gray-3"></div>
                         <span>فاتح</span>
-                        <span class="bg-gray-3"></span>
+                        <div class="bg-gray-3"></div>
                     </span>
                     <div class="srow transy" onclick="document.body.setAttribute('theme','light ucas')">مظهر يوكاس
                         <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
@@ -66,9 +66,9 @@
                         <div style="background: #1c90f0;"></div>
                     </div>
                     <span class="word-line srow">
-                        <span class="bg-gray-3"></span>
+                        <div class="bg-gray-3"></div>
                         <span>غامق</span>
-                        <span class="bg-gray-3"></span>
+                        <div class="bg-gray-3"></div>
                     </span>
                     <div class="srow transy" onclick="document.body.setAttribute('theme','dark ucas')">مظهر يوكاس
                         <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
@@ -102,9 +102,9 @@
                     </svg>
                 </button>
                 <div class="word-line srow">
-                    <span class="bg-gray-3"></span>
+                    <div class="bg-gray-3"></div>
                     <span class="small">او</span>
-                    <span class="bg-gray-3"></span>
+                    <div class="bg-gray-3"></div>
                 </div>
                 <div style="margin-right: 10px;">قم بادخال المساقات بشكل يدوي</div>
                 <div class="scroll column gap-14">
@@ -209,9 +209,9 @@
                             جدول ممتلئ بدون اوقات فراغ تتخلله
                         </choice>
                         <div class="word-line srow">
-                            <span class="bg-gray-3"></span>
+                            <div class="bg-gray-3"></div>
                             <span class="small">او</span>
-                            <span class="bg-gray-3"></span>
+                            <div class="bg-gray-3"></div>
                         </div>
                         <choice class="unit bg-gray crow transy pointer" onclick="select(this)" style="margin-bottom: 14px;">
                             <div>
@@ -226,6 +226,7 @@
         </div>
         <button style="height: 65px;" class="bg-main"><h1 class="c-over-main">توليد الجداول</h1></button>
     </div>
+
 
     <script src="js/skeleton.js"></script>
 </body>
