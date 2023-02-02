@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="css/framework.css">
 </head>
 <body theme="light yellow" style="background-color: var(--background);">
+    <script>
+        const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+        if(darkThemeMq.matches) document.body.setAttribute("theme", "dark yellow");
+        darkThemeMq.addListener(e => {
+            e.matches? document.body.setAttribute("theme", "dark yellow") : document.body.setAttribute("theme", "light yellow");
+        });
+    </script>
     <div class="gap-14">
         <header class="srow">
             <div class="rrow gap-14">
