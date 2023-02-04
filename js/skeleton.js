@@ -1,4 +1,9 @@
 let data = {
+    preferences: {
+        unwantedDays: ["th"],
+        bestTimes: { from: 8, to: 12 },
+        scheduleStyle: "with_no_free_time"
+    },
     courses: {}
 };
 
@@ -41,7 +46,11 @@ function timeNodeDrag(e, x) {
                     else if (end > i * 12.5) children[i].className = "coverd";
                 }
             }
-            document.onmouseup = () => { document.onmousemove = null; document.onmouseup = null; };
+            document.onmouseup = () => {
+                document.onmousemove = null;
+                document.onmouseup = null;
+                data.preferences.bestTimes.from = 8 + (parseFloat(sel_time.style.getPropertyValue("--start"))/100) * 8;
+            };
         }
         else if (x === 2) {
             document.onmousemove = (e) => {
@@ -55,14 +64,25 @@ function timeNodeDrag(e, x) {
                     else if (start < i * 12.5) children[i].className = "coverd";
                 }
             }
-            document.onmouseup = () => { document.onmousemove = null; document.onmouseup = null; };
+            document.onmouseup = () => {
+                document.onmousemove = null;
+                document.onmouseup = null;
+                data.preferences.bestTimes.to = 8 + (parseFloat(sel_time.style.getPropertyValue("--end"))/100) * 8;
+
+            };
         }
     }
 }
 
 function unwant(el) {
-    if (el.classList.contains("unwanted")) el.classList.remove("unwanted");
-    else el.classList.add("unwanted")
+    if (el.classList.contains("unwanted")) {
+        delete data.preferences.unwantedDays[data.preferences.unwantedDays.indexOf(el.id)];
+        el.classList.remove("unwanted");
+    }
+    else {
+        data.preferences.unwantedDays.push(el.id);
+        el.classList.add("unwanted");
+    }
 }
 
 function select(el) {
@@ -70,6 +90,7 @@ function select(el) {
         for (const child of el.parentElement.children) {
             if (child.nodeName = "choice" && child.classList.contains("selected")) {
                 child.classList.remove("selected");
+                data.preferences.scheduleStyle = el.id;
                 el.classList.add("selected");
                 return;
             }

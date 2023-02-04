@@ -130,43 +130,43 @@
                 </div>
                 <div class="column gap-14 scroll">
                     <h2>الايام غير المرغوبة</h2>
-                    <div id="days" class="rrow wrap gap-14 fit-content-master">
-                        <div class="unit bg-gray crow pointer transy" onclick="unwant(this)">
+                    <div class="rrow wrap gap-14 fit-content-master">
+                        <div id="sa" class="unit bg-gray crow pointer transy" onclick="unwant(this)">
                         <div>
                             <div></div>
                             <div></div>
                         </div>
                         السبت
                         </div>
-                        <div class="unit bg-gray crow pointer transy" onclick="unwant(this)">
+                        <div id="su" class="unit bg-gray crow pointer transy" onclick="unwant(this)">
                         <div>
                             <div></div>
                             <div></div>
                         </div>
                         الاحد
                         </div>
-                        <div class="unit bg-gray crow pointer transy" onclick="unwant(this)">
+                        <div id="mo" class="unit bg-gray crow pointer transy" onclick="unwant(this)">
                         <div>
                             <div></div>
                             <div></div>
                         </div>
                         الاثنين
                         </div>
-                        <div class="unit bg-gray crow pointer transy" onclick="unwant(this)">
+                        <div id="tu" class="unit bg-gray crow pointer transy" onclick="unwant(this)">
                         <div>
                             <div></div>
                             <div></div>
                         </div>
                         الثلاثاء
                         </div>
-                        <div class="unit bg-gray crow pointer transy" onclick="unwant(this)">                       
+                        <div id="we" class="unit bg-gray crow pointer transy" onclick="unwant(this)">                       
                         <div>
                             <div></div>
                             <div></div>
                         </div>
                         الاربعاء
                         </div>
-                        <div class="unit bg-gray crow pointer transy unwanted" onclick="unwant(this)">                        
+                        <div id="th" class="unit bg-gray crow pointer transy unwanted" onclick="unwant(this)">                        
                         <div>
                             <div></div>
                             <div></div>
@@ -204,8 +204,8 @@
                         </div>
                     </div>
                     <h2>هل تفضل</h2>
-                    <div id="schedule_style" class="column gap-8">
-                        <choice class="unit bg-gray crow pointer transy selected" onclick="select(this)">                        
+                    <div class="column gap-8">
+                        <choice id="with_no_free_time" class="unit bg-gray crow pointer transy selected" onclick="select(this)">                        
                             <div>
                                 <div></div>
                                 <div></div>
@@ -217,7 +217,7 @@
                             <span class="small">او</span>
                             <div class="bg-gray-3"></div>
                         </div>
-                        <choice class="unit bg-gray crow transy pointer" onclick="select(this)" style="margin-bottom: 14px;">
+                        <choice id="with_free_time" class="unit bg-gray crow transy pointer" onclick="select(this)" style="margin-bottom: 14px;">
                             <div>
                                 <div></div>
                                 <div></div>
