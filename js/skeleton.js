@@ -98,6 +98,12 @@ function select(el) {
     }
 }
 
+let editedCourse = null;
+
+let tempCourse = {name:""};
+
+let selectedClass = null;
+
 function showAddCourse() {
     document.getElementById("courseName").value = "";
     document.getElementById("courseName").classList.remove("error");
@@ -110,8 +116,6 @@ function showAddCourse() {
     addCoursePanel.querySelector("#addCoursePanel>div>button[onclick='addCourse()']").style.display = "block";
     addCoursePanel.classList.remove("hidden");
 }
-
-let editedCourse = null;
 
 function showEditCourse(id) {
     editedCourse = id;
@@ -137,10 +141,6 @@ function hideAddCourse() {
     tempCourse = {name:""};
     selectedClass = null;
 }
-
-let tempCourse = {name:""};
-
-let selectedClass = null;
 
 function addClass(el) {
     let newClass = document.createElement('div');
@@ -237,7 +237,7 @@ function createNewTime() {
     <option value="15.5">15:30</option>
     <option value="16">16:00</option>
 </select>
-<svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="this.parentElement.remove()">
+<svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete tempCourse[selectedClass.id][this.parentElement.id]; this.parentElement.remove()">
     <path d="M4 7l16 0"></path>
     <path d="M10 11l0 6"></path>
     <path d="M14 11l0 6"></path>
@@ -385,15 +385,15 @@ function checkCourseData() {
         showErrorMsg("لا يمكن اضافة مساق لا يحتوي على شعب!!");
         return false;
     }
-    for (const s in tempCourse) {
-        if (s === "name") continue;
-        if (!tempCourse[s].num) {
-            document.getElementById(s).querySelector("input").classList.add("error");
+    for (const Class in tempCourse) {
+        if (Class === "name") continue;
+        if (!tempCourse[Class].num) {
+            document.getElementById(Class).querySelector("input").classList.add("error");
             showErrorMsg("بعض الشعب لا تمتلك رقما او ان رقمها ادخل بشكل خاطىء!!");
             return false;
         }
-        if (Object.keys(tempCourse[s]).length === 1) {
-            showErrorMsg("شعبة رقم " + tempCourse[s].num + " لا تمتلك مواعيد!!");
+        if (Object.keys(tempCourse[Class]).length === 1) {
+            showErrorMsg("شعبة رقم " + tempCourse[Class].num + " لا تمتلك مواعيد!!");
             return false;
         }
     }
