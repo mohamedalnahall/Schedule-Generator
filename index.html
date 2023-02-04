@@ -87,7 +87,7 @@
                 </div>
             </div>
         </header>
-        <div class="bg-white srow">
+        <div class="bg-white srow fadeable">
             <div class="column gap-14" style="height: 100%; width: 35%;">
                 <input type="text" placeholder="الرقم الجامعي" class="unit bg-gray c-black">
                 <input type="password" placeholder="كلمة المرور" class="unit bg-gray c-black">
@@ -107,8 +107,8 @@
                     <div class="bg-gray-3"></div>
                 </div>
                 <div style="margin-right: 10px;">قم بادخال المساقات بشكل يدوي</div>
-                <div class="scroll column gap-14">
-                    <button class="unit bg-gray srow">
+                <div id="courses" class="scroll column gap-14">
+                    <button class="unit bg-gray srow" onclick="showAddCourse()">
                         <span class="c-black">اضافة مساق</span>
                         <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 5l0 14"></path>
@@ -121,7 +121,11 @@
             <div class="column gap-14" style="height: 100%; width: 60%;">
                 <h1 class="crow">التفضيلات</h1>
                 <div class="rrow c-gray-txt">
-                    <div style="width: 20px; height: 20px;" class="crow bg-gray">!</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="var(--gray-txt)" fill="var(--gray)" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" stroke-width="0" d="M12 12m-11 0a9 9 0 1022 0 9 9 0 10-22 0"></path>
+                        <path d="M12 8l0 4"></path>
+                        <path d="M12 16l.01 0"></path>
+                    </svg>
                     <div style="margin-right: 8px;">ملاحظة : هذه التفضيلات سيتم تطبيقها ان امكن ذلك</div>
                 </div>
                 <div class="column gap-14 scroll">
@@ -226,8 +230,56 @@
         </div>
         <button style="height: 65px;" class="bg-main"><h1 class="c-over-main">توليد الجداول</h1></button>
     </div>
-
-
+    <div id="addCoursePanel" class="hidden">
+        <div style="width: 100vw; height: 100vh; position: absolute; top: 0; right: 0;" onclick="hideAddCourse()"></div>
+        <div class="column gap-14 transy">
+            <div class="rrow">
+                <svg xmlns="http://www.w3.org/2000/svg" class="pointer" onclick="hideAddCourse()" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6l-12 12"></path>
+                <path d="M6 6l12 12"></path>
+                </svg>
+            </div>
+            <input id="courseName" type="text" class="unit bg-gray c-black transy" placeholder="اسم المساق" required onfocus="this.classList.remove('error')" onblur="tempCourse.name=this.value">
+            <div class="word-line srow"><div class="bg-gray-3"></div><div class="bg-gray-3"></div></div>
+            <h2 style="margin-right: 15px;">الشعب</h2>
+            <div class="crow" style="align-items: flex-start; height: 321px;">
+                <div id="classes" class="column gap-14 scroll" style="min-width: 180px; height: 280px; padding: 0;">
+                    <button class="unit srow tab" onclick="addClass(this)">
+                    <div class="c-black">اضافة شعبة</div>
+                    <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 5l0 14"></path>
+                        <path d="M5 12l14 0"></path>
+                    </svg>
+                    </button>
+                </div>
+                <div id="classDetails" class="column gap-14">
+                    <div class="srow">
+                        <div class="c-black">المواعيد</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" onclick="removeClass()" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 7l16 0"></path>
+                        <path d="M10 11l0 6"></path>
+                        <path d="M14 11l0 6"></path>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                        </svg>
+                    </div>
+                    <div class="srow" style="padding: 0 15px 0 64px;">
+                        <div class="crow" style="width: 70px;">اليوم</div>
+                        <div class="bg-gray-txt" style="height: 10px; width: 1px;"></div>
+                        <div class="crow" style="width: 70px;">من</div>
+                        <div class="bg-gray-txt" style="height: 10px; width: 1px;"></div>
+                        <div class="crow" style="width: 70px;">الى</div>
+                    </div>
+                    <div id="times" class="column gap-14 scroll">
+                    </div>
+                </div>
+            </div>
+            <button class="unit bg-main" onclick="addCourse()"><h2 class="c-over-main">اضافة</h2></button>
+            <button class="unit bg-main" onclick="editCourse()"><h2 class="c-over-main">تعديل</h2></button>
+        </div>
+    </div>
+    <div id="errorMsg" class="unit crow error transy">
+    </div>
     <script src="js/skeleton.js"></script>
 </body>
 </html>

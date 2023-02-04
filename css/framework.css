@@ -1,6 +1,6 @@
 body {
-    --red: #ff4d00;
-    --tred: #ff4e0026;
+    --red: #ff2600;
+    --tred: #ff260026;
     --transition: 200ms;
 }
 
@@ -196,6 +196,10 @@ body[theme='dark blue'] {
 
 .gap-26 {
     gap: 26px
+}
+
+.bg-black {
+    background-color: var(--black);
 }
 
 .bg-white {

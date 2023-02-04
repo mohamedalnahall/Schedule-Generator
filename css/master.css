@@ -13,6 +13,17 @@
     border-radius: 40px;
 }
 
+::-webkit-scrollbar {
+    background-color: transparent;
+    width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 100%;
+    background-color: var(--gray-3);
+    border-radius: 2px;
+}
+
 body {
     user-select: none;
 }
@@ -44,6 +55,19 @@ input:focus {
 button {
     border: none;
     cursor: pointer;
+}
+
+.fadeable {
+    transition-property: padding;
+    transition-duration: var(--transition);
+}
+
+.fade-in {
+    padding: 35px !important;
+}
+
+.fade-out {
+    padding: 25px !important;
 }
 
 #mainPanel {
@@ -264,4 +288,98 @@ header .themes>div>div {
     transform: translateY(100%) rotate(-45deg);
     height: 8px;
     margin-right: -1px;
+}
+
+.error {
+    background-color: var(--tred) !important;
+    color: var(--red) !important;
+    border: 1px solid var(--red) !important;
+}
+
+.error::placeholder {
+    color: var(--red) !important;
+}
+
+#errorMsg {
+    width: fit-content;
+    position: absolute;
+    top: -100px;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+/* icon button */
+.i-btn {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    border-radius: 8px;
+}
+
+.i-btn:hover {
+    background-color: var(--tmain);
+    background: var(--tmain);
+    stroke: var(--main-txt);
+}
+
+#addCoursePanel>div:last-child {
+    width: 600px;
+    height: 600px;
+    opacity: 100%;
+    padding: 30px;
+    background-color: var(--white);
+    box-shadow: 0 0 15px 3px var(--shadow);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#addCoursePanel.hidden {
+    visibility: hidden;
+}
+
+#addCoursePanel.hidden>div:last-child {
+    width: 575px;
+    height: 575px;
+    opacity: 0%;
+}
+
+#classes input {
+    width: 70px;
+    margin-right: 5px;
+    color: var(--black);
+    background-color: inherit !important;
+    border: none !important;
+}
+
+.tab {
+    background-color: var(--gray);
+    width: 170px;
+    margin-left: 10px;
+}
+
+.selected-tab {
+    background-color: var(--white);
+    width: 180px;
+    border: 1px solid var(--gray-3);
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#classDetails {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--gray-3);
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    padding: 25px;
+}
+
+#classDetails select {
+    width: 70px;
+    border: none;
+    text-align: center;
+    border-radius: 0;
 }
