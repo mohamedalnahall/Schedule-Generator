@@ -118,15 +118,21 @@ function showAddCourse() {
 }
 
 function showEditCourse(id) {
+    document.getElementById("courseName").value = "";
+    document.getElementById("courseName").classList.remove("error");
+    for (const branch of document.getElementById("branches").querySelectorAll(".branch"))
+        branch.remove();
+    document.getElementById("timeSlots").innerHTML = "";
     editedCourse = id;
     document.getElementById("courseName").value = id;
     document.getElementById("courseName").classList.remove("error");
-    for (const branch of document.getElementById("branches").querySelectorAll(".branch")) {
-        if (data.courses[id][branch.id] != null) {
-            branch.querySelector("input").value = branch.id;
-        } else branch.remove();
+    for (const branch in data.courses[id]) {
+        let newBranch = createBranch();
+        document.getElementById("branches").insertBefore(newBranch, document.getElementById("branches").querySelector("button"));
+        newBranch.querySelector('input').value = branch;
+        newBranch.id = branch;
     }
-    tempCourse = {...data.courses[id]};
+    tempCourse = structuredClone(data.courses[id]);
     selectTab(document.getElementById("branches").querySelector(".branch"));
     document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.add("fade-out");
     const addCoursePanel = document.getElementById("addCoursePanel");
@@ -142,7 +148,7 @@ function hideAddCourse() {
     selectedBranch = null;
 }
 
-function addBranch(el) {
+function createBranch() {
     let newBranch = document.createElement('div');
     newBranch.className = "unit rrow c-black pointer tab branch";
     newBranch.setAttribute("onclick", "selectTab(this)");
@@ -151,9 +157,13 @@ function addBranch(el) {
     newBranch.innerHTML = `
     <div class="c-black pointer">شعبة : </div>
     <input type="text" placeholder="رقم الشعبة" class="pointer" style="border-radius: 0; color: var(--gray-txt)" required ondblclick="this.removeAttribute('readonly'); this.style.color='var(--gray-txt)';" onfocus="this.classList.remove('error')" onblur="this.setAttribute('readonly',''); this.style.color='var(--black)'; checkBranchNum(this);">`
+    return newBranch;
+}
+
+function addBranch(el) {
+    let newBranch = createBranch();
     el.parentElement.insertBefore(newBranch, el);
     newBranch.querySelector('input').focus();
-
     if (selectedBranch === null) selectTab(newBranch);
 }
 
@@ -167,10 +177,17 @@ function removeBranch() {
 }
 
 function checkBranchNum(el) {
-    if (parseInt(el.parentElement.id) && el.value === "") {
-        el.value = selectedBranch.id;
+    if ((parseInt(el.parentElement.id) && el.value === "") || tempCourse[el.value]) {
+        el.value = el.parentElement.id;
     }
-    el.parentElement.id = parseInt(el.value);
+    else if (parseInt(el.value)) {
+        if (tempCourse[el.parentElement.id]) {
+            tempCourse[el.value] = tempCourse[el.parentElement.id];
+            delete tempCourse[el.parentElement.id];
+        }
+        el.parentElement.id = parseInt(el.value);
+        if (!tempCourse[el.parentElement.id]) tempCourse[el.parentElement.id] = [];
+    }
 }
 
 function selectTab(el) {
@@ -293,7 +310,7 @@ function addTimeSlot(el) {
 }
 
 function removeTimeSlot(el) {
-    delete tempCourse[selectedBranch.id][el.parentElement.id];
+    tempCourse[selectedBranch.id] = tempCourse[selectedBranch.id].filter((item) => item != tempCourse[selectedBranch.id][el.parentElement.id]);
     el.parentElement.remove();
     recheckTimsSlotsDays(document.querySelectorAll('.timeSlot'));
 }
@@ -428,7 +445,7 @@ function addCourse() {
     if (!checkCourseData()) return;
     let newCourse = document.createElement("div");
     newCourse.id = document.getElementById("courseName").value;
-    data.courses[newCourse.id] = tempCourse;
+    data.courses[newCourse.id] = structuredClone(tempCourse);
     newCourse.className = "unit bg-gray srow";
     newCourse.innerHTML = `<span class="c-black">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
     <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
@@ -446,7 +463,13 @@ function addCourse() {
 
 function editCourse() { 
     if (!checkCourseData()) return;
-    data.courses[editedCourse] = tempCourse;
+    const courseName = document.getElementById("courseName").value;
+    if (courseName != editedCourse) {
+        delete data.courses[editedCourse];
+        document.getElementById(editedCourse).id = courseName;
+        editedCourse = courseName; 
+    }
+    data.courses[editedCourse] = structuredClone(tempCourse);
     document.getElementById(editedCourse).querySelector("span").innerText = editedCourse;
     hideAddCourse();
 }
