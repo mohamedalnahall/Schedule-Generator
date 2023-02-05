@@ -7,6 +7,43 @@ let data = {
     courses: {}
 };
 
+const handler = {
+    get: (target, key) => {
+        if (typeof target[key] === "object" && target[key] !== null) {
+            return new Proxy(target[key], handler);
+        }
+
+        return target[key];
+    },
+    set: (target, prop, value) => {
+        if (target === data.courses) {
+            document.getElementById("courseName").value = prop;
+            tempCourse = structuredClone(value);
+            if (!data.courses[prop]) {
+                addCourse();
+            }
+            else editCourse(prop);
+        } else if (target === data && prop === "courses") {
+            document.getElementById("courses").innerHTML = `<button class="unit bg-gray srow" onclick="showAddCourse()">
+            <span class="c-black">اضافة مساق</span>
+            <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5l0 14"></path>
+                <path d="M5 12l14 0"></path>
+            </svg>
+        </button>`;
+            for (const course in value) {
+                document.getElementById("courseName").value = course;
+                tempCourse = structuredClone(value[course]);
+                addCourse();
+            }
+        }
+        return true;
+    }
+};
+
+
+const proxy = new Proxy(data, handler);
+
 let closing;
 function openThemePanel(el) {
     if (el.style.height == '30px') {
