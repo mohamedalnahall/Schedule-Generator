@@ -345,7 +345,7 @@ header .themes>div>div {
     opacity: 0%;
 }
 
-#classes input {
+#branches input {
     width: 70px;
     margin-right: 5px;
     color: var(--black);
@@ -368,7 +368,7 @@ header .themes>div>div {
     border-bottom-left-radius: 0;
 }
 
-#classDetails {
+#branchDetails {
     width: 100%;
     height: 100%;
     border: 1px solid var(--gray-3);
@@ -377,7 +377,7 @@ header .themes>div>div {
     padding: 25px;
 }
 
-#classDetails select {
+#branchDetails select {
     width: 70px;
     border: none;
     text-align: center;

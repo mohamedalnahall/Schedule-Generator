@@ -102,14 +102,14 @@ let editedCourse = null;
 
 let tempCourse = {};
 
-let selectedClass = null;
+let selectedBranch = null;
 
 function showAddCourse() {
     document.getElementById("courseName").value = "";
     document.getElementById("courseName").classList.remove("error");
-    for (const classNode of document.getElementById("classes").querySelectorAll(".class"))
-        classNode.remove();
-    document.getElementById("times").innerHTML = "";
+    for (const branch of document.getElementById("branches").querySelectorAll(".branch"))
+        branch.remove();
+    document.getElementById("timeSlots").innerHTML = "";
     document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.add("fade-out");
     const addCoursePanel = document.getElementById("addCoursePanel");
     addCoursePanel.querySelector("#addCoursePanel>div>button[onclick='editCourse()']").style.display = "none";
@@ -121,13 +121,13 @@ function showEditCourse(id) {
     editedCourse = id;
     document.getElementById("courseName").value = id;
     document.getElementById("courseName").classList.remove("error");
-    for (const classNode of document.getElementById("classes").querySelectorAll(".class")) {
-        if (data.courses[id][classNode.id] != null) {
-            classNode.querySelector("input").value = classNode.id;
-        } else classNode.remove();
+    for (const branch of document.getElementById("branches").querySelectorAll(".branch")) {
+        if (data.courses[id][branch.id] != null) {
+            branch.querySelector("input").value = branch.id;
+        } else branch.remove();
     }
     tempCourse = {...data.courses[id]};
-    selectTab(document.getElementById("classes").querySelector(".class"));
+    selectTab(document.getElementById("branches").querySelector(".branch"));
     document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.add("fade-out");
     const addCoursePanel = document.getElementById("addCoursePanel");
     addCoursePanel.querySelector("#addCoursePanel>div>button[onclick='addCourse()']").style.display = "none";
@@ -139,37 +139,36 @@ function hideAddCourse() {
     document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.remove("fade-out");
     document.getElementById("addCoursePanel").classList.add("hidden");
     tempCourse = {};
-    selectedClass = null;
+    selectedBranch = null;
 }
 
-function addClass(el) {
-    let newClass = document.createElement('div');
-    newClass.className = "unit rrow c-black pointer tab class";
-    newClass.setAttribute("onclick", "selectTab(this)");
-    newClass.setAttribute("displayer", "times");
-    newClass.setAttribute("dataHandler", "classDataHandle");
-    newClass.setAttribute("dataParser", "classStoreData");
-    newClass.innerHTML = `
+function addBranch(el) {
+    let newBranch = document.createElement('div');
+    newBranch.className = "unit rrow c-black pointer tab branch";
+    newBranch.setAttribute("onclick", "selectTab(this)");
+    newBranch.setAttribute("displayer", "timeSlots");
+    newBranch.setAttribute("dataHandler", "handleBranchData");
+    newBranch.innerHTML = `
     <div class="c-black pointer">شعبة : </div>
-    <input type="text" placeholder="رقم الشعبة" class="pointer" style="border-radius: 0; color: var(--gray-txt)" required ondblclick="this.removeAttribute('readonly'); this.style.color='var(--gray-txt)';" onfocus="this.classList.remove('error')" onblur="this.setAttribute('readonly',''); this.style.color='var(--black)'; checkClassNum(this);">`
-    el.parentElement.insertBefore(newClass, el);
-    newClass.querySelector('input').focus();
+    <input type="text" placeholder="رقم الشعبة" class="pointer" style="border-radius: 0; color: var(--gray-txt)" required ondblclick="this.removeAttribute('readonly'); this.style.color='var(--gray-txt)';" onfocus="this.classList.remove('error')" onblur="this.setAttribute('readonly',''); this.style.color='var(--black)'; checkBranchNum(this);">`
+    el.parentElement.insertBefore(newBranch, el);
+    newBranch.querySelector('input').focus();
 
-    if (selectedClass === null) selectTab(newClass);
+    if (selectedBranch === null) selectTab(newBranch);
 }
 
-function removeClass() {
-    if (selectedClass === null) return;
-    delete tempCourse[selectedClass.id];
-    document.getElementById(selectedClass.getAttribute("displayer")).innerHTML = "";
-    selectedClass.remove();
-    selectedClass = null;
-    selectTab(document.querySelector("#classes>.class"));
+function removeBranch() {
+    if (selectedBranch === null) return;
+    delete tempCourse[selectedBranch.id];
+    document.getElementById(selectedBranch.getAttribute("displayer")).innerHTML = "";
+    selectedBranch.remove();
+    selectedBranch = null;
+    selectTab(document.querySelector("#branches>.branch"));
 }
 
-function checkClassNum(el) {
+function checkBranchNum(el) {
     if (parseInt(el.parentElement.id) && el.value === "") {
-        el.value = selectedClass.id;
+        el.value = selectedBranch.id;
     }
     el.parentElement.id = parseInt(el.value);
 }
@@ -185,15 +184,15 @@ function selectTab(el) {
     }
     el.classList.remove('tab');
     el.classList.add('selected-tab');
-    if(el.classList.contains("class")) selectedClass = el;
+    if(el.classList.contains("branch")) selectedBranch = el;
     window[el.getAttribute('dataHandler')]();
 }
 
-function createNewTime() {
-    let newTime = document.createElement('div');
-    newTime.className = "unit bg-gray srow time";
-    newTime.style.padding = "0px 15px";
-    newTime.innerHTML = `
+function createNewTimeSlot() {
+    let newTimeSlot = document.createElement('div');
+    newTimeSlot.className = "unit bg-gray srow timeSlot";
+    newTimeSlot.style.padding = "0px 15px";
+    newTimeSlot.innerHTML = `
 <select name="day" class="bg-gray c-black" onchange='restrictTimeRepetition(this)'>
     <option value="sa">السبت</option>
     <option value="su">الاحد</option>
@@ -238,30 +237,30 @@ function createNewTime() {
     <option value="15.5">15:30</option>
     <option value="16">16:00</option>
 </select>
-<svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete tempCourse[selectedClass.id][this.parentElement.id]; this.parentElement.remove()">
+<svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete tempCourse[selectedBranch.id][this.parentElement.id]; this.parentElement.remove()">
     <path d="M4 7l16 0"></path>
     <path d="M10 11l0 6"></path>
     <path d="M14 11l0 6"></path>
     <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
     <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
 </svg>`
-    return newTime;
+    return newTimeSlot;
 }
 
-function classDataHandle() {
-    let displayer = document.getElementById(selectedClass.getAttribute('displayer'));
+function handleBranchData() {
+    let displayer = document.getElementById(selectedBranch.getAttribute('displayer'));
     displayer.innerHTML = '';
-    if (parseInt(selectedClass.id)) {
-        for (let i = 0; i < tempCourse[selectedClass.id].length; i++) {
-            let newTime = createNewTime();
-            newTime.id = i;
-            displayer.appendChild(newTime);
-            const day = newTime.querySelector("select[name='day']"),
-                from = newTime.querySelector("select[name='from']"),
-                to = newTime.querySelector("select[name='to']");
-            day.value = tempCourse[selectedClass.id][i][0];
-            from.value = tempCourse[selectedClass.id][i][1];
-            to.value = tempCourse[selectedClass.id][i][2];
+    if (parseInt(selectedBranch.id)) {
+        for (let i = 0; i < tempCourse[selectedBranch.id].length; i++) {
+            let newTimeSlot = createNewTimeSlot();
+            newTimeSlot.id = i;
+            displayer.appendChild(newTimeSlot);
+            const day = newTimeSlot.querySelector("select[name='day']"),
+                from = newTimeSlot.querySelector("select[name='from']"),
+                to = newTimeSlot.querySelector("select[name='to']");
+            day.value = tempCourse[selectedBranch.id][i][0];
+            from.value = tempCourse[selectedBranch.id][i][1];
+            to.value = tempCourse[selectedBranch.id][i][2];
             restrictTimeRepetition(day);
             restrictTimeRange(from);
             restrictTimeRange(to);
@@ -269,7 +268,7 @@ function classDataHandle() {
     }
     const button = document.createElement('button');
     button.className = "unit bg-gray srow";
-    button.setAttribute('onclick', "addTime(this)");
+    button.setAttribute('onclick', "addTimeSlot(this)");
     button.innerHTML = `<div class="c-black">اضافة موعد</div>
     <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 5l0 14"></path>
@@ -278,16 +277,16 @@ function classDataHandle() {
     displayer.appendChild(button);
 }
 
-function addTime(el) {
+function addTimeSlot(el) {
     if (el.parentElement.children.length < 7) {
-        if (parseInt(selectedClass.id)) {
-            let newTime = createNewTime();
-            if (!tempCourse[selectedClass.id]) tempCourse[selectedClass.id] = [];
-            newTime.id = tempCourse[selectedClass.id].length;
-            el.parentElement.insertBefore(newTime, el);
-            restrictTimeRepetition(newTime.querySelector("select[name='day']"));
+        if (parseInt(selectedBranch.id)) {
+            let newTimeSlot = createNewTimeSlot();
+            if (!tempCourse[selectedBranch.id]) tempCourse[selectedBranch.id] = [];
+            newTimeSlot.id = tempCourse[selectedBranch.id].length;
+            el.parentElement.insertBefore(newTimeSlot, el);
+            restrictTimeRepetition(newTimeSlot.querySelector("select[name='day']"));
         } else {
-            selectedClass.querySelector("input").classList.add("error");
+            selectedBranch.querySelector("input").classList.add("error");
             showErrorMsg("ادخل رقم الشعبة اولا");
         }
     }
@@ -295,11 +294,11 @@ function addTime(el) {
 
 function restrictTimeRepetition(el) {
 
-    for (const time of el.parentElement.parentElement.querySelectorAll('.time')) {
-        if (time != el.parentElement) {
+    for (const timeSlot of el.parentElement.parentElement.querySelectorAll('.timeSlot')) {
+        if (timeSlot != el.parentElement) {
             let avDays = ["sa", "su", "mo", "tu", "we", "th"];
             for (const day of el.options) {
-                if (day.value === time.querySelector("select[name='day']").value) {
+                if (day.value === timeSlot.querySelector("select[name='day']").value) {
                     day.setAttribute('disabled', 'disabled');
                     day.style.display = 'none';
                     avDays = avDays.filter((item) => item != day.value);
@@ -309,7 +308,7 @@ function restrictTimeRepetition(el) {
                 }
             }
             if(el[el.selectedIndex].getAttribute('disabled') === 'disabled') el.value = avDays[0];
-            for (const day of time.querySelector("select[name='day']").options) {
+            for (const day of timeSlot.querySelector("select[name='day']").options) {
                 if (day.value === el.value) {
                     day.setAttribute('disabled', 'disabled');
                     day.style.display = 'none';
@@ -321,7 +320,7 @@ function restrictTimeRepetition(el) {
         }
     }
 
-    classStoreData();
+    storeBranchData();
 }
 
 function restrictTimeRange(el) {
@@ -336,7 +335,7 @@ function restrictTimeRange(el) {
         restrictFrom(el, parseFloat(to.value));
     }
 
-    classStoreData();
+    storeBranchData();
 }
 
 function restrictFrom(from, x) {
@@ -373,12 +372,12 @@ function restrictTo(to, x) {
         to.value = options[firstValid].value;
 }
 
-function classStoreData() {
-    for (const time of document.getElementById(selectedClass.getAttribute("displayer")).querySelectorAll('.time')) {
-        tempCourse[selectedClass.id][time.id] = [
-            time.querySelector("select[name='day']").value,
-            parseFloat(time.querySelector("select[name='from']").value),
-            parseFloat(time.querySelector("select[name='to']").value)
+function storeBranchData() {
+    for (const timeSlot of document.getElementById(selectedBranch.getAttribute("displayer")).querySelectorAll('.timeSlot')) {
+        tempCourse[selectedBranch.id][timeSlot.id] = [
+            timeSlot.querySelector("select[name='day']").value,
+            parseFloat(timeSlot.querySelector("select[name='from']").value),
+            parseFloat(timeSlot.querySelector("select[name='to']").value)
         ];
     }
 }
@@ -393,14 +392,14 @@ function checkCourseData() {
         showErrorMsg("لا يمكن اضافة مساق لا يحتوي على شعب!!");
         return false;
     }
-    for (const Class in tempCourse) {
-        if (!Class) {
-            document.getElementById(Class).querySelector("input").classList.add("error");
+    for (const branch in tempCourse) {
+        if (!branch) {
+            document.getElementById(branch).querySelector("input").classList.add("error");
             showErrorMsg("بعض الشعب لا تمتلك رقما او ان رقمها ادخل بشكل خاطىء!!");
             return false;
         }
-        if (tempCourse[Class].length === 0) {
-            showErrorMsg("شعبة رقم " + Class + " لا تمتلك مواعيد!!");
+        if (tempCourse[branch].length === 0) {
+            showErrorMsg("شعبة رقم " + branch + " لا تمتلك مواعيد!!");
             return false;
         }
     }
