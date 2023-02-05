@@ -193,7 +193,7 @@ function createNewTimeSlot() {
     newTimeSlot.className = "unit bg-gray srow timeSlot";
     newTimeSlot.style.padding = "0px 15px";
     newTimeSlot.innerHTML = `
-<select name="day" class="bg-gray c-black" onchange='restrictTimeRepetition(this)'>
+<select name="day" class="bg-gray c-black" onchange='restrictTimeSlotsRepetition(this)'>
     <option value="sa">السبت</option>
     <option value="su">الاحد</option>
     <option value="mo">الاثنين</option>
@@ -202,7 +202,7 @@ function createNewTimeSlot() {
     <option value="th">الخميس</option>
 </select>
 <div class="bg-black" style="height: 10px; width: 1px;"></div>
-<select name="from" class="bg-gray c-black" onchange='restrictTimeRange(this)'>
+<select name="from" class="bg-gray c-black" onchange='restrictTimeSlotRange(this)'>
     <option value="8">8:00</option>
     <option value="8.5">8:30</option>
     <option value="9">9:00</option>
@@ -220,7 +220,7 @@ function createNewTimeSlot() {
     <option value="15">15:00</option>
 </select>
 <div class="bg-black" style="height: 10px; width: 1px;"></div>
-<select name="to" class="bg-gray c-black" onchange='restrictTimeRange(this)'>
+<select name="to" class="bg-gray c-black" onchange='restrictTimeSlotRange(this)'>
     <option value="9">9:00</option>
     <option value="9.5">9:30</option>
     <option value="10">10:00</option>
@@ -237,7 +237,7 @@ function createNewTimeSlot() {
     <option value="15.5">15:30</option>
     <option value="16">16:00</option>
 </select>
-<svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete tempCourse[selectedBranch.id][this.parentElement.id]; this.parentElement.remove()">
+<svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="removeTimeSlot(this)">
     <path d="M4 7l16 0"></path>
     <path d="M10 11l0 6"></path>
     <path d="M14 11l0 6"></path>
@@ -261,9 +261,9 @@ function handleBranchData() {
             day.value = tempCourse[selectedBranch.id][i][0];
             from.value = tempCourse[selectedBranch.id][i][1];
             to.value = tempCourse[selectedBranch.id][i][2];
-            restrictTimeRepetition(day);
-            restrictTimeRange(from);
-            restrictTimeRange(to);
+            restrictTimeSlotsRepetition(day);
+            restrictTimeSlotRange(from);
+            restrictTimeSlotRange(to);
         }
     }
     const button = document.createElement('button');
@@ -284,7 +284,7 @@ function addTimeSlot(el) {
             if (!tempCourse[selectedBranch.id]) tempCourse[selectedBranch.id] = [];
             newTimeSlot.id = tempCourse[selectedBranch.id].length;
             el.parentElement.insertBefore(newTimeSlot, el);
-            restrictTimeRepetition(newTimeSlot.querySelector("select[name='day']"));
+            restrictTimeSlotsRepetition(newTimeSlot.querySelector("select[name='day']"));
         } else {
             selectedBranch.querySelector("input").classList.add("error");
             showErrorMsg("ادخل رقم الشعبة اولا");
@@ -292,24 +292,22 @@ function addTimeSlot(el) {
     }
 }
 
-function restrictTimeRepetition(el) {
+function removeTimeSlot(el) {
+    delete tempCourse[selectedBranch.id][el.parentElement.id];
+    el.parentElement.remove();
+    recheckTimsSlotsDays(document.querySelectorAll('.timeSlot'));
+}
 
-    for (const timeSlot of el.parentElement.parentElement.querySelectorAll('.timeSlot')) {
-        if (timeSlot != el.parentElement) {
-            let avDays = ["sa", "su", "mo", "tu", "we", "th"];
-            for (const day of el.options) {
-                if (day.value === timeSlot.querySelector("select[name='day']").value) {
-                    day.setAttribute('disabled', 'disabled');
-                    day.style.display = 'none';
-                    avDays = avDays.filter((item) => item != day.value);
-                } else {
-                    day.removeAttribute('disabled');
-                    day.style.display = 'block';
-                }
-            }
-            if(el[el.selectedIndex].getAttribute('disabled') === 'disabled') el.value = avDays[0];
-            for (const day of timeSlot.querySelector("select[name='day']").options) {
-                if (day.value === el.value) {
+function recheckTimsSlotsDays(timeSlots) {
+    let avDays = ["sa", "su", "mo", "tu", "we", "th"];
+    for (const timeSlot of timeSlots) {
+        delete avDays[avDays.indexOf(timeSlot.querySelector("select[name='day']").value)];
+    }
+    for (const timeSlot of timeSlots) {
+        let daySelect = timeSlot.querySelector("select[name='day']");
+        for (const day of daySelect.options) {
+            if (day.value != daySelect.value) {
+                if (avDays.indexOf(day.value) === -1) {
                     day.setAttribute('disabled', 'disabled');
                     day.style.display = 'none';
                 } else {
@@ -319,11 +317,31 @@ function restrictTimeRepetition(el) {
             }
         }
     }
+}
 
+function restrictTimeSlotsRepetition(el) {
+    let avDays = ["sa", "su", "mo", "tu", "we", "th"];
+    for (const timeSlot of el.parentElement.parentElement.querySelectorAll('.timeSlot')) {
+        if (timeSlot != el.parentElement) {
+            for (const day of el.options) {
+                if (day.value === timeSlot.querySelector("select[name='day']").value) {
+                    day.setAttribute('disabled', 'disabled');
+                    day.style.display = 'none';
+                    avDays = avDays.filter((item) => item != day.value);
+                } else if(avDays.indexOf(day) != -1) {
+                    console.log(timeSlot.querySelector("select[name='day']").value);
+                    day.removeAttribute('disabled');
+                    day.style.display = 'block';
+                }
+            }
+        }
+    }
+    if (el[el.selectedIndex].getAttribute('disabled') === 'disabled') el.value = avDays[0];
+    recheckTimsSlotsDays(el.parentElement.parentElement.querySelectorAll('.timeSlot'));
     storeBranchData();
 }
 
-function restrictTimeRange(el) {
+function restrictTimeSlotRange(el) {
     if (el.getAttribute("name") === "to") {
         const from = el.parentElement.querySelector("select[name='from']");
         restrictFrom(from, parseFloat(el.value));
