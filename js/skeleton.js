@@ -100,7 +100,7 @@ function select(el) {
 
 let editedCourse = null;
 
-let tempCourse = {name:""};
+let tempCourse = {};
 
 let selectedClass = null;
 
@@ -119,11 +119,11 @@ function showAddCourse() {
 
 function showEditCourse(id) {
     editedCourse = id;
-    document.getElementById("courseName").value = data.courses[id].name;
+    document.getElementById("courseName").value = id;
     document.getElementById("courseName").classList.remove("error");
     for (const classNode of document.getElementById("classes").querySelectorAll(".class")) {
         if (data.courses[id][classNode.id] != null) {
-            classNode.querySelector("input").value = data.courses[id][classNode.id].num;
+            classNode.querySelector("input").value = classNode.id;
         } else classNode.remove();
     }
     tempCourse = {...data.courses[id]};
@@ -138,14 +138,12 @@ function showEditCourse(id) {
 function hideAddCourse() {
     document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.remove("fade-out");
     document.getElementById("addCoursePanel").classList.add("hidden");
-    tempCourse = {name:""};
+    tempCourse = {};
     selectedClass = null;
 }
 
 function addClass(el) {
     let newClass = document.createElement('div');
-    newClass.id = "class" + (Object.keys(tempCourse).length - 1);
-    tempCourse[newClass.id] = {num:NaN};
     newClass.className = "unit rrow c-black pointer tab class";
     newClass.setAttribute("onclick", "selectTab(this)");
     newClass.setAttribute("displayer", "times");
@@ -153,11 +151,7 @@ function addClass(el) {
     newClass.setAttribute("dataParser", "classStoreData");
     newClass.innerHTML = `
     <div class="c-black pointer">شعبة : </div>
-    <input type="text" placeholder="رقم الشعبة" class="pointer" style="border-radius: 0; color: var(--gray-txt)" required ondblclick="this.removeAttribute('readonly'); this.style.color='var(--gray-txt)';" onfocus="this.classList.remove('error')" onblur="this.setAttribute('readonly',''); this.style.color='var(--black)'; tempCourse[this.parentElement.id].num = parseInt(this.value);">`
-    if (el.parentElement.children.length === 1) {
-        newClass.classList.remove('tab');
-        newClass.classList.add('selected-tab');
-    }
+    <input type="text" placeholder="رقم الشعبة" class="pointer" style="border-radius: 0; color: var(--gray-txt)" required ondblclick="this.removeAttribute('readonly'); this.style.color='var(--gray-txt)';" onfocus="this.classList.remove('error')" onblur="this.setAttribute('readonly',''); this.style.color='var(--black)'; checkClassNum(this);">`
     el.parentElement.insertBefore(newClass, el);
     newClass.querySelector('input').focus();
 
@@ -171,6 +165,13 @@ function removeClass() {
     selectedClass.remove();
     selectedClass = null;
     selectTab(document.querySelector("#classes>.class"));
+}
+
+function checkClassNum(el) {
+    if (parseInt(el.parentElement.id) && el.value === "") {
+        el.value = selectedClass.id;
+    }
+    el.parentElement.id = parseInt(el.value);
 }
 
 function selectTab(el) {
@@ -250,20 +251,21 @@ function createNewTime() {
 function classDataHandle() {
     let displayer = document.getElementById(selectedClass.getAttribute('displayer'));
     displayer.innerHTML = '';
-    for (let unit in tempCourse[selectedClass.id]) {
-        if (unit === "num") continue;
-        let newTime = createNewTime();
-        newTime.id = unit;
-        displayer.appendChild(newTime);
-        const day = newTime.querySelector("select[name='day']"),
-            from = newTime.querySelector("select[name='from']"),
-            to = newTime.querySelector("select[name='to']");
-        day.value = tempCourse[selectedClass.id][unit][0];
-        from.value = tempCourse[selectedClass.id][unit][1];
-        to.value = tempCourse[selectedClass.id][unit][2];
-        restrictTimeRepetition(day);
-        restrictTimeRange(from);
-        restrictTimeRange(to);
+    if (parseInt(selectedClass.id)) {
+        for (let i = 0; i < tempCourse[selectedClass.id].length; i++) {
+            let newTime = createNewTime();
+            newTime.id = i;
+            displayer.appendChild(newTime);
+            const day = newTime.querySelector("select[name='day']"),
+                from = newTime.querySelector("select[name='from']"),
+                to = newTime.querySelector("select[name='to']");
+            day.value = tempCourse[selectedClass.id][i][0];
+            from.value = tempCourse[selectedClass.id][i][1];
+            to.value = tempCourse[selectedClass.id][i][2];
+            restrictTimeRepetition(day);
+            restrictTimeRange(from);
+            restrictTimeRange(to);
+        }
     }
     const button = document.createElement('button');
     button.className = "unit bg-gray srow";
@@ -278,10 +280,16 @@ function classDataHandle() {
 
 function addTime(el) {
     if (el.parentElement.children.length < 7) {
-        let newTime = createNewTime();
-        newTime.id = "time" + (Object.keys(tempCourse[selectedClass.id]).length - 1);
-        el.parentElement.insertBefore(newTime, el);
-        restrictTimeRepetition(newTime.querySelector("select[name='day']"));
+        if (parseInt(selectedClass.id)) {
+            let newTime = createNewTime();
+            if (!tempCourse[selectedClass.id]) tempCourse[selectedClass.id] = [];
+            newTime.id = tempCourse[selectedClass.id].length;
+            el.parentElement.insertBefore(newTime, el);
+            restrictTimeRepetition(newTime.querySelector("select[name='day']"));
+        } else {
+            selectedClass.querySelector("input").classList.add("error");
+            showErrorMsg("ادخل رقم الشعبة اولا");
+        }
     }
 }
 
@@ -371,29 +379,28 @@ function classStoreData() {
             time.querySelector("select[name='day']").value,
             parseFloat(time.querySelector("select[name='from']").value),
             parseFloat(time.querySelector("select[name='to']").value)
-        ]
+        ];
     }
 }
 
 function checkCourseData() {
-    if (tempCourse.name === "") {
+    if (document.getElementById("courseName").value === "") {
         document.getElementById("courseName").classList.add("error");
         showErrorMsg("لا يمكن لاسم المساق ان يكون فارغا!!");
         return false;
     }
-    if (Object.keys(tempCourse).length === 1) {
+    if (Object.keys(tempCourse).length === 0) {
         showErrorMsg("لا يمكن اضافة مساق لا يحتوي على شعب!!");
         return false;
     }
     for (const Class in tempCourse) {
-        if (Class === "name") continue;
-        if (!tempCourse[Class].num) {
+        if (!Class) {
             document.getElementById(Class).querySelector("input").classList.add("error");
             showErrorMsg("بعض الشعب لا تمتلك رقما او ان رقمها ادخل بشكل خاطىء!!");
             return false;
         }
-        if (Object.keys(tempCourse[Class]).length === 1) {
-            showErrorMsg("شعبة رقم " + tempCourse[Class].num + " لا تمتلك مواعيد!!");
+        if (tempCourse[Class].length === 0) {
+            showErrorMsg("شعبة رقم " + Class + " لا تمتلك مواعيد!!");
             return false;
         }
     }
@@ -403,10 +410,10 @@ function checkCourseData() {
 function addCourse() {
     if (!checkCourseData()) return;
     let newCourse = document.createElement("div");
-    newCourse.id = "course" + (Object.keys(data.courses).length);
+    newCourse.id = document.getElementById("courseName").value;
     data.courses[newCourse.id] = tempCourse;
     newCourse.className = "unit bg-gray srow";
-    newCourse.innerHTML = `<span class="c-black">${tempCourse.name}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
+    newCourse.innerHTML = `<span class="c-black">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
     <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
     <path d="M13.5 6.5l4 4"></path>
 </svg><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" style="margin-left: -7px;" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete data[this.parentElement.parentElement.id]; this.parentElement.parentElement.remove();">
@@ -423,7 +430,7 @@ function addCourse() {
 function editCourse() { 
     if (!checkCourseData()) return;
     data.courses[editedCourse] = tempCourse;
-    document.getElementById(editedCourse).querySelector("span").innerText = tempCourse.name;
+    document.getElementById(editedCourse).querySelector("span").innerText = editedCourse;
     hideAddCourse();
 }
 
