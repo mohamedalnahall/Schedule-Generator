@@ -4,7 +4,8 @@ let data = {
         bestTimes: { from: 8, to: 12 },
         scheduleStyle: "with_no_free_time"
     },
-    courses: {}
+    courses: {},
+    schedules: []
 };
 
 const handler = {
