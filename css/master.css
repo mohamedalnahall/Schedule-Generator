@@ -10,7 +10,7 @@
     color: var(--gray-txt);
     margin: 0;
     padding: 0;
-    border-radius: 40px;
+    border-radius: 30px;
 }
 
 ::-webkit-scrollbar {
@@ -63,34 +63,70 @@ button {
 }
 
 .fade-in {
-    padding: 35px !important;
+    transition-duration: var(--slow-transition);
+    padding: 50px !important;
 }
 
 .fade-out {
-    padding: 25px !important;
+    padding: 20px !important;
 }
 
 #mainPanel {
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
-    min-width: 820px;
-    max-width: 1081px;
+    width: 90vw;
+    max-width: 900px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, calc(-50% - 32.5px));
 }
 
 #mainPanel>* {
     width: 100%;
 }
 
-#mainPanel>div {
-    height: 31.22vw;
+#mainPanel>div:nth-child(2) {
+    align-items: start;
+    height: calc(80vh - 88px);
     min-height: 512px;
     max-height: 675px;
     padding: 30px;
+}
+
+#schedulesPanel.open {
+    height: calc(100% + 23px) !important;
+    background-color: var(--white) !important;
+    background: var(--white) !important;
+}
+
+#schedulesPanel>div:first-child>svg {
+    display: none;
+}
+
+#schedulesPanel.generated>div:first-child svg {
+    display: block;
+}
+
+#schedulesPanel.open>div:first-child svg {
+    transform: rotate(0deg) !important;
+    stroke: var(--black);
+}
+
+#schedulesPanel.generated>div:first-child>div {
+    transform: translateX(0) !important;
+    right: 40px !important;
+}
+
+#schedulesPanel.open>div:first-child>div>h1 {
+    color: var(--black) !important;
+}
+
+#schedulesPanel.open>div:last-child {
+    opacity: 100% !important;
+}
+
+.schedule {
+    width: 100%;
+    height: 100%;
 }
 
 header>div:first-child>a {
@@ -330,7 +366,7 @@ header .themes>div>div {
     background-color: var(--white);
     box-shadow: 0 0 15px 3px var(--shadow);
     position: absolute;
-    top: 50%;
+    top: calc(50% + 39px);
     left: 50%;
     transform: translate(-50%, -50%);
 }

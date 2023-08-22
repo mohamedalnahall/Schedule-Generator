@@ -18,34 +18,50 @@ const handler = {
     },
     set: (target, prop, value) => {
         if (target === data.courses) {
-            if (!data.courses[prop]) {
-                data.courses[prop] = value;
-                let newCourse = document.createElement("div");
-                newCourse.id = prop;
-                newCourse.className = "unit bg-gray srow";
-                newCourse.innerHTML = `<span class="c-black">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
-                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                <path d="M13.5 6.5l4 4"></path>
-            </svg><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" style="margin-left: -7px;" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete proxy.courses[this.parentElement.parentElement.id];">
-                <path d="M4 7l16 0"></path>
-                <path d="M10 11l0 6"></path>
-                <path d="M14 11l0 6"></path>
-                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-            </svg></div>`
-                document.getElementById("courses").insertBefore(newCourse, document.getElementById("courses").lastElementChild);
-            }
-            else {       
-                data.courses[prop] = value;
-            }
+            data.courses[prop] = value;
+            let newCourse = document.createElement("div");
+            newCourse.id = prop;
+            newCourse.className = "unit bg-gray srow";
+            newCourse.innerHTML =
+                `<span class="c-black">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
+                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                    <path d="M13.5 6.5l4 4"></path>
+                </svg><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" style="margin-left: -7px;" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete proxy.courses[this.parentElement.parentElement.id];">
+                    <path d="M4 7l16 0"></path>
+                    <path d="M10 11l0 6"></path>
+                    <path d="M14 11l0 6"></path>
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                </svg></div>`
+            document.getElementById("courses").insertBefore(newCourse, document.getElementById("coursesSeparator"));
         } else if (target === data && prop === "courses") {
-            document.getElementById("courses").innerHTML = `<button class="unit bg-gray srow" onclick="showAddCourse()">
-            <span class="c-black">اضافة مساق</span>
-            <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5l0 14"></path>
-                <path d="M5 12l14 0"></path>
-            </svg>
-        </button>`;
+            document.getElementById("courses").innerHTML = 
+            `<div id="coursesSeparator" style="margin-top: -14px;"></div>
+            <button class="unit bg-gray srow" onclick="showAddCourse()">
+                <span class="c-black">اضافة مساق</span>
+                <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5l0 14"></path>
+                    <path d="M5 12l14 0"></path>
+                </svg>
+            </button>                    
+            <div class="word-line srow">
+                <div class="bg-gray-3"></div>
+                <div class="bg-gray-3"></div>
+            </div>
+            <button for="json-selector" class="unit bg-gray srow pointer" onclick="uploadJson()">
+                <span class="c-black">استرجاع المساقات</span>
+                <svg style="margin-left: -7px;" height="24" fill="var(--black)" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.823 15.122c-.517 0-.816.491-.816 1.146 0 .661.311 1.126.82 1.126.517 0 .812-.49.812-1.146 0-.604-.291-1.126-.816-1.126z"/>
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM8.022 16.704c0 .961-.461 1.296-1.2 1.296-.176 0-.406-.029-.557-.08l.086-.615c.104.035.239.06.391.06.319 0 .52-.145.52-.67v-2.122h.761v2.131zm1.459 1.291c-.385 0-.766-.1-.955-.205l.155-.631c.204.105.521.211.846.211.35 0 .534-.146.534-.365 0-.211-.159-.331-.564-.476-.562-.195-.927-.506-.927-.996 0-.576.481-1.017 1.277-1.017.38 0 .659.08.861.171l-.172.615c-.135-.065-.375-.16-.705-.16s-.491.15-.491.325c0 .215.19.311.627.476.596.22.876.53.876 1.006.001.566-.436 1.046-1.362 1.046zm3.306.005c-1.001 0-1.586-.755-1.586-1.716 0-1.012.646-1.768 1.642-1.768 1.035 0 1.601.776 1.601 1.707C14.443 17.33 13.773 18 12.787 18zm4.947-.055h-.802l-.721-1.302a12.64 12.64 0 0 1-.585-1.19l-.016.005c.021.445.031.921.031 1.472v1.016h-.701v-3.373h.891l.701 1.236c.2.354.4.775.552 1.155h.014c-.05-.445-.065-.9-.065-1.406v-.985h.702v3.372zM14 9h-1V4l5 5h-4z"/>
+                </svg>
+            </button>
+            <button class="unit bg-gray srow" onclick="downloadJson()">
+                <span class="c-black">حفظ المساقات</span>
+                <svg style="margin-left: -7px;" height="24" fill="var(--black)" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.823 15.122c-.517 0-.816.491-.816 1.146 0 .661.311 1.126.82 1.126.517 0 .812-.49.812-1.146 0-.604-.291-1.126-.816-1.126z"/>
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM8.022 16.704c0 .961-.461 1.296-1.2 1.296-.176 0-.406-.029-.557-.08l.086-.615c.104.035.239.06.391.06.319 0 .52-.145.52-.67v-2.122h.761v2.131zm1.459 1.291c-.385 0-.766-.1-.955-.205l.155-.631c.204.105.521.211.846.211.35 0 .534-.146.534-.365 0-.211-.159-.331-.564-.476-.562-.195-.927-.506-.927-.996 0-.576.481-1.017 1.277-1.017.38 0 .659.08.861.171l-.172.615c-.135-.065-.375-.16-.705-.16s-.491.15-.491.325c0 .215.19.311.627.476.596.22.876.53.876 1.006.001.566-.436 1.046-1.362 1.046zm3.306.005c-1.001 0-1.586-.755-1.586-1.716 0-1.012.646-1.768 1.642-1.768 1.035 0 1.601.776 1.601 1.707C14.443 17.33 13.773 18 12.787 18zm4.947-.055h-.802l-.721-1.302a12.64 12.64 0 0 1-.585-1.19l-.016.005c.021.445.031.921.031 1.472v1.016h-.701v-3.373h.891l.701 1.236c.2.354.4.775.552 1.155h.014c-.05-.445-.065-.9-.065-1.406v-.985h.702v3.372zM14 9h-1V4l5 5h-4z"/>
+                </svg>
+            </button>`;
             for (const course in value) {
                 document.getElementById("courseName").value = course;
                 tempCourse = structuredClone(value[course]);
@@ -53,6 +69,7 @@ const handler = {
             }
         }
         target[prop] = value;
+        reset();
         return true;
     },
     deleteProperty(target, prop) {
@@ -60,11 +77,62 @@ const handler = {
             delete data.courses[prop];
             document.getElementById(prop).remove();
         }
+        reset();
     }
 };
 
-
 const proxy = new Proxy(data, handler);
+
+function reset() {
+    data.schedules = [];
+    document.getElementById("schedulesPanel").classList.remove("open");
+    document.getElementById("schedulesPanel").classList.remove("generated");
+    document.getElementById("schedulesPanel").querySelector("h1").innerText = "توليد الجداول";
+    document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.remove("fade-in");
+    document.getElementById("schedules").innerHTML = "";
+    document.getElementById("schedulesSliderDots").innerHTML = "";
+}
+
+function uploadJson() {
+    const input = document.createElement("input");
+    console.log(input);
+    document.body.appendChild(input);
+    input.type = "file";
+    input.accept = ".json";
+    input.style.display = "none";
+    input.click();
+    input.addEventListener("change", (event) => {        
+        const file = event.target.files[0]
+        file.text().then((res) => {
+            try {
+                const courses = JSON.parse(res);
+                proxy.courses = courses;
+            } catch (error) {
+                showErrorMsg("ملف المساقات غير صحيح");
+            }
+        })
+        document.body.removeChild(input);
+    })
+}
+
+function downloadJson() {
+    try {
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        const url = window.URL.createObjectURL(
+            new Blob([JSON.stringify(data.courses, null, 2)], {
+            type: "application/json",
+        }));
+        a.href = url;
+        a.download = 'المساقات.json';
+        a.target = "_blank";
+        a.click();      
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        showErrorMsg(error);
+    }
+}
 
 let closing;
 function openThemePanel(el) {
@@ -517,6 +585,90 @@ function editCourse() {
     hideAddCourse();
 }
 
+function renderSchedules() {
+    document.getElementById("schedulesSlider").style.setProperty("--size", data.schedules.length);
+        for (let i = 0; i < data.schedules.length; i++) {
+            let newSchedule = document.createElement("div");
+            newSchedule.className = "column gap-8 schedule";
+            for (const course in data.schedules[i].branches) {
+                let newRow = document.createElement("div");
+                newRow.id = course + " " + i;
+                newRow.className = "unit bg-gray srow";
+                newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small" style="width: 150px;">${course}</div>`));
+                newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
+                newRow.appendChild(createElementFromHTML(`<div class="crow c-gray-2 small" style="width: 40px;">${data.schedules[i].branches[course]}</div>`));
+                newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
+                const days = ["sa", "su", "mo", "tu", "we", "th"];
+                for (const day of days) {
+                    newRow.appendChild(createElementFromHTML(`<div class="crow c-gray-2 small ${day}" style="width: 70px; border-radius: 5px;"></div>`));
+                    if (day != "th") newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
+                }
+                newSchedule.appendChild(newRow);
+            }
+            document.getElementById("schedules").appendChild(newSchedule);
+            document.getElementById("schedulesSliderDots").appendChild(createElementFromHTML(`<div class="bg-gray-3 transy pointer" style="width: 8px; height: 8px;" onclick="slideTo([...this.parentElement.children].indexOf(this))"></div>`));
+            for (const day in data.schedules[i].days) {
+                for (const course in data.schedules[i].days[day]) {
+                    let houre = Math.floor(data.schedules[i].days[day][course].timeSlot[0]);
+                    let minute = (data.schedules[i].days[day][course].timeSlot[0] % 1) * 60;
+                    minute = minute < 10 ? "0" + minute : minute;
+                    const from = `${houre}:${minute}`;
+                    houre = Math.floor(data.schedules[i].days[day][course].timeSlot[1]);
+                    minute = (data.schedules[i].days[day][course].timeSlot[1] % 1) * 60;
+                    minute = minute < 10 ? "0" + minute : minute;
+                    const to = `${houre}:${minute}`;
+                    const timeSlot = from + "-" + to;
+                    document.getElementById(course + " " + i).querySelector("."+day).innerText = timeSlot;
+                    if (data.schedules[i].days[day][course].conflicted) document.getElementById(course + " " + i).querySelector("."+day).classList.add("error");
+                }
+            }
+        }
+        slideTo(0);
+        document.getElementById("schedulesPanel").classList.add("generated");
+        document.getElementById("schedulesPanel").querySelector("h1").innerText = `الجداول (${data.schedules.length})`;
+}
+
+function showSchedules() {
+    if (!document.getElementById("schedulesPanel").classList.contains("generated")) {
+        if (Object.keys(data.courses).length === 0) {
+            showErrorMsg("لا توجد مساقات مضافة");
+            return;
+        }
+        
+        document.getElementById("loading").style.display = "block";
+        const generatorWorker = new Worker("geneticGenerator.worker.js");
+        
+        generatorWorker.addEventListener("message", (event) => {
+            document.getElementById("loading").style.display = "none";
+            data.schedules = event.data;
+            renderSchedules();
+            showSchedules();            
+        });
+    }
+
+    else if (document.getElementById("schedulesPanel").classList.contains("open")) {
+        document.getElementById("schedulesPanel").classList.remove("open");
+        document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.remove("fade-in");
+    } else {
+        document.getElementById("schedulesPanel").classList.add("open");
+        document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.add("fade-in");
+    }
+}
+
+function slideTo(x) {
+    if (x < 0 || x > parseInt(document.getElementById("schedulesSlider").style.getPropertyValue("--size")) + 1) return;
+
+    document.getElementById("scheduleNum").innerText = x+1;
+    document.getElementById("schedulesSliderDots").children[parseInt(document.getElementById("schedulesSlider").style.getPropertyValue("--curr"))].style.backgroundColor = "var(--gray-3)";
+    document.getElementById("schedulesSliderDots").children[x].style.backgroundColor = "var(--gray-2-txt)";
+    document.getElementById("schedulesSlider").style.setProperty("--curr", x);
+
+    if (x === 0) document.getElementById("rightArrow").style.display = "none";
+    else document.getElementById("rightArrow").style.display = "flex";
+    if (x === document.getElementById("schedulesSlider").style.getPropertyValue("--size") - 1) document.getElementById("leftArrow").style.display = "none";
+    else document.getElementById("leftArrow").style.display = "flex";
+}
+
 let errorTimeOut;
 function showErrorMsg(msg) {
     clearTimeout(errorTimeOut);
@@ -531,4 +683,10 @@ function showErrorMsg(msg) {
     errorTimeOut = setTimeout(() => {
         errorMsg.removeAttribute("style");
     }, 2000);
+}
+
+function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+    return div.firstChild;
 }

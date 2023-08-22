@@ -2,6 +2,7 @@ body {
     --red: #ff2600;
     --tred: #ff260026;
     --transition: 200ms;
+    --slow-transition: 500ms;
 }
 
 body[theme='light ucas'] {
@@ -260,6 +261,10 @@ body[theme='dark blue'] {
 
 .transy {
     transition: var(--transition);
+}
+
+.slow-transy {
+    transition: var(--slow-transition);
 }
 
 .pointer {

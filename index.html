@@ -16,7 +16,7 @@
             e.matches? document.body.setAttribute("theme", "dark yellow") : document.body.setAttribute("theme", "light yellow");
         });
     </script>
-    <div id="mainPanel" class="gap-14">
+    <div id="mainPanel" class="column gap-14">
         <header class="srow">
             <div class="rrow gap-14">
                 <svg xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="var(--gray-3)" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -95,11 +95,30 @@
                     <div class="bg-gray-3"></div>
                 </div>
                 <div id="courses" class="scroll column gap-14">
+                    <div id="coursesSeparator" style="margin-top: -14px;"></div>
                     <button class="unit bg-gray srow" onclick="showAddCourse()">
                         <span class="c-black">اضافة مساق</span>
                         <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 5l0 14"></path>
                             <path d="M5 12l14 0"></path>
+                        </svg>
+                    </button>                    
+                    <div class="word-line srow">
+                        <div class="bg-gray-3"></div>
+                        <div class="bg-gray-3"></div>
+                    </div>
+                    <button for="json-selector" class="unit bg-gray srow pointer" onclick="uploadJson()">
+                        <span class="c-black">استرجاع المساقات</span>
+                        <svg style="margin-left: -7px;" height="24" fill="var(--black)" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.823 15.122c-.517 0-.816.491-.816 1.146 0 .661.311 1.126.82 1.126.517 0 .812-.49.812-1.146 0-.604-.291-1.126-.816-1.126z"/>
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM8.022 16.704c0 .961-.461 1.296-1.2 1.296-.176 0-.406-.029-.557-.08l.086-.615c.104.035.239.06.391.06.319 0 .52-.145.52-.67v-2.122h.761v2.131zm1.459 1.291c-.385 0-.766-.1-.955-.205l.155-.631c.204.105.521.211.846.211.35 0 .534-.146.534-.365 0-.211-.159-.331-.564-.476-.562-.195-.927-.506-.927-.996 0-.576.481-1.017 1.277-1.017.38 0 .659.08.861.171l-.172.615c-.135-.065-.375-.16-.705-.16s-.491.15-.491.325c0 .215.19.311.627.476.596.22.876.53.876 1.006.001.566-.436 1.046-1.362 1.046zm3.306.005c-1.001 0-1.586-.755-1.586-1.716 0-1.012.646-1.768 1.642-1.768 1.035 0 1.601.776 1.601 1.707C14.443 17.33 13.773 18 12.787 18zm4.947-.055h-.802l-.721-1.302a12.64 12.64 0 0 1-.585-1.19l-.016.005c.021.445.031.921.031 1.472v1.016h-.701v-3.373h.891l.701 1.236c.2.354.4.775.552 1.155h.014c-.05-.445-.065-.9-.065-1.406v-.985h.702v3.372zM14 9h-1V4l5 5h-4z"/>
+                        </svg>
+                    </button>
+                    <button class="unit bg-gray srow" onclick="downloadJson()">
+                        <span class="c-black">حفظ المساقات</span>
+                        <svg style="margin-left: -7px;" height="24" fill="var(--black)" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.823 15.122c-.517 0-.816.491-.816 1.146 0 .661.311 1.126.82 1.126.517 0 .812-.49.812-1.146 0-.604-.291-1.126-.816-1.126z"/>
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM8.022 16.704c0 .961-.461 1.296-1.2 1.296-.176 0-.406-.029-.557-.08l.086-.615c.104.035.239.06.391.06.319 0 .52-.145.52-.67v-2.122h.761v2.131zm1.459 1.291c-.385 0-.766-.1-.955-.205l.155-.631c.204.105.521.211.846.211.35 0 .534-.146.534-.365 0-.211-.159-.331-.564-.476-.562-.195-.927-.506-.927-.996 0-.576.481-1.017 1.277-1.017.38 0 .659.08.861.171l-.172.615c-.135-.065-.375-.16-.705-.16s-.491.15-.491.325c0 .215.19.311.627.476.596.22.876.53.876 1.006.001.566-.436 1.046-1.362 1.046zm3.306.005c-1.001 0-1.586-.755-1.586-1.716 0-1.012.646-1.768 1.642-1.768 1.035 0 1.601.776 1.601 1.707C14.443 17.33 13.773 18 12.787 18zm4.947-.055h-.802l-.721-1.302a12.64 12.64 0 0 1-.585-1.19l-.016.005c.021.445.031.921.031 1.472v1.016h-.701v-3.373h.891l.701 1.236c.2.354.4.775.552 1.155h.014c-.05-.445-.065-.9-.065-1.406v-.985h.702v3.372zM14 9h-1V4l5 5h-4z"/>
                         </svg>
                     </button>
                 </div>
@@ -215,7 +234,67 @@
                 </div>
             </div>
         </div>
-        <button style="height: 65px;" class="bg-main"><h1 class="c-over-main">توليد الجداول</h1></button>
+        <div id="schedulesPanel" style="position: absolute; bottom: -79px; height: 65px; overflow: hidden;" class="bg-main slow-transy">
+            <div style="position: relative; width: 100%; height: 65px;" class="pointer srow" onclick="showSchedules()">
+                <div style="position: absolute; height: 100%; right: 50%; transform: translateX(50%);" class="crow slow-transy">
+                    <h1 class="c-over-main slow-transy" style="flex-grow: 1;">توليد الجداول</h1>
+                    <svg style="display: none;" version="1.1" id="loading" width="50" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                        <path style="fill: var(--over-main);" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                            <animateTransform 
+                                attributeName="transform" 
+                                attributeType="XML" 
+                                type="rotate"
+                                dur="1s" 
+                                from="0 50 50"
+                                to="360 50 50" 
+                                repeatCount="indefinite" />
+                        </path>
+                    </svg>
+                </div>
+                <svg class="arrow slow-transy" style="transform-origin: center; transform: rotate(180deg); position:absolute; left: 40px;" xmlns="http://www.w3.org/2000/svg"width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="var(--over-main)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6l6 -6"></path>
+                </svg>
+            </div>
+            <div class="column gap-14 slow-transy" style="padding: 0 40px; opacity: 0; height: 100%;">
+                <div class="srow">
+                    <div>جدول رقم <span id="scheduleNum">1</span></div>
+                </div>
+                <div class="srow" style="padding: 0 25px 0 25px">
+                    <div class="small" style="width: 150px;">اسم المساق</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 40px;">ش.</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">السبت</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الاحد</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الاثنين</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الثلاثاء</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الاربعاء</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الخميس</div>
+                </div>
+                <div id="schedulesSlider" class="scroll" style="position: relative; height: calc(100% - 205px); --curr: 0; --size: 1;">
+                    <div id="schedules" class="crow transy gap-14" style="position: absolute; right: calc((-100% - 14px) * var(--curr) ); width: calc((100% * var(--size)) + 14px * (var(--size) - 1));">
+                    </div>
+                </div>
+                <div id="leftArrow" class="crow bg-white pointer" style="position: absolute; top: 50%; left: 15px; box-shadow: 0 0 5px 1px var(--shadow); width: 50px; height: 50px;" onclick="slideTo(parseInt(document.getElementById('schedulesSlider').style.getPropertyValue('--curr')) + 1)">
+                    <svg style="transform-origin: center; transform: rotate(90deg);" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9l6 6l6 -6"></path>
+                    </svg>
+                </div>
+                <div id="rightArrow" class="crow bg-white pointer" style="position: absolute; top: 50%; right: 15px; box-shadow: 0 0 5px 1px var(--shadow); width: 50px; height: 50px;" onclick="slideTo(parseInt(document.getElementById('schedulesSlider').style.getPropertyValue('--curr')) - 1)">
+                    <svg style="transform-origin: center; transform: rotate(-90deg);" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9l6 6l6 -6"></path>
+                    </svg>
+                </div>
+                <div id="schedulesSliderDots" class="crow gap-8" style="height: 16px; opacity: inherit; margin-top: 8px;">
+                </div>
+            </div>
+        </div>
     </div>
     <div id="addCoursePanel" class="hidden">
         <div style="width: 100vw; height: 100vh; position: absolute; top: 0; right: 0;" onclick="hideAddCourse()"></div>
@@ -268,6 +347,5 @@
     <div id="errorMsg" class="unit crow error transy">
     </div>
     <script src="js/skeleton.js"></script>
-    <script src="js/generator.js"></script>
 </body>
 </html>
