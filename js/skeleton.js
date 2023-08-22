@@ -636,8 +636,10 @@ function showSchedules() {
         }
         
         document.getElementById("loading").style.display = "block";
-        const generatorWorker = new Worker("geneticGenerator.worker.js");
-        
+
+        const generatorWorker = new Worker('js/geneticGenerator.worker.js');
+        generatorWorker.postMessage(data);
+
         generatorWorker.addEventListener("message", (event) => {
             document.getElementById("loading").style.display = "none";
             data.schedules = event.data;
