@@ -1,4 +1,6 @@
 # مولد الجداول
+اللغة الانجليزية : [![en](https://img.shields.io/badge/lang-english-red.svg)](https://github.com/mohamedalnahall/Schedule-Generator/blob/master/README.en.md)
+
  مولد الجداول هو أداة مفتوحة المصدر يمكنها المساعدة في إنشاء الجداول عن طريق توليد الجداول المحتملة بناءً على تفضيلاتك
 
 ### ملحوظات
