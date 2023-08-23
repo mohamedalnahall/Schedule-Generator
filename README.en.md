@@ -1,4 +1,6 @@
 # Schedule-Generator
+Arabic Language : [![ar](https://img.shields.io/badge/lang-arabic-red.svg)](https://github.com/mohamedalnahall/Schedule-Generator/blob/master/README.md)
+
 Schedule Generator is open-source tool that can help creating schedules by generating possible schedules based on your preference
 
 ### Notes
