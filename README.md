@@ -1,8 +1,9 @@
 # Schedule-Generator
 Schedule Generator is open-source tool that can help creating schedules by generating possible schedules based on your preference
 
-Note : The generated schedules are not always the best possible schedules
-Note : Too restrictive preference may lead to undesirable results
+### Notes
+  - The generated schedules are not always the best possible schedules.
+  - Too restrictive preference may lead to undesirable results.
 
 # How it works
 The process begins by generating a large number of random schedules. Using a Weighted Random method, pairs of schedules are selected based on their quality or fitness. This means schedules that have no conflicts and are closer to the user preference are more likely to be chosen.
