@@ -153,29 +153,35 @@ function crossOver(scheduleA, scheduleB) {
     return [scheduleC, scheduleD];
 }
 
-function generate(generations) {
-    return new Promise(async (resolve) => {        
-        let schedules = intilizeSchedules(100000);
-        let mututeProbablity = 0.5;
-        for (let i = 0; i < generations; i++){
-            let mututedSchedules = [];
-            for (const schedule of schedules) {
-                mututedSchedules.push(mutute(schedule, mututeProbablity));
-            }
-            schedules = selectPair(schedules);
-            schedules = schedules.concat(selectPair(mututedSchedules));
-            let newPairs = crossOver(schedules[0], schedules[1]);
-            newPairs = newPairs.concat(crossOver(schedules[2], schedules[3]));
-            newPairs = newPairs.concat(crossOver(schedules[0], schedules[3]));
-            newPairs = newPairs.concat(crossOver(schedules[1], schedules[2]));
-            newPairs = newPairs.concat(crossOver(schedules[0], schedules[2]));
-            newPairs = newPairs.concat(crossOver(schedules[1], schedules[3]));
-
-            schedules = schedules.concat(newPairs);
+function generate(generations) {      
+    let schedules = intilizeSchedules(100000);
+    let mututeProbablity = 0.5;
+    for (let i = 0; i < generations; i++){
+        let mututedSchedules = [];
+        for (const schedule of schedules) {
+            mututedSchedules.push(mutute(schedule, mututeProbablity));
         }
-        data.schedules = schedules;
-        resolve();
-    })
+        schedules = selectPair(schedules);
+        schedules = schedules.concat(selectPair(mututedSchedules));
+        let newPairs = crossOver(schedules[0], schedules[1]);
+        newPairs = newPairs.concat(crossOver(schedules[2], schedules[3]));
+        newPairs = newPairs.concat(crossOver(schedules[0], schedules[3]));
+        newPairs = newPairs.concat(crossOver(schedules[1], schedules[2]));
+        newPairs = newPairs.concat(crossOver(schedules[0], schedules[2]));
+        newPairs = newPairs.concat(crossOver(schedules[1], schedules[3]));
+        schedules = schedules.concat(newPairs);
+    }
+    uniqueSchedules: for (const schedule of schedules) {
+        let exist = true;
+        for (const cSchedule of data.schedules) {
+            for (const course in cSchedule.branchs) {
+                exist = exist && cSchedule.branchs[course] == schedule.branchs[course];
+                if (!exist) break;
+            }
+            if (exist) continue uniqueSchedules;
+        }
+        data.schedules.push(schedule);
+    }
 }
 
 addEventListener("message", (event) => {

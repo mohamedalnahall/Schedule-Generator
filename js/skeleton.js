@@ -97,7 +97,6 @@ function reset() {
 
 function uploadJson() {
     const input = document.createElement("input");
-    console.log(input);
     document.body.appendChild(input);
     input.type = "file";
     input.accept = ".json";
@@ -475,7 +474,6 @@ function restrictTimeSlotsRepetition(el) {
                     day.style.display = 'none';
                     avDays = avDays.filter((item) => item != day.value);
                 } else if(avDays.indexOf(day) != -1) {
-                    console.log(timeSlot.querySelector("select[name='day']").value);
                     day.removeAttribute('disabled');
                     day.style.display = 'block';
                 }
