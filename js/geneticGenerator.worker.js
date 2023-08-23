@@ -171,16 +171,16 @@ function generate(generations) {
         newPairs = newPairs.concat(crossOver(schedules[1], schedules[3]));
         schedules = schedules.concat(newPairs);
     }
-    uniqueSchedules: for (const schedule of schedules) {
-        let exist = true;
-        for (const cSchedule of data.schedules) {
-            for (const course in cSchedule.branchs) {
-                exist = exist && cSchedule.branchs[course] == schedule.branchs[course];
+    uniqueSchedulesLoop: for (let i = 0; i < schedules.length; i++) {
+        for (let j = i - 1; j > -1; j--) {
+            let exist = true;
+            for (const course in schedules[i].branches) {
+                exist = exist && (schedules[i].branches[course] === schedules[j].branches[course]);
                 if (!exist) break;
             }
-            if (exist) continue uniqueSchedules;
+            if (exist) continue uniqueSchedulesLoop;
         }
-        data.schedules.push(schedule);
+        data.schedules.push(schedules[i]);
     }
 }
 

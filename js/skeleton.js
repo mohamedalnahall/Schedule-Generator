@@ -587,45 +587,47 @@ function editCourse() {
 
 function renderSchedules() {
     document.getElementById("schedulesSlider").style.setProperty("--size", data.schedules.length);
-        for (let i = 0; i < data.schedules.length; i++) {
-            let newSchedule = document.createElement("div");
-            newSchedule.className = "column gap-8 schedule";
-            for (const course in data.schedules[i].branches) {
-                let newRow = document.createElement("div");
-                newRow.id = course + " " + i;
-                newRow.className = "unit bg-gray srow";
-                newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small" style="width: 150px;">${course}</div>`));
-                newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
-                newRow.appendChild(createElementFromHTML(`<div class="crow c-gray-2 small" style="width: 40px;">${data.schedules[i].branches[course]}</div>`));
-                newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
-                const days = ["sa", "su", "mo", "tu", "we", "th"];
-                for (const day of days) {
-                    newRow.appendChild(createElementFromHTML(`<div class="crow c-gray-2 small ${day}" style="width: 70px; border-radius: 5px;"></div>`));
-                    if (day != "th") newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
-                }
-                newSchedule.appendChild(newRow);
+    for (let i = 0; i < data.schedules.length; i++) {
+        let newSchedule = document.createElement("div");
+        newSchedule.className = "column gap-8 schedule";
+        for (const course in data.schedules[i].branches) {
+            let newRow = document.createElement("div");
+            newRow.id = course + " " + i;
+            newRow.className = "unit bg-gray srow";
+            newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small" style="width: 150px;">${course}</div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="crow c-gray-2 small" style="width: 40px;">${data.schedules[i].branches[course]}</div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
+            const days = ["sa", "su", "mo", "tu", "we", "th"];
+            for (const day of days) {
+                newRow.appendChild(createElementFromHTML(`<div class="crow c-gray-2 small ${day}" style="width: 70px; border-radius: 5px;"></div>`));
+                if (day != "th") newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
             }
-            document.getElementById("schedules").appendChild(newSchedule);
-            document.getElementById("schedulesSliderDots").appendChild(createElementFromHTML(`<div class="bg-gray-3 transy pointer" style="width: 8px; height: 8px;" onclick="slideTo([...this.parentElement.children].indexOf(this))"></div>`));
-            for (const day in data.schedules[i].days) {
-                for (const course in data.schedules[i].days[day]) {
-                    let houre = Math.floor(data.schedules[i].days[day][course].timeSlot[0]);
-                    let minute = (data.schedules[i].days[day][course].timeSlot[0] % 1) * 60;
-                    minute = minute < 10 ? "0" + minute : minute;
-                    const from = `${houre}:${minute}`;
-                    houre = Math.floor(data.schedules[i].days[day][course].timeSlot[1]);
-                    minute = (data.schedules[i].days[day][course].timeSlot[1] % 1) * 60;
-                    minute = minute < 10 ? "0" + minute : minute;
-                    const to = `${houre}:${minute}`;
-                    const timeSlot = from + "-" + to;
-                    document.getElementById(course + " " + i).querySelector("."+day).innerText = timeSlot;
-                    if (data.schedules[i].days[day][course].conflicted) document.getElementById(course + " " + i).querySelector("."+day).classList.add("error");
-                }
+            newSchedule.appendChild(newRow);
+        }
+        document.getElementById("schedules").appendChild(newSchedule);
+        document.getElementById("schedulesSliderDots").appendChild(createElementFromHTML(`<div class="bg-gray-3 transy pointer" style="width: 8px; height: 8px;" onclick="slideTo([...this.parentElement.children].indexOf(this))"></div>`));
+        for (const day in data.schedules[i].days) {
+            for (const course in data.schedules[i].days[day]) {
+                let houre = Math.floor(data.schedules[i].days[day][course].timeSlot[0]);
+                let minute = (data.schedules[i].days[day][course].timeSlot[0] % 1) * 60;
+                minute = minute < 10 ? "0" + minute : minute;
+                const from = `${houre}:${minute}`;
+                houre = Math.floor(data.schedules[i].days[day][course].timeSlot[1]);
+                minute = (data.schedules[i].days[day][course].timeSlot[1] % 1) * 60;
+                minute = minute < 10 ? "0" + minute : minute;
+                const to = `${houre}:${minute}`;
+                const timeSlot = from + "-" + to;
+                document.getElementById(course + " " + i).querySelector("."+day).innerText = timeSlot;
+                if (data.schedules[i].days[day][course].conflicted) document.getElementById(course + " " + i).querySelector("."+day).classList.add("error");
             }
         }
-        slideTo(0);
-        document.getElementById("schedulesPanel").classList.add("generated");
-        document.getElementById("schedulesPanel").querySelector("h1").innerText = `الجداول (${data.schedules.length})`;
+    }
+    
+    document.getElementById("schedulesSlider").style.setProperty("--curr", 0);
+    slideTo(0);
+    document.getElementById("schedulesPanel").classList.add("generated");
+    document.getElementById("schedulesPanel").querySelector("h1").innerText = `الجداول (${data.schedules.length})`;
 }
 
 function showSchedules() {
