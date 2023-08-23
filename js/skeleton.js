@@ -646,7 +646,8 @@ function showSchedules() {
             document.getElementById("loading").style.display = "none";
             data.schedules = event.data;
             renderSchedules();
-            showSchedules();            
+            showSchedules();   
+            generatorWorker.terminate();
         });
     }
 
