@@ -262,8 +262,25 @@
                 <div class="srow">
                     <div>جدول رقم <span id="scheduleNum">1</span></div>
                 </div>
-                <div id="schedulesSlider" class="scroll" style="position: relative; height: calc(100% - 183px); --curr: 0; --size: 1;">
-                    <div id="schedules" class="crow transy gap-14" style="position: absolute; right: calc((-100% - 14px) * var(--curr) + 14px); width: calc((100% * var(--size)) + 14px * (var(--size) - 1)); top: 50%; transform: translateY(calc(-50% + 14px));">
+                <div class="srow" style="padding: 0 25px 0 25px">
+                    <div class="small" style="width: 150px;">اسم المساق</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 40px;">ش.</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">السبت</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الاحد</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الاثنين</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الثلاثاء</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الاربعاء</div>
+                    <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+                    <div class="crow small" style="width: 70px;">الخميس</div>
+                </div>
+                <div id="schedulesSlider" class="scroll" style="position: relative; height: calc(100% - 205px); --curr: 0; --size: 1;">
+                    <div id="schedules" class="crow transy gap-14" style="position: absolute; right: calc((-100% - 14px) * var(--curr) ); width: calc((100% * var(--size)) + 14px * (var(--size) - 1)); top: 50%; transform: translateY(calc(-50% + 15px));">
                     </div>
                 </div>
                 <div id="leftArrow" class="crow bg-white pointer" style="position: absolute; top: 50%; left: 15px; box-shadow: 0 0 5px 1px var(--shadow); width: 50px; height: 50px;" onclick="slideTo(parseInt(document.getElementById('schedulesSlider').style.getPropertyValue('--curr')) + 1)">
