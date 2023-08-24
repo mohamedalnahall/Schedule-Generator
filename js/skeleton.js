@@ -587,9 +587,29 @@ function editCourse() {
 
 function renderSchedules() {
     document.getElementById("schedulesSlider").style.setProperty("--size", data.schedules.length);
+
     for (let i = 0; i < data.schedules.length; i++) {
-        let newSchedule = document.createElement("div");
+        let newSchedule = document.createElement("div");        
         newSchedule.className = "column gap-8 schedule";
+        newSchedule.appendChild(createElementFromHTML(`        
+        <div class="srow" style="padding: 0 25px 0 25px">
+            <div class="small" style="width: 150px;">اسم المساق</div>
+            <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+            <div class="crow small" style="width: 40px;">ش.</div>
+            <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+            <div class="crow small" style="width: 70px;">السبت</div>
+            <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+            <div class="crow small" style="width: 70px;">الاحد</div>
+            <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+            <div class="crow small" style="width: 70px;">الاثنين</div>
+            <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+            <div class="crow small" style="width: 70px;">الثلاثاء</div>
+            <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+            <div class="crow small" style="width: 70px;">الاربعاء</div>
+            <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
+            <div class="crow small" style="width: 70px;">الخميس</div>
+        </div>
+        `));
         for (const course in data.schedules[i].branches) {
             let newRow = document.createElement("div");
             newRow.id = course + " " + i;
