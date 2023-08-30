@@ -234,19 +234,19 @@ header .themes>div>div {
     transform: rotate(-45deg);
 }
 
-#time_slider {
+.slider {
     margin: 8px 9px 0;
     position: relative;
 }
 
-#time_slider>div:first-child>div {
+.slider>div:first-child>div {
     background-color: var(--gray-txt);
     margin: 0 1px;
     width: 1px;
     height: 15px;
 }
 
-#time_slider>div:first-child>div.coverd {
+.slider>div:first-child>div.coverd {
     background-color: var(--main);
     background: var(--main);
     margin: 0;
@@ -254,11 +254,11 @@ header .themes>div>div {
     height: 15px;
 }
 
-#time_slider>div:nth-child(2)>div {
+#best_time_slider>div:nth-child(2)>div {
     transform: translateX(-50%);
 }
 
-#time_slider>div:last-child {
+.slider>div:last-child {
     width: calc(var(--end) - var(--start));
     height: 3px;
     position: absolute;
@@ -266,7 +266,7 @@ header .themes>div>div {
     top: -1px;
 }
 
-#time_slider>div:last-child>div:first-child {
+.slider>div:last-child>div:first-child {
     content: '';
     background-color: var(--main);
     background: var(--main);
@@ -280,7 +280,7 @@ header .themes>div>div {
     cursor: pointer;
 }
 
-#time_slider>div:last-child>div:last-child {
+.slider>div:last-child>div:last-child {
     content: '';
     background-color: var(--main);
     background: var(--main);
@@ -350,17 +350,16 @@ header .themes>div>div {
     height: 30px;
     padding: 3px;
     border-radius: 8px;
+    background-color: var(--gray);
 }
 
 .i-btn:hover {
-    background-color: var(--tmain);
-    background: var(--tmain);
-    stroke: var(--main-txt);
+    background-color: var(--tmain) !important;
+    background: var(--tmain) !important;
+    stroke: var(--main-txt) !important;
 }
 
-#addCoursePanel>div:last-child {
-    width: 600px;
-    height: 600px;
+.dialog>div:last-child {
     opacity: 100%;
     padding: 30px;
     background-color: var(--white);
@@ -371,14 +370,32 @@ header .themes>div>div {
     transform: translate(-50%, -50%);
 }
 
-#addCoursePanel.hidden {
+.dialog.hidden {
     visibility: hidden;
+}
+
+.dialog.hidden>div:last-child {
+    opacity: 0%;
+}
+
+#addCoursePanel>div:last-child {
+    width: 600px;
+    height: 600px;
 }
 
 #addCoursePanel.hidden>div:last-child {
     width: 575px;
     height: 575px;
-    opacity: 0%;
+}
+
+#prefWeightPanel>div:last-child {
+    width: 400px;
+    height: 290px;
+}
+
+#prefWeightPanel.hidden>div:last-child {
+    width: 375px;
+    height: 265px;
 }
 
 #branches input {

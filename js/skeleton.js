@@ -1,8 +1,9 @@
 let data = {
     preferences: {
-        unwantedDays: ["th"],
-        bestTimes: { from: 8, to: 12 },
-        scheduleStyle: "with_no_free_time"
+        unwantedDays: { days: ["th"], weight: 1, defaultWeight: 1 },
+        bestTimes: { from: 8, to: 12, weight: 1, defaultWeight: 1 },
+        lectuersPerDay: { from: 2, to: 4, weight: 1000, defaultWeight: 1000 },
+        maxFreeTime: { value: 1.5, weight: 3, defaultWeight: 3 },
     },
     courses: {},
     schedules: []
@@ -37,6 +38,7 @@ const handler = {
             }
             data.courses[prop] = value;
         } else if (target === data && prop === "courses") {
+            data.courses = {};
             document.getElementById("courses").innerHTML = 
             `<div id="coursesSeparator" style="margin-top: -14px;"></div>
             <button class="unit bg-gray srow" onclick="showAddCourse()">
@@ -77,8 +79,8 @@ const handler = {
         return true;
     },
     deleteProperty(target, prop) {
+        delete target[prop];
         if (target === data.courses) {
-            delete data.courses[prop];
             document.getElementById(prop).remove();
         }
         reset();
@@ -157,10 +159,10 @@ function openThemePanel(el) {
     }
 }
 
-function timeNodeDrag(e, x) {
+function bestTimeNodeDrag(e, x) {
     if (e.button === 0) {
-        const time_line = document.querySelector("#time_slider>div:first-child");
-        const sel_time = document.querySelector("#time_slider>div:last-child");
+        const time_line = document.querySelector("#best_time_slider>div:first-child");
+        const sel_time = document.querySelector("#best_time_slider>div:last-child");
         const mouse_x = e.pageX;
         const start = parseInt(sel_time.style.getPropertyValue("--start"));
         const end = parseInt(sel_time.style.getPropertyValue("--end"));
@@ -168,7 +170,7 @@ function timeNodeDrag(e, x) {
             document.onmousemove = (e) => {
                 let next = start + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
                 next = (next < 0 ? 0 : (next > end - 12.5) ? end - 12.5 : next);
-                next = ((next / 12.5) % 1 > 0.75 || (next / 12.5) % 1 < 0.25) ? Math.round(next / 12.5) * 12.5 : next;
+                next = ((next / 12.5) % 1 > 0.75 || (next / 12.5) % 1 < 0.25) ? Math.round(next / 12.5) * 12.5 : (Math.floor(next / 12.5) + 0.5) * 12.5;
                 sel_time.style.setProperty("--start", next + "%");
                 const children = time_line.children;
                 for (let i = 0; i < children.length; i++) {
@@ -186,7 +188,7 @@ function timeNodeDrag(e, x) {
             document.onmousemove = (e) => {
                 let next = end + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
                 next = (next > 100 ? 100 : (next < start + 12.5) ? start + 12.5 : next);
-                next = ((next / 12.5) % 1 > 0.75 || (next / 12.5) % 1 < 0.25) ? Math.round(next / 12.5) * 12.5 : next;
+                next = ((next / 12.5) % 1 > 0.75 || (next / 12.5) % 1 < 0.25) ? Math.round(next / 12.5) * 12.5 : (Math.floor(next / 12.5) + 0.5) * 12.5;
                 sel_time.style.setProperty("--end", next + "%");
                 const children = time_line.children;
                 for (let i = 0; i < children.length; i++) {
@@ -204,13 +206,88 @@ function timeNodeDrag(e, x) {
     }
 }
 
+function lectuersPerDayNodeDrag(e, x) {
+    if (e.button === 0) {
+        const time_line = document.querySelector("#lectures_per_day_slider>div:first-child");
+        const sel_time = document.querySelector("#lectures_per_day_slider>div:last-child");
+        const mouse_x = e.pageX;
+        const start = parseInt(sel_time.style.getPropertyValue("--start"));
+        const end = parseInt(sel_time.style.getPropertyValue("--end"));
+        if (x === 1) {
+            document.onmousemove = (e) => {
+                let next = start + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
+                next = (next < 0 ? 0 : (next > end ) ? end : next);
+                next = Math.round(next / 20) * 20;
+                sel_time.style.setProperty("--start", next + "%");
+                const children = time_line.children;
+                for (let i = 0; i < children.length; i++) {
+                    if (next > i * 20) children[i].className = "";
+                    else if (end > i * 20) children[i].className = "coverd";
+                }
+            }
+            document.onmouseup = () => {
+                document.onmousemove = null;
+                document.onmouseup = null;
+                proxy.preferences.lectuersPerDay.from = 1 + (parseFloat(sel_time.style.getPropertyValue("--start"))/100) * 5;
+            };
+        }
+        else if (x === 2) {
+            document.onmousemove = (e) => {
+                let next = end + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
+                next = (next > 100 ? 100 : (next < start) ? start : next);
+                next = Math.round(next / 20) * 20;
+                sel_time.style.setProperty("--end", next + "%");
+                const children = time_line.children;
+                for (let i = 0; i < children.length; i++) {
+                    if (next < i * 20) children[i].className = "";
+                    else if (start < i * 20) children[i].className = "coverd";
+                }
+            }
+            document.onmouseup = () => {
+                document.onmousemove = null;
+                document.onmouseup = null;
+                proxy.preferences.lectuersPerDay.to = 1 + (parseFloat(sel_time.style.getPropertyValue("--end"))/100) * 5;
+
+            };
+        }
+    }
+}
+
+function maxFreeTimeNodeDrag(e) {
+    if (e.button === 0) {
+        const time_line = document.querySelector("#max_free_time_slider>div:first-child");
+        const sel_time = document.querySelector("#max_free_time_slider>div:last-child");
+        const mouse_x = e.pageX;
+        const start = parseInt(sel_time.style.getPropertyValue("--start"));
+        const end = parseInt(sel_time.style.getPropertyValue("--end"));
+
+        document.onmousemove = (e) => {
+            let next = end + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
+            next = (next > 100 ? 100 : (next < start) ? start : next);
+            next = ((next / 16.6666) % 1 > 0.75 || (next / 16.6666) % 1 < 0.25) ? Math.round(next / 16.6666) * 16.6666 : (Math.floor(next / 16.6666) + 0.5) * 16.6666;
+            sel_time.style.setProperty("--end", next + "%");
+            const children = time_line.children;
+            for (let i = 0; i < children.length; i++) {
+                if (next < i * 16.6666) children[i].className = "";
+                else if (start < i * 16.6666) children[i].className = "coverd";
+            }
+        }
+        document.onmouseup = () => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            let x = parseFloat(sel_time.style.getPropertyValue("--end")) / 100 * 6;
+            proxy.preferences.maxFreeTime.value = (x % 1 < 0.6 && x % 1 > 0.4) ? Math.floor(x) + 0.5 : Math.round(x);
+        };
+    }
+}
+
 function unwant(el) {
     if (el.classList.contains("unwanted")) {
-        delete proxy.preferences.unwantedDays[proxy.preferences.unwantedDays.indexOf(el.id)];
+        delete proxy.preferences.unwantedDays.days[proxy.preferences.unwantedDays.days.indexOf(el.id)];
         el.classList.remove("unwanted");
     }
     else {
-        proxy.preferences.unwantedDays.push(el.id);
+        proxy.preferences.unwantedDays.days.push(el.id);
         el.classList.add("unwanted");
     }
 }
@@ -226,6 +303,36 @@ function select(el) {
             }
         }
     }
+}
+
+let pref;
+
+function showPrefWeight(whichPref) {
+    pref = whichPref;
+    document.getElementById("prefWeight").value = pref.weight;
+    document.getElementById("prefWeightPanel").classList.remove("hidden");
+}
+
+function updatePrefWeight() {
+    let newWeight;
+    if (newWeight = parseFloat(document.getElementById("prefWeight").value)) {
+        if (newWeight <= 1000) {
+            pref.weight = newWeight;
+            hidePrefWeight();
+        } else {
+            showErrorMsg("الحد الاقصى 1000");
+        }
+    } else {
+        showErrorMsg("ادخل رقما صحيحا");
+    }
+}
+
+function resetPrefWeight() {
+    document.getElementById("prefWeight").value = pref.defaultWeight;
+}
+
+function hidePrefWeight() {
+    document.getElementById("prefWeightPanel").classList.add("hidden");
 }
 
 let editedCourse = null;

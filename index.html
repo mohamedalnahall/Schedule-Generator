@@ -137,7 +137,19 @@
                     <div style="margin-right: 8px;">ملاحظة : هذه التفضيلات سيتم تطبيقها ان امكن ذلك</div>
                 </div>
                 <div class="column gap-14 scroll">
-                    <h2>الايام غير المرغوبة</h2>
+                    <div class="rrow gap-8">
+                        <h2>الايام غير المرغوبة</h2>
+                        <svg class="pointer i-btn" onclick="showPrefWeight(proxy.preferences.unwantedDays)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M2 12h1"></path>
+                                <path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2"></path>
+                                <path d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M9 12h6"></path>
+                                <path d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2"></path>
+                                <path d="M22 12h-1"></path>
+                            </svg>
+                    </div>
                     <div class="rrow wrap gap-14 fit-content-master">
                         <div id="sa" class="unit bg-gray crow pointer transy" onclick="unwant(this)">
                         <div>
@@ -182,8 +194,20 @@
                         الخميس
                         </div>
                     </div>
-                    <h2>الاوقات المفضلة</h2>
-                    <div id="time_slider">
+                    <div class="rrow gap-8">
+                        <h2>الاوقات المفضلة</h2>
+                        <svg class="pointer i-btn" onclick="showPrefWeight(proxy.preferences.bestTimes)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M2 12h1"></path>
+                                <path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2"></path>
+                                <path d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M9 12h6"></path>
+                                <path d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2"></path>
+                                <path d="M22 12h-1"></path>
+                            </svg>
+                    </div>
+                    <div id="best_time_slider" class="slider">
                         <div class="bg-gray-txt srow" style="height: 1px;">
                             <div class="coverd"></div>
                             <div class="coverd"></div>
@@ -207,12 +231,88 @@
                             <div>16</div>
                         </div>
                         <div class="bg-main" style="--start: 0%; --end: 50%;">
-                            <div onmousedown="timeNodeDrag(event, 1)"></div>
-                            <div onmousedown="timeNodeDrag(event, 2)"></div>
+                            <div onmousedown="bestTimeNodeDrag(event, 1)"></div>
+                            <div onmousedown="bestTimeNodeDrag(event, 2)"></div>
                         </div>
                     </div>
-                    <h2>هل تفضل</h2>
-                    <div class="column gap-8">
+                    <div class="rrow gap-8" style="align-items: start;">
+                        <div class="rrow gap-8">
+                            <h2>عدد المحاضرات</h2>
+                            <svg class="pointer i-btn" onclick="showPrefWeight(proxy.preferences.lectuersPerDay)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M2 12h1"></path>
+                                <path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2"></path>
+                                <path d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M9 12h6"></path>
+                                <path d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2"></path>
+                                <path d="M22 12h-1"></path>
+                            </svg>
+                        </div>
+                        <div id="lectures_per_day_slider" class="slider" style="flex-grow: 2; margin-top: 1.25rem;">
+                                <div class="bg-gray-txt srow" style="height: 1px;">
+                                    <div></div>
+                                    <div class="coverd"></div>
+                                    <div class="coverd"></div>
+                                    <div class="coverd"></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <div class="srow" style="margin-top: 21px;">
+                                    <div style="transform: translateX(50%);">1</div>
+                                    <div>2</div>
+                                    <div>3</div>
+                                    <div>4</div>
+                                    <div>5</div>
+                                    <div>6</div>
+                                </div>
+                                <div class="bg-main" style="--start: 20%; --end: 60%;">
+                                    <div onmousedown="lectuersPerDayNodeDrag(event, 1)"></div>
+                                    <div onmousedown="lectuersPerDayNodeDrag(event, 2)"></div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="rrow gap-8" style="align-items: start;">
+                        <div class="rrow gap-8">
+                            <h2>اقصى وقت فراغ</h2>
+                            <svg class="pointer i-btn" onclick="showPrefWeight(proxy.preferences.maxFreeTime)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M2 12h1"></path>
+                                <path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2"></path>
+                                <path d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M9 12h6"></path>
+                                <path d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2"></path>
+                                <path d="M22 12h-1"></path>
+                            </svg>
+                        </div>
+                        <div id="max_free_time_slider" class="slider" style="flex-grow: 2; margin-top: 1.25rem;">
+                                <div class="bg-gray-txt srow" style="height: 1px;">
+                                    <div class="coverd"></div>
+                                    <div class="coverd"></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <div class="srow" style="margin-top: 21px;">
+                                    <div style="transform: translateX(50%);">0</div>
+                                    <div>1</div>
+                                    <div>2</div>
+                                    <div>3</div>
+                                    <div>4</div>
+                                    <div>5</div>
+                                    <div>6</div>
+                                </div>
+                                <div class="bg-main" style="--start: 0%; --end: 25%;">
+                                    <span></span>
+                                    <div onmousedown="maxFreeTimeNodeDrag(event)"></div>
+                                </div>
+                        </div>
+                    </div>
+                    <h2 style="display: none;">هل تفضل</h2>
+                    <div class="column gap-8" style="display: none;">
                         <choice id="with_no_free_time" class="unit bg-gray crow pointer transy selected" onclick="select(this)">                        
                             <div>
                                 <div></div>
@@ -298,7 +398,27 @@
             </div>
         </div>
     </div>
-    <div id="addCoursePanel" class="hidden">
+    <div id="prefWeightPanel" class="dialog hidden">
+        <div style="width: 100vw; height: 100vh; position: absolute; top: 0; right: 0;" onclick="hidePrefWeight()"></div>
+        <div class="column gap-14 transy">
+            <h2>وزن التفضيلة</h2>            
+            <div class="rrow c-gray-txt" style="align-items: start;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="var(--gray-txt)" fill="var(--gray)" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" stroke-width="0" d="M12 12m-11 0a9 9 0 1022 0 9 9 0 10-22 0"></path>
+                    <path d="M12 8l0 4"></path>
+                    <path d="M12 16l.01 0"></path>
+                </svg>
+                <div style="margin-right: 8px;">ملاحظة : التركيز على تفضيلة واحدة يعطي في الغالب نتائج افضل</div>
+            </div>
+            <button class="bg-gray-2" onclick="resetPrefWeight()" style="position: absolute; top: 155px; left: 40px; padding: 0 10px; outline: var(--gray-3) solid 1px;">الافتراضية</button>
+            <input id="prefWeight" type="text" class="unit bg-gray c-black transy" style="padding-left: 100px;" placeholder="0 - 1000" required>
+            <div class="rrow gap-14" style="margin-top: 0.5rem;">
+                <button class="unit bg-main c-over-main" style="width: auto;" onclick="updatePrefWeight()">حسنا</button>
+                <button class="unit bg-main c-over-main" style="width: auto;" onclick="hidePrefWeight()">الغ</button>
+            </div>
+        </div>
+    </div>
+    <div id="addCoursePanel" class="dialog hidden">
         <div style="width: 100vw; height: 100vh; position: absolute; top: 0; right: 0;" onclick="hideAddCourse()"></div>
         <div class="column gap-14 transy">
             <div class="rrow">

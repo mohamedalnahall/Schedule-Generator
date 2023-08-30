@@ -49,19 +49,12 @@ function intilizeSchedules(size) {
     return schedules;
 }
 
-let minLecturesPerDay = 2;
-let maxLecturesPerDay = 4;
-let minConsicutiveLectures = 2;
-let maxConsicutiveLectures = 4;
-let maxFreeTime = 1.5;
-
 function courseCost(schedule, course) {
     //soft constrains
     // - unwanted days
     // - prefered houres
-    // - min lectures per day -> 2
-    // - max lectures per day -> 4
-    // - max free time -> 1.5
+    // - prefered lectuers per day
+    // - prefered max free time
 
     //hard constrains
     // - all courses should be schedules
@@ -69,20 +62,33 @@ function courseCost(schedule, course) {
     let cost = 0;
     for (const day in schedule.days) {
         if (schedule.days[day][course]) {
+
+            // should not be conflicts
             if (schedule.days[day][course].conflicted) cost += 10000;
-            if (data.preferences.unwantedDays.indexOf(day) != -1) cost += 1;
+
+            // unwanted days
+            if (data.preferences.unwantedDays.days.indexOf(day) != -1) cost += data.preferences.unwantedDays.weight;
+
+            // prefered houres
             if (schedule.days[day][course].timeSlot[0] < data.preferences.bestTimes.from
-                || schedule.days[day][course].timeSlot[1] > data.preferences.bestTimes.to) cost += 1;
-            if (Object.keys(schedule.days[day]).length < minLecturesPerDay || Object.keys(schedule.days[day]).length > maxLecturesPerDay) cost += 1000;
+                || schedule.days[day][course].timeSlot[1] > data.preferences.bestTimes.to)
+                cost += data.preferences.bestTimes.weight;
+            
+            // prefered lectuers per day
+            if (Object.keys(schedule.days[day]).length < data.preferences.lectuersPerDay.from
+                || Object.keys(schedule.days[day]).length > data.preferences.lectuersPerDay.to)
+                cost += data.preferences.lectuersPerDay.weight;
+
+            // prefered max free time
             for (const otherCourse in schedule.days[day]) {
                 if (otherCourse === course) continue;
                 if (schedule.days[day][otherCourse].timeSlot[1] < schedule.days[day][course].timeSlot[0]
-                    && schedule.days[day][course].timeSlot[0] - schedule.days[day][otherCourse].timeSlot[1] > 1.5) {
-                    cost += (schedule.days[day][course].timeSlot[0] - schedule.days[day][otherCourse].timeSlot[1])*3;
+                    && schedule.days[day][course].timeSlot[0] - schedule.days[day][otherCourse].timeSlot[1] > data.preferences.maxFreeTime.value) {
+                    cost += (schedule.days[day][course].timeSlot[0] - schedule.days[day][otherCourse].timeSlot[1])*data.preferences.maxFreeTime.weight;
                 }
                 else if (schedule.days[day][otherCourse].timeSlot[0] > schedule.days[day][course].timeSlot[1]
-                    && schedule.days[day][otherCourse].timeSlot[0] - schedule.days[day][course].timeSlot[1] > 1.5) {
-                    cost += (schedule.days[day][otherCourse].timeSlot[0] - schedule.days[day][course].timeSlot[1])*3;
+                    && schedule.days[day][otherCourse].timeSlot[0] - schedule.days[day][course].timeSlot[1] > data.preferences.maxFreeTime.value) {
+                    cost += (schedule.days[day][otherCourse].timeSlot[0] - schedule.days[day][course].timeSlot[1])*data.preferences.maxFreeTime.weight;
                 }
             }
         }
@@ -91,8 +97,6 @@ function courseCost(schedule, course) {
 }
 
 function cost(schedule) {
-    // - min consicutive lectures -> 2
-    // - max consicutive lectures -> 4
     let cost = 0;
     for (const course in schedule.branches) 
         cost += courseCost(schedule, course);
