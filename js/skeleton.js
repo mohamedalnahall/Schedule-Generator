@@ -18,22 +18,24 @@ const handler = {
     },
     set: (target, prop, value) => {
         if (target === data.courses) {
+            if(!data.courses[prop]){
+                let newCourse = document.createElement("div");
+                newCourse.id = prop;
+                newCourse.className = "unit bg-gray srow";
+                newCourse.innerHTML =
+                    `<span class="c-black">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
+                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                        <path d="M13.5 6.5l4 4"></path>
+                    </svg><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" style="margin-left: -7px;" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete proxy.courses[this.parentElement.parentElement.id];">
+                        <path d="M4 7l16 0"></path>
+                        <path d="M10 11l0 6"></path>
+                        <path d="M14 11l0 6"></path>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                    </svg></div>`
+                document.getElementById("courses").insertBefore(newCourse, document.getElementById("coursesSeparator"));
+            }
             data.courses[prop] = value;
-            let newCourse = document.createElement("div");
-            newCourse.id = prop;
-            newCourse.className = "unit bg-gray srow";
-            newCourse.innerHTML =
-                `<span class="c-black">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
-                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                    <path d="M13.5 6.5l4 4"></path>
-                </svg><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" style="margin-left: -7px;" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete proxy.courses[this.parentElement.parentElement.id];">
-                    <path d="M4 7l16 0"></path>
-                    <path d="M10 11l0 6"></path>
-                    <path d="M14 11l0 6"></path>
-                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                </svg></div>`
-            document.getElementById("courses").insertBefore(newCourse, document.getElementById("coursesSeparator"));
         } else if (target === data && prop === "courses") {
             document.getElementById("courses").innerHTML = 
             `<div id="coursesSeparator" style="margin-top: -14px;"></div>
