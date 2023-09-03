@@ -4,7 +4,7 @@ Arabic Language : [![ar](https://img.shields.io/badge/lang-arabic-red.svg)](http
 Schedule Generator is open-source tool that can help creating schedules by generating possible schedules based on your preference
 
 ### Notes
-  - The generated schedules are not always the best possible schedules.
+  - The generated schedules using Genetic Method are not always the best possible schedules.
   - Too restrictive preference may lead to undesirable results.
 
 # How Full Scan Method works
