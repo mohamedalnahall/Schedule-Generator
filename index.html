@@ -30,63 +30,71 @@
                     </svg>
                 </a>
             </div>
-            <div class="column gap-14 bg-gray-2 pointer small" style="height: 30px; transition: height; transition-duration: var(--transition);" onclick="openThemePanel(this);">
-                <div class="srow" style="margin-top: 3px;">
-                    <div class="crow">
-                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 21v-4a4 4 0 1 1 4 4h-4"></path>
-                            <path d="M21 3a16 16 0 0 0 -12.8 10.2"></path>
-                            <path d="M21 3a16 16 0 0 1 -10.2 12.8"></path>
-                            <path d="M10.6 9a9 9 0 0 1 4.4 4.4"></path>
-                        </svg>
-                        <div class="c-gray-2">
-                            المظهر
+            <div id="theme-selector" class="column gap-14 bg-gray-2 pointer small" style="height: 30px; transition: height; transition-duration: var(--transition);" onclick="openThemePanel(this);">
+                    <div class="srow" style="margin-top: 3px;">
+                        <div class="crow">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 21v-4a4 4 0 1 1 4 4h-4"></path>
+                                <path d="M21 3a16 16 0 0 0 -12.8 10.2"></path>
+                                <path d="M21 3a16 16 0 0 1 -10.2 12.8"></path>
+                                <path d="M10.6 9a9 9 0 0 1 4.4 4.4"></path>
+                            </svg>
+                            <div class="c-gray-2">
+                                المظهر
+                            </div>
                         </div>
+                        <svg class="arrow transy" style="transform-origin: center;" xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9l6 6l6 -6"></path>
+                        </svg>
                     </div>
-                    <svg class="arrow transy" style="transform-origin: center;" xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 9l6 6l6 -6"></path>
-                    </svg>
-                </div>
-                <div class="themes column gap-8">
-                    <span class="word-line srow">
-                        <div class="bg-gray-3"></div>
-                        <span>فاتح</span>
-                        <div class="bg-gray-3"></div>
-                    </span>
-                    <div class="srow transy" onclick="document.body.setAttribute('theme','light ucas')">مظهر يوكاس
-                        <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
+                    <div class="themes column gap-8">
+                        <span class="word-line srow">
+                            <div class="bg-gray-3"></div>
+                            <span>فاتح</span>
+                            <div class="bg-gray-3"></div>
+                        </span>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','light ucas')">مظهر يوكاس
+                            <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
+                        </div>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','light yellow')">مظهر اصفر
+                            <div style="background-color: #ffc700;"></div>
+                        </div>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','light green')">مظهر اخضر
+                            <div style="background-color: #27df55;"></div>
+                        </div>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','light blue')">مظهر ازرق
+                            <div style="background: #1c90f0;"></div>
+                        </div>
+                        <span class="word-line srow">
+                            <div class="bg-gray-3"></div>
+                            <span>غامق</span>
+                            <div class="bg-gray-3"></div>
+                        </span>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','dark ucas')">مظهر يوكاس
+                            <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
+                        </div>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','dark yellow')">مظهر اصفر
+                            <div style="background-color: #dbac00;"></div>
+                        </div>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','dark green')">مظهر اخضر
+                            <div style="background-color: #27c400;"></div>
+                        </div>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','dark blue')">مظهر ازرق
+                            <div style="background-color: #0070cc;"></div>
+                        </div>
+                        <span></span>
+                        <span></span>  
                     </div>
-                    <div class="srow transy" onclick="document.body.setAttribute('theme','light yellow')">مظهر اصفر
-                        <div style="background-color: #ffc700;"></div>
-                    </div>
-                    <div class="srow transy" onclick="document.body.setAttribute('theme','light green')">مظهر اخضر
-                        <div style="background-color: #27df55;"></div>
-                    </div>
-                    <div class="srow transy" onclick="document.body.setAttribute('theme','light blue')">مظهر ازرق
-                        <div style="background: #1c90f0;"></div>
-                    </div>
-                    <span class="word-line srow">
-                        <div class="bg-gray-3"></div>
-                        <span>غامق</span>
-                        <div class="bg-gray-3"></div>
-                    </span>
-                    <div class="srow transy" onclick="document.body.setAttribute('theme','dark ucas')">مظهر يوكاس
-                        <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
-                    </div>
-                    <div class="srow transy" onclick="document.body.setAttribute('theme','dark yellow')">مظهر اصفر
-                        <div style="background-color: #dbac00;"></div>
-                    </div>
-                    <div class="srow transy" onclick="document.body.setAttribute('theme','dark green')">مظهر اخضر
-                        <div style="background-color: #27c400;"></div>
-                    </div>
-                    <div class="srow transy" onclick="document.body.setAttribute('theme','dark blue')">مظهر ازرق
-                        <div style="background-color: #0070cc;"></div>
-                    </div>
-                    <span></span>
-                    <span></span>  
-                </div>
             </div>
-        </header>
+            <button id="settings-button" class="rrow gap-8 bg-gray-2 small" onclick="showSettings()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"></path>
+                    <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                </svg>
+                الاعدادات                
+            </button>
+        </header>        
         <div class="bg-white srow fadeable">
             <div class="column gap-14" style="height: 100%; width: 35%;">
                 <h1 class="crow">المساقات</h1>
@@ -411,18 +419,75 @@
                 <div style="margin-right: 8px;">ملاحظة : التركيز على تفضيلة واحدة يعطي في الغالب نتائج افضل</div>
             </div>
             <button class="bg-gray-2" onclick="resetPrefWeight()" style="position: absolute; top: 155px; left: 40px; padding: 0 10px; outline: var(--gray-3) solid 1px;">الافتراضية</button>
-            <input id="prefWeight" type="text" class="unit bg-gray c-black transy" style="padding-left: 100px;" placeholder="0 - 1000" required>
+            <input id="prefWeight" type="text" class="unit bg-gray c-black transy" style="padding-left: 100px;" placeholder="0 - 10000" required>
             <div class="rrow gap-14" style="margin-top: 0.5rem;">
                 <button class="unit bg-main c-over-main" style="width: auto;" onclick="updatePrefWeight()">حسنا</button>
                 <button class="unit bg-main c-over-main" style="width: auto;" onclick="hidePrefWeight()">الغ</button>
             </div>
         </div>
     </div>
+    <form id="settings" class="dialog hidden" onsubmit="updateSettings(event)">
+        <div style="width: 100vw; height: 100vh; position: absolute; top: 0; right: 0;" onclick="hideSettings()"></div>        
+        <div class="column gap-14 transy">
+            <div class="srow">
+                <h2>الاعدادات</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" onclick="hideSettings()" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6l-12 12"></path>
+                <path d="M6 6l12 12"></path>
+                </svg>
+            </div>
+            <div id="noteSlot"></div>
+            <div class="rrow gap-8">
+                <label for="generatingMethod" style="flex-shrink: 0; width: 140px;">طريقة التوليد : </label>
+                <select class="unit bg-gray c-black" style="width: fit-content; flex-grow: 2;" name="generatingMethod" id="generatingMethod" onchange="updateSettingsView()">                    
+                    <option value="fullScan">طريقة المسح الكامل</option>
+                    <option value="genetic">طريقة الوراثة</option>
+                </select>
+            </div>
+            <div id="geneticSettings" class="column gap-14" >
+                <div class="rrow gap-8">
+                    <label for="generations" style="flex-shrink: 0; width: 140px;">عدد الاجيال : </label>
+                    <input name="generations" id="generations" class="unit bg-gray c-black" style="width: fit-content; flex-grow: 2;" type="text" onfocus="this.classList.remove('error')">
+                </div>
+                <div class="rrow gap-8">
+                    <label for="intilizedSchedules" style="flex-shrink: 0; width: 140px;">عدد الجداول الابتدائية : </label>
+                    <input name="intilizedSchedules" id="intilizedSchedules" class="unit bg-gray c-black" style="width: fit-content; flex-grow: 2;" type="text" onfocus="this.classList.remove('error')">
+                </div>
+                <div class="rrow gap-8">
+                    <label for="mututeProbablity" style="flex-shrink: 0; width: 140px;">احتمال التحوير : </label>
+                    <input name="mututeProbablity" id="mututeProbablity" class="unit bg-gray c-black" style="width: fit-content; flex-grow: 2;" type="text" value="0.5" placeholder="0 - 1" onfocus="this.classList.remove('error')">
+                </div>
+            </div>
+            <div id="fullScanSettings">
+                <div class="rrow gap-8">
+                    <label for="fullScanSchedulesNumber" style="flex-shrink: 0; width: 140px;">عدد الجداول المولدة : </label>
+                    <input name="fullScanSchedulesNumber" id="fullScanSchedulesNumber" class="unit bg-gray c-black" style="width: fit-content; flex-grow: 2;" type="text" onfocus="this.classList.remove('error')">
+                </div>
+            </div>
+            <div class="rrow gap-8">
+                <label for="conflictHandling" style="flex-shrink: 0; width: 140px;">التعامل مع التعارضات : </label>
+                <select name="conflictHandling" id="conflictHandling" class="unit bg-gray c-black" style="width: fit-content; flex-grow: 2;" onchange="updateSettingsView()">
+                    <option value="treatAsSame">معاملة كل التعارضات بشكل متساوي</option>
+                    <option value="treatDiff">ترتيب التعارضات حسب مدة التعارض</option>
+                </select>
+            </div>
+            <div id="conflictTimeSettings">
+                <div class="rrow gap-8">
+                    <label for="conflictCost" style="flex-shrink: 0; width: 140px;">تكلفة التعارض : </label>
+                    <input name="conflictCost" id="conflictCost" class="unit bg-gray c-black" style="width: fit-content; flex-grow: 2;" type="text" onfocus="this.classList.remove('error')">
+                </div>
+            </div>
+            <div class="rrow gap-14" style="margin-top: 0.5rem;">
+                <button type="submit" class="unit bg-main c-over-main" style="width: auto;">تطبيق</button>
+                <button type="button" class="unit bg-main c-over-main" style="width: auto;" onclick="hideSettings()">الغ</button>
+            </div>
+        </div>
+    </form>
     <div id="addCoursePanel" class="dialog hidden">
         <div style="width: 100vw; height: 100vh; position: absolute; top: 0; right: 0;" onclick="hideAddCourse()"></div>
         <div class="column gap-14 transy">
             <div class="rrow">
-                <svg xmlns="http://www.w3.org/2000/svg" class="pointer" onclick="hideAddCourse()" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" onclick="hideAddCourse()" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6l-12 12"></path>
                 <path d="M6 6l12 12"></path>
                 </svg>

@@ -57,6 +57,12 @@ button {
     cursor: pointer;
 }
 
+select {
+    outline: none;
+    border: none;
+    padding: 5px 15px;
+}
+
 .fadeable {
     transition-property: padding;
     transition-duration: var(--transition);
@@ -146,26 +152,41 @@ header>div:first-child>a:hover>svg {
     transition: var(--transition);
 }
 
-header>div:last-child {
+#settings-button {
     padding: 0 10px;
+    border-radius: 15px;
+    width: 100px;
+    height: 30px;
+}
+
+#settings-button:hover {
+    color: var(--black);
+}
+
+#settings-button:hover * {
+    color: var(--black);
+}
+
+#theme-selector {
+    padding: 0 10px;
+    border-radius: 15px;
     width: 180px;
     position: absolute;
-    left: 0;
+    left: 116px;
     top: 6px;
-    border-radius: 15px;
     overflow: hidden;
     z-index: 100;
 }
 
-body[theme='light ucas'] header>div:last-child.opend,
-body[theme='light yellow'] header>div:last-child.opend,
-body[theme='light green'] header>div:last-child.opend,
-body[theme='light blue'] header>div:last-child.opend {
+body[theme='light ucas'] #theme-selector.opend,
+body[theme='light yellow'] #theme-selector.opend,
+body[theme='light green'] #theme-selector.opend,
+body[theme='light blue'] #theme-selector.opend {
     background-color: var(--white);
     box-shadow: 0 2px 4px 3px var(--shadow);
 }
 
-header>div:last-child:hover>div:first-child * {
+#theme-selector:hover>div:first-child * {
     color: var(--black);
 }
 

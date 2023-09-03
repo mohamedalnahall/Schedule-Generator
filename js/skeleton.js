@@ -1,12 +1,21 @@
 let data = {
     preferences: {
-        unwantedDays: { days: ["th"], weight: 1, defaultWeight: 1 },
+        unwantedDays: { days: new Set(["th"]), weight: 100, defaultWeight: 100 },
         bestTimes: { from: 8, to: 12, weight: 1, defaultWeight: 1 },
-        lectuersPerDay: { from: 2, to: 4, weight: 1000, defaultWeight: 1000 },
-        maxFreeTime: { value: 1.5, weight: 3, defaultWeight: 3 },
+        lectuersPerDay: { from: 2, to: 4, weight: 10000, defaultWeight: 10000 },
+        maxFreeTime: { value: 1.5, weight: 10, defaultWeight: 10 },
     },
     courses: {},
-    schedules: []
+    schedules: [],
+    settings: {
+        generatingMethod: "fullScan",
+        generations: 8000,
+        intilizedSchedules: 200000,
+        mututeProbablity: 0.6,
+        fullScanSchedulesNumber: 5,
+        conflictHandling: "treatAsSame",
+        conflictCost: 1000000,
+    }
 };
 
 const handler = {
@@ -282,14 +291,15 @@ function maxFreeTimeNodeDrag(e) {
 }
 
 function unwant(el) {
-    if (el.classList.contains("unwanted")) {
-        delete proxy.preferences.unwantedDays.days[proxy.preferences.unwantedDays.days.indexOf(el.id)];
+    if (data.preferences.unwantedDays.days.has(el.id)) {
+        data.preferences.unwantedDays.days.delete(el.id);
         el.classList.remove("unwanted");
     }
     else {
-        proxy.preferences.unwantedDays.days.push(el.id);
+        data.preferences.unwantedDays.days.add(el.id);
         el.classList.add("unwanted");
     }
+    reset();
 }
 
 function select(el) {
@@ -316,11 +326,11 @@ function showPrefWeight(whichPref) {
 function updatePrefWeight() {
     let newWeight;
     if (newWeight = parseFloat(document.getElementById("prefWeight").value)) {
-        if (newWeight <= 1000) {
+        if (newWeight <= 10000) {
             pref.weight = newWeight;
             hidePrefWeight();
         } else {
-            showErrorMsg("الحد الاقصى 1000");
+            showErrorMsg("الحد الاقصى 10000");
         }
     } else {
         showErrorMsg("ادخل رقما صحيحا");
@@ -333,6 +343,70 @@ function resetPrefWeight() {
 
 function hidePrefWeight() {
     document.getElementById("prefWeightPanel").classList.add("hidden");
+}
+
+function showSettings() {
+    const settings = document.getElementById("settings");
+    for (const set in data.settings) {
+        settings.elements[set].value = data.settings[set];
+    }
+    updateSettingsView();
+    settings.classList.remove("hidden");
+}
+
+function updateSettings(event) {
+    event.preventDefault();
+    for (const set in data.settings) {
+        if (typeof (data.settings[set]) === "number") {
+            const value = parseFloat(settings.elements[set].value);
+            if (isNaN(value) || !isFinite(value)) {                        
+                settings.elements[set].classList.add('error');
+                showErrorMsg("ادخل رقما صحيحا");
+                return false;
+            }             
+            if (set === "mututeProbablity") {                
+                if (value < 0 || value > 1) {                        
+                    settings.elements[set].classList.add('error');
+                    showErrorMsg("ادخل رقما بين 0 و 1");
+                    return false;
+                }
+                data.settings[set] = value;
+            }
+            else data.settings[set] = parseInt(value);            
+        }
+        else data.settings[set] = settings.elements[set].value;        
+    }
+    reset();
+    hideSettings();
+}
+
+function updateSettingsView() {
+    const settings = document.getElementById("settings");
+    if (settings.elements["generatingMethod"].value === "fullScan") {
+        document.getElementById("noteSlot").innerHTML = ""
+        document.getElementById("geneticSettings").style.display = "none";
+        document.getElementById("fullScanSettings").style.display = "block";
+    } else {
+        document.getElementById("noteSlot").innerHTML = `<div class="rrow c-gray-txt" style="align-items:start">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="var(--gray-txt)" fill="var(--gray)" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" stroke-width="0" d="M12 12m-11 0a9 9 0 1022 0 9 9 0 10-22 0"></path>
+            <path d="M12 8l0 4"></path>
+            <path d="M12 16l.01 0"></path>
+        </svg>
+        <div style="margin-right: 8px;">ملاحظة : طريقة الوراثة تستخدم للجداول التي تحتوي على عدد شعب كبير و تحتاج وقت طويل جدا في طريقة المسح الكامل</div>
+    </div>`;
+        document.getElementById("fullScanSettings").style.display = "none";
+        document.getElementById("geneticSettings").style.display = "flex";
+    }
+    if (settings.elements["conflictHandling"].value === "treatAsSame") {
+        document.getElementById("conflictTimeSettings").style.display = "none";
+    } else {
+        document.getElementById("conflictTimeSettings").style.display = "block";
+    }
+}
+
+function hideSettings() {
+    document.getElementById("settings").classList.add("hidden");
 }
 
 let editedCourse = null;
@@ -748,7 +822,7 @@ function showSchedules() {
         
         document.getElementById("loading").style.display = "block";
 
-        const generatorWorker = new Worker('js/geneticGenerator.worker.js');
+        const generatorWorker = new Worker('js/generator.worker.js');
         generatorWorker.postMessage(data);
 
         generatorWorker.addEventListener("message", (event) => {
