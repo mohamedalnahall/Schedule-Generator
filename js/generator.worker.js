@@ -77,12 +77,12 @@ function courseCost(schedule, course) {
             for (const otherCourse in schedule.days[courseTimeSlot[0]]) {
                 if (otherCourse === course) continue;
                 if (schedule.days[courseTimeSlot[0]][otherCourse].timeSlot[1] < schedule.days[courseTimeSlot[0]][course].timeSlot[0]
-                    && schedule.days[courseTimeSlot[0]][course].timeSlot[0] - schedule.days[courseTimeSlot[0]][otherCourse].timeSlot[1] > data.preferences.maxFreeTime.value) {
+                    && schedule.days[courseTimeSlot[0]][course].timeSlot[0] - schedule.days[courseTimeSlot[0]][otherCourse].timeSlot[1] > data.preferences.maxFreeTime.to) {
                     const costToAdd = (schedule.days[courseTimeSlot[0]][course].timeSlot[0] - schedule.days[courseTimeSlot[0]][otherCourse].timeSlot[1]) * data.preferences.maxFreeTime.weight;
                     cost = (cost < Number.MAX_SAFE_INTEGER - costToAdd)? cost + costToAdd : Number.MAX_SAFE_INTEGER;
                 }
                 else if (schedule.days[courseTimeSlot[0]][otherCourse].timeSlot[0] > schedule.days[courseTimeSlot[0]][course].timeSlot[1]
-                    && schedule.days[courseTimeSlot[0]][otherCourse].timeSlot[0] - schedule.days[courseTimeSlot[0]][course].timeSlot[1] > data.preferences.maxFreeTime.value) {
+                    && schedule.days[courseTimeSlot[0]][otherCourse].timeSlot[0] - schedule.days[courseTimeSlot[0]][course].timeSlot[1] > data.preferences.maxFreeTime.to) {
                     const costToAdd = (schedule.days[courseTimeSlot[0]][otherCourse].timeSlot[0] - schedule.days[courseTimeSlot[0]][course].timeSlot[1])*data.preferences.maxFreeTime.weight;
                     cost = (cost < Number.MAX_SAFE_INTEGER - costToAdd)? cost + costToAdd : Number.MAX_SAFE_INTEGER;
                 }
@@ -97,12 +97,17 @@ function cost(schedule) {
     for (const course in schedule.branches) 
         cost += courseCost(schedule, course);
 
+    let days = 0;
+    
     // prefered lectuers per day
     for (const day in schedule.days) {
+        if (Object.keys(schedule.days[day]).length > 0) days++;
         if (Object.keys(schedule.days[day]).length < data.preferences.lectuersPerDay.from
             || Object.keys(schedule.days[day]).length > data.preferences.lectuersPerDay.to)
             cost = (cost < Number.MAX_SAFE_INTEGER - data.preferences.lectuersPerDay.weight) ? cost + data.preferences.lectuersPerDay.weight : Number.MAX_SAFE_INTEGER;
     }
+
+    if (days > data.preferences.numOfDays.to) cost += (days - data.preferences.numOfDays.to) * data.preferences.numOfDays.weight;
 
     return cost;
 }

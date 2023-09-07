@@ -239,8 +239,45 @@
                             <div>16</div>
                         </div>
                         <div class="bg-main" style="--start: 0%; --end: 50%;">
-                            <div onmousedown="bestTimeNodeDrag(event, 1)"></div>
-                            <div onmousedown="bestTimeNodeDrag(event, 2)"></div>
+                            <div onmousedown="nodeDrag(event, 1, 8, 1, '#best_time_slider', proxy.preferences.bestTimes, step=0.5, startValue=8)"></div>
+                            <div onmousedown="nodeDrag(event, 2, 8, 1, '#best_time_slider', proxy.preferences.bestTimes, step=0.5, startValue=8)"></div>
+                        </div>
+                    </div>
+                    <div class="rrow gap-8" style="align-items: start;">
+                        <div class="rrow gap-8">
+                            <h2>عدد الايام في الاسبوع</h2>
+                            <svg class="pointer i-btn" onclick="showPrefWeight(proxy.preferences.numOfDays)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M2 12h1"></path>
+                                <path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2"></path>
+                                <path d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M9 12h6"></path>
+                                <path d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1z"></path>
+                                <path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2"></path>
+                                <path d="M22 12h-1"></path>
+                            </svg>
+                        </div>
+                        <div id="num_of_days_slider" class="slider" style="flex-grow: 2; margin-top: 1.25rem;">
+                                <div class="bg-gray-txt srow" style="height: 1px;">
+                                    <div class="coverd"></div>
+                                    <div class="coverd"></div>
+                                    <div class="coverd"></div>
+                                    <div class="coverd"></div>
+                                    <div class="coverd"></div>
+                                    <div></div>
+                                </div>
+                                <div class="srow" style="margin-top: 21px;">
+                                    <div style="transform: translateX(50%);">1</div>
+                                    <div>2</div>
+                                    <div>3</div>
+                                    <div>4</div>
+                                    <div>5</div>
+                                    <div>6</div>
+                                </div>
+                                <div class="bg-main" style="--start: 0%; --end: 80%;">
+                                    <span></span>
+                                    <div onmousedown="nodeDrag(event, 2, 5, 0, '#num_of_days_slider', proxy.preferences.numOfDays)"></div>
+                                </div>
                         </div>
                     </div>
                     <div class="rrow gap-8" style="align-items: start;">
@@ -275,8 +312,8 @@
                                     <div>6</div>
                                 </div>
                                 <div class="bg-main" style="--start: 20%; --end: 60%;">
-                                    <div onmousedown="lectuersPerDayNodeDrag(event, 1)"></div>
-                                    <div onmousedown="lectuersPerDayNodeDrag(event, 2)"></div>
+                                    <div onmousedown="nodeDrag(event, 1, 5, 0, '#lectures_per_day_slider', proxy.preferences.lectuersPerDay)"></div>
+                                    <div onmousedown="nodeDrag(event, 2, 5, 0, '#lectures_per_day_slider', proxy.preferences.lectuersPerDay)"></div>
                                 </div>
                         </div>
                     </div>
@@ -315,31 +352,9 @@
                                 </div>
                                 <div class="bg-main" style="--start: 0%; --end: 25%;">
                                     <span></span>
-                                    <div onmousedown="maxFreeTimeNodeDrag(event)"></div>
+                                    <div onmousedown="nodeDrag(event, 2, 6, 0, '#max_free_time_slider', proxy.preferences.maxFreeTime, step=0.5, startValue=0)"></div>
                                 </div>
                         </div>
-                    </div>
-                    <h2 style="display: none;">هل تفضل</h2>
-                    <div class="column gap-8" style="display: none;">
-                        <choice id="with_no_free_time" class="unit bg-gray crow pointer transy selected" onclick="select(this)">                        
-                            <div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                            جدول ممتلئ بدون اوقات فراغ تتخلله
-                        </choice>
-                        <div class="word-line srow">
-                            <div class="bg-gray-3"></div>
-                            <span class="small">او</span>
-                            <div class="bg-gray-3"></div>
-                        </div>
-                        <choice id="with_free_time" class="unit bg-gray crow transy pointer" onclick="select(this)" style="margin-bottom: 14px;">
-                            <div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                            جدول مفرغ تتخلله اوقات فراغ
-                        </choice>
                     </div>
                 </div>
             </div>

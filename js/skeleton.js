@@ -3,7 +3,8 @@ let data = {
         unwantedDays: { days: new Set(["th"]), weight: 100, defaultWeight: 100 },
         bestTimes: { from: 8, to: 12, weight: 1, defaultWeight: 1 },
         lectuersPerDay: { from: 2, to: 4, weight: 10000, defaultWeight: 10000 },
-        maxFreeTime: { value: 1.5, weight: 10, defaultWeight: 10 },
+        maxFreeTime: { to: 1.5, weight: 10, defaultWeight: 10 },
+        numOfDays: { to: 5, weight: 100, defaultWeight: 100 },
     },
     courses: {},
     schedules: [],
@@ -168,125 +169,55 @@ function openThemePanel(el) {
     }
 }
 
-function bestTimeNodeDrag(e, x) {
+function nodeDrag(e, x, parts, minDiff, sliderId, preferenceRef, step = 1, startValue = 1) {
     if (e.button === 0) {
-        const time_line = document.querySelector("#best_time_slider>div:first-child");
-        const sel_time = document.querySelector("#best_time_slider>div:last-child");
+        const time_line = document.querySelector(`${sliderId}>div:first-child`);
+        const sel_time = document.querySelector(`${sliderId}>div:last-child`);
         const mouse_x = e.pageX;
         const start = parseInt(sel_time.style.getPropertyValue("--start"));
         const end = parseInt(sel_time.style.getPropertyValue("--end"));
+        const partWidth = 100 / parts;
         if (x === 1) {
             document.onmousemove = (e) => {
                 let next = start + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
-                next = (next < 0 ? 0 : (next > end - 12.5) ? end - 12.5 : next);
-                next = ((next / 12.5) % 1 > 0.75 || (next / 12.5) % 1 < 0.25) ? Math.round(next / 12.5) * 12.5 : (Math.floor(next / 12.5) + 0.5) * 12.5;
+                next = (next < 0 ? 0 : (next > end - minDiff * partWidth) ? end - minDiff * partWidth : next);
                 sel_time.style.setProperty("--start", next + "%");
                 const children = time_line.children;
                 for (let i = 0; i < children.length; i++) {
-                    if (next > i * 12.5) children[i].className = "";
-                    else if (end > i * 12.5) children[i].className = "coverd";
+                    if (next > i * partWidth) children[i].className = "";
+                    else if (end > i * partWidth) children[i].className = "coverd";
                 }
             }
             document.onmouseup = () => {
                 document.onmousemove = null;
                 document.onmouseup = null;
-                proxy.preferences.bestTimes.from = 8 + (parseFloat(sel_time.style.getPropertyValue("--start"))/100) * 8;
+                let start = parseFloat(sel_time.style.getPropertyValue("--start"));
+                start = Math.round(start / partWidth / step) * partWidth * step;
+                sel_time.style.setProperty("--start", start + "%");
+                preferenceRef.from = startValue + (start/100) * parts;
             };
         }
         else if (x === 2) {
             document.onmousemove = (e) => {
                 let next = end + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
-                next = (next > 100 ? 100 : (next < start + 12.5) ? start + 12.5 : next);
-                next = ((next / 12.5) % 1 > 0.75 || (next / 12.5) % 1 < 0.25) ? Math.round(next / 12.5) * 12.5 : (Math.floor(next / 12.5) + 0.5) * 12.5;
+                next = (next > 100 ? 100 : (next < start + minDiff * partWidth) ? start + minDiff * partWidth : next);
                 sel_time.style.setProperty("--end", next + "%");
                 const children = time_line.children;
                 for (let i = 0; i < children.length; i++) {
-                    if (next < i * 12.5) children[i].className = "";
-                    else if (start < i * 12.5) children[i].className = "coverd";
+                    if (next < i * partWidth) children[i].className = "";
+                    else if (start < i * partWidth) children[i].className = "coverd";
                 }
             }
             document.onmouseup = () => {
                 document.onmousemove = null;
                 document.onmouseup = null;
-                proxy.preferences.bestTimes.to = 8 + (parseFloat(sel_time.style.getPropertyValue("--end"))/100) * 8;
+                let end = parseFloat(sel_time.style.getPropertyValue("--end"));
+                end = Math.round(end / partWidth / step) * partWidth * step;
+                sel_time.style.setProperty("--end", end + "%");
+                preferenceRef.to = startValue + (end/100) * parts;
 
             };
         }
-    }
-}
-
-function lectuersPerDayNodeDrag(e, x) {
-    if (e.button === 0) {
-        const time_line = document.querySelector("#lectures_per_day_slider>div:first-child");
-        const sel_time = document.querySelector("#lectures_per_day_slider>div:last-child");
-        const mouse_x = e.pageX;
-        const start = parseInt(sel_time.style.getPropertyValue("--start"));
-        const end = parseInt(sel_time.style.getPropertyValue("--end"));
-        if (x === 1) {
-            document.onmousemove = (e) => {
-                let next = start + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
-                next = (next < 0 ? 0 : (next > end ) ? end : next);
-                next = Math.round(next / 20) * 20;
-                sel_time.style.setProperty("--start", next + "%");
-                const children = time_line.children;
-                for (let i = 0; i < children.length; i++) {
-                    if (next > i * 20) children[i].className = "";
-                    else if (end > i * 20) children[i].className = "coverd";
-                }
-            }
-            document.onmouseup = () => {
-                document.onmousemove = null;
-                document.onmouseup = null;
-                proxy.preferences.lectuersPerDay.from = 1 + (parseFloat(sel_time.style.getPropertyValue("--start"))/100) * 5;
-            };
-        }
-        else if (x === 2) {
-            document.onmousemove = (e) => {
-                let next = end + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
-                next = (next > 100 ? 100 : (next < start) ? start : next);
-                next = Math.round(next / 20) * 20;
-                sel_time.style.setProperty("--end", next + "%");
-                const children = time_line.children;
-                for (let i = 0; i < children.length; i++) {
-                    if (next < i * 20) children[i].className = "";
-                    else if (start < i * 20) children[i].className = "coverd";
-                }
-            }
-            document.onmouseup = () => {
-                document.onmousemove = null;
-                document.onmouseup = null;
-                proxy.preferences.lectuersPerDay.to = 1 + (parseFloat(sel_time.style.getPropertyValue("--end"))/100) * 5;
-
-            };
-        }
-    }
-}
-
-function maxFreeTimeNodeDrag(e) {
-    if (e.button === 0) {
-        const time_line = document.querySelector("#max_free_time_slider>div:first-child");
-        const sel_time = document.querySelector("#max_free_time_slider>div:last-child");
-        const mouse_x = e.pageX;
-        const start = parseInt(sel_time.style.getPropertyValue("--start"));
-        const end = parseInt(sel_time.style.getPropertyValue("--end"));
-
-        document.onmousemove = (e) => {
-            let next = end + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
-            next = (next > 100 ? 100 : (next < start) ? start : next);
-            next = ((next / 16.6666) % 1 > 0.75 || (next / 16.6666) % 1 < 0.25) ? Math.round(next / 16.6666) * 16.6666 : (Math.floor(next / 16.6666) + 0.5) * 16.6666;
-            sel_time.style.setProperty("--end", next + "%");
-            const children = time_line.children;
-            for (let i = 0; i < children.length; i++) {
-                if (next < i * 16.6666) children[i].className = "";
-                else if (start < i * 16.6666) children[i].className = "coverd";
-            }
-        }
-        document.onmouseup = () => {
-            document.onmousemove = null;
-            document.onmouseup = null;
-            let x = parseFloat(sel_time.style.getPropertyValue("--end")) / 100 * 6;
-            proxy.preferences.maxFreeTime.value = (x % 1 < 0.6 && x % 1 > 0.4) ? Math.floor(x) + 0.5 : Math.round(x);
-        };
     }
 }
 
