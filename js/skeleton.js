@@ -84,8 +84,8 @@ const handler = {
                 addCourse();
             }
         }
+        if(target[prop] != value) reset();
         target[prop] = value;
-        reset();
         return true;
     },
     deleteProperty(target, prop) {
