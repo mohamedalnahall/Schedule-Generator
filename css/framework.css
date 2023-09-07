@@ -17,6 +17,7 @@ body[theme='light ucas'] {
     --gray-2-txt: #656565;
 
     --over-main: white;
+    --tover-main: rgba(255, 255, 255, 0.1);
 
     --main: linear-gradient(to right, #71c158, #1c6ead);
     --main-txt: white;
@@ -35,6 +36,7 @@ body[theme='dark ucas'] {
     --gray-2-txt: #9a9a9a;
 
     --over-main: white;
+    --tover-main: rgba(255, 255, 255, 0.1);
 
     --main: linear-gradient(to right, #71c158, #1c6ead);
     --main-txt: white;
@@ -53,6 +55,7 @@ body[theme='light yellow'] {
     --gray-2-txt: #656565;
 
     --over-main: black;
+    --tover-main: rgba(0, 0, 0, 0.1);
 
     --main: #ffc700;
     --main-txt: #dfa000;
@@ -71,6 +74,7 @@ body[theme='dark yellow'] {
     --gray-2-txt: #9a9a9a;
 
     --over-main: black;
+    --tover-main: rgba(0, 0, 0, 0.1);
 
     --main: #dbac00;
     --main-txt: #be8903;
@@ -89,6 +93,7 @@ body[theme='light green'] {
     --gray-2-txt: #656565;
 
     --over-main: black;
+    --tover-main: rgba(0, 0, 0, 0.1);
 
     --main: #27df55;
     --main-txt: #1fbd47;
@@ -107,6 +112,7 @@ body[theme='dark green'] {
     --gray-2-txt: #9a9a9a;
 
     --over-main: black;
+    --tover-main: rgba(0, 0, 0, 0.1);
 
     --main: #27c400;
     --main-txt: #1f9b00;
@@ -125,6 +131,7 @@ body[theme='light blue'] {
     --gray-2-txt: #656565;
 
     --over-main: white;
+    --tover-main: rgba(255, 255, 255, 0.1);
 
     --main: #1c90f0;
     --main-txt: #1376c8;
@@ -143,6 +150,7 @@ body[theme='dark blue'] {
     --gray-2-txt: #9a9a9a;
 
     --over-main: black;
+    --tover-main: rgba(0, 0, 0, 0.1);
 
     --main: #0070cc;
     --main-txt: #005eac;
@@ -260,11 +268,11 @@ body[theme='dark blue'] {
 }
 
 .transy {
-    transition: var(--transition);
+    transition: var(--transition) ease;
 }
 
 .slow-transy {
-    transition: var(--slow-transition);
+    transition: var(--slow-transition) ease;
 }
 
 .pointer {

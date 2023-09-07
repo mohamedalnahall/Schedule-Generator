@@ -131,6 +131,10 @@ function uploadJson() {
 }
 
 function downloadJson() {
+    if (Object.keys(data.courses).length === 0) {
+        showErrorMsg("لا توجد مساقات مضافة");
+        return;
+    }
     try {
         const a = document.createElement("a");
         document.body.appendChild(a);
