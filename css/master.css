@@ -99,9 +99,10 @@ select {
 }
 
 #schedulesPanel.open {
-    height: calc(100% + 23px) !important;
+    height: min(calc(185px + 45px * var(--courses) + 8px * (var(--courses) - 1) + 45px), calc(100% + 23px)) !important;
     background-color: var(--white) !important;
     background: var(--white) !important;
+    box-shadow: var(--shadow) 0px -5px 15px 0px;
 }
 
 #schedulesPanel>div:first-child>svg {

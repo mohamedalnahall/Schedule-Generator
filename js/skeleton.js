@@ -34,7 +34,7 @@ const handler = {
                 newCourse.id = prop;
                 newCourse.className = "unit bg-gray srow";
                 newCourse.innerHTML =
-                    `<span class="c-black">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
+                    `<span class="c-black ellipsis">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
                         <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
                         <path d="M13.5 6.5l4 4"></path>
                     </svg><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" style="margin-left: -7px;" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete proxy.courses[this.parentElement.parentElement.id];">
@@ -701,6 +701,8 @@ function editCourse() {
 
 function renderSchedules() {
     document.getElementById("schedulesSlider").style.setProperty("--size", data.schedules.length);
+    document.getElementById("schedulesPanel").style.setProperty("--courses", Object.keys(data.courses).length);
+    const days = ["sa", "su", "mo", "tu", "we", "th"];
     for (let i = 0; i < data.schedules.length; i++) {
         let newSchedule = document.createElement("div");
         newSchedule.className = "column gap-8 schedule";
@@ -710,11 +712,10 @@ function renderSchedules() {
             newRow.className = "unit bg-gray srow";
             newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small" style="width: 150px;">${course}</div>`));
             newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
-            newRow.appendChild(createElementFromHTML(`<div class="crow c-gray-2 small" style="width: 40px;">${data.schedules[i].branches[course]}</div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small" style="width: 40px; text-align:center;">${data.schedules[i].branches[course]}</div>`));
             newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
-            const days = ["sa", "su", "mo", "tu", "we", "th"];
             for (const day of days) {
-                newRow.appendChild(createElementFromHTML(`<div class="crow c-gray-2 small ${day}" style="width: 70px; border-radius: 5px;"></div>`));
+                newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small ${day}" style="width: 70px; border-radius: 5px; text-align:center"></div>`));
                 if (day != "th") newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
             }
             newSchedule.appendChild(newRow);
