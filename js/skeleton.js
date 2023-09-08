@@ -99,6 +99,14 @@ const handler = {
 
 const proxy = new Proxy(data, handler);
 
+const daysMap = new Map();
+daysMap.set("sa", "السبت");
+daysMap.set("su", "الاحد");
+daysMap.set("mo", "الاثنين");
+daysMap.set("tu", "الثلاثاء");
+daysMap.set("we", "الاربعاء");
+daysMap.set("th", "الخميس");
+
 function reset() {
     data.schedules = [];
     document.getElementById("schedulesPanel").classList.remove("open");
@@ -714,16 +722,19 @@ function renderSchedules() {
             let newRow = document.createElement("div");
             newRow.id = course + " " + i;
             newRow.className = "unit bg-gray srow";
-            newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small" style="width: 150px;">${course}</div>`));
-            newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
-            newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small" style="width: 40px; text-align:center;">${data.schedules[i].branches[course]}</div>`));
-            newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small name">${course}</div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="sep"></div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small branch">${data.schedules[i].branches[course]}</div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="sep"></div>`));
             for (const day of days) {
-                newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small ${day}" style="width: 70px; border-radius: 5px; text-align:center"></div>`));
-                if (day != "th") newRow.appendChild(createElementFromHTML(`<div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>`));
+                newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small ${day} day"></div>`));
+                if (day != "th") newRow.appendChild(createElementFromHTML(`<div class="sep"></div>`));
+                else newRow.appendChild(createElementFromHTML(`<div class="row-end"></div>`));
             }
             newSchedule.appendChild(newRow);
+            newSchedule.appendChild(createElementFromHTML(`<div class="hsep"></div>`));
         }
+        newSchedule.removeChild(newSchedule.lastElementChild);
         document.getElementById("schedules").appendChild(newSchedule);
         document.getElementById("schedulesSliderDots").appendChild(createElementFromHTML(`<div class="bg-gray-3 transy pointer" style="width: 8px; height: 8px;" onclick="slideTo([...this.parentElement.children].indexOf(this))"></div>`));
         for (const day in data.schedules[i].days) {
@@ -777,6 +788,68 @@ function showSchedules() {
         document.getElementById("schedulesPanel").classList.add("open");
         document.getElementById("mainPanel").querySelector("#mainPanel>div").classList.add("fade-in");
     }
+}
+
+function printSchedule() {
+    const iframe = createElementFromHTML(`<iframe height="0" width="0" border="0" wmode="Opaque" style="position: absolute; top: -999px; left: -999px;"/>`);
+    document.body.appendChild(iframe);
+
+    const w = iframe.contentWindow || iframe.contentDocument;
+    const wdoc = w.document || w.contentDocument;
+
+    wdoc.open();
+
+    wdoc.write(
+        `
+        <div class="rrow gap-14" style="margin-bottom:10px; margin-right:10px;">
+            <h1>مولد الجداول</h1>
+            <div>بواسطة محمد مدحت النحال</div>
+            <a style="color: #0349fc" href='https://mohamedalnahall.github.io/Schedule-Generator/'>https://mohamedalnahall.github.io/Schedule-Generator</a>
+        </div>
+        <div class="rrow gap-8" style="flex-wrap:wrap; margin-bottom:10px; margin-right:10px;">
+            <div class="small">الطريقة : ${data.settings.generatingMethod === 'fullScan'? 'المسح الكامل' : 'الوراثة'}</div>
+            <div class="sep"></div>
+            <div class="small">الايام غير المرغوبة : ${stringifyUnwantedDays()} (${data.preferences.unwantedDays.weight})</div>
+            <div class="sep"></div>
+            <div class="small">الاوقات المفضلة : ${data.preferences.bestTimes.from} - ${data.preferences.bestTimes.to} (${data.preferences.bestTimes.weight})</div>
+            <div class="sep"></div>
+            <div class="small">عدد الايام في الاسبوع : ${data.preferences.numOfDays.to} (${data.preferences.numOfDays.weight})</div>
+            <div class="sep"></div>
+            <div class="small">عدد المحاضرات : ${data.preferences.lectuersPerDay.from} - ${data.preferences.lectuersPerDay.to} (${data.preferences.lectuersPerDay.weight})</div>
+            <div class="sep"></div>
+            <div class="small">اقصى وقت فراغ : ${data.preferences.maxFreeTime.to} (${data.preferences.maxFreeTime.weight})</div>
+        </div>
+        <div style="border: 1px solid var(--gray); border-radius: 15px;">
+            ${document.getElementById("schedulesHeader").outerHTML}
+            <div class="hsep"></div>
+            ${document.getElementById("schedules").children[parseInt(document.getElementById("schedulesSlider").style.getPropertyValue("--curr"))].innerHTML}
+        </div>`
+    );
+    
+    wdoc.head.append(createElementFromHTML(`<link rel="stylesheet" href="css/print.css" media="print">`));
+
+    wdoc.dir = "rtl";
+    wdoc.close();
+
+    setTimeout(function() {
+        w.focus();
+        w.print();
+        setTimeout(function() {
+            document.body.removeChild(iframe);
+        }, 100);
+    }, 250);
+}
+
+function stringifyUnwantedDays() {
+    let str = "";
+    const iter = daysMap.keys();
+    let value;
+    while (value = iter.next().value) {
+        if(data.preferences.unwantedDays.days.has(value)){
+            str += daysMap.get(value) + "+";
+        }
+    }
+    return str.substring(0,str.length - 1);
 }
 
 function slideTo(x) {

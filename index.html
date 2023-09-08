@@ -33,13 +33,13 @@
             <div id="theme-selector" class="column gap-14 bg-gray-2 pointer small" style="height: 30px; transition: height; transition-duration: var(--transition);" onclick="openThemePanel(this);">
                     <div class="srow" style="margin-top: 3px;">
                         <div class="crow">
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="transy" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M3 21v-4a4 4 0 1 1 4 4h-4"></path>
                                 <path d="M21 3a16 16 0 0 0 -12.8 10.2"></path>
                                 <path d="M21 3a16 16 0 0 1 -10.2 12.8"></path>
                                 <path d="M10.6 9a9 9 0 0 1 4.4 4.4"></path>
                             </svg>
-                            <div class="c-gray-2">
+                            <div class="c-gray-2 transy">
                                 المظهر
                             </div>
                         </div>
@@ -86,8 +86,8 @@
                         <span></span>  
                     </div>
             </div>
-            <button id="settings-button" class="rrow gap-8 bg-gray-2 small" onclick="showSettings()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <button id="settings-button" class="rrow gap-8 bg-gray-2 small transy" onclick="showSettings()">
+                <svg class="button-icon transy" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"></path>
                     <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
@@ -389,28 +389,38 @@
                     </svg>
                 </div>
             </div>
-            <div id="schedulesPanelContent" class="column gap-14 slow-transy" style="justify-content: space-between; padding: 0 40px; opacity: 0; height: calc(100% - 65px);">
-                <div class="srow">
+            <div id="schedulesPanelContent" class="column gap-8 slow-transy" style="justify-content: space-between; padding: 0 40px; opacity: 0; height: calc(100% - 66px);">
+                <div class="srow" style="margin-top: 10px; align-items: start;">
                     <div>جدول رقم <span id="scheduleNum">1</span></div>
+                    <button class="bg-gray srow small transy" style="gap: 4px; padding: 2px 10px;" onclick="printSchedule()">
+                        طباعة الجدول
+                        <svg class="button-icon transy" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
+                            <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
+                            <path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"></path>
+                        </svg>
+                    </button>
                 </div>
-                <div id="schedulesSlider" style="height: calc(100% - 120px); --curr: 0; --size: 0;">
-                    <div class="srow unit">
-                        <div class="small" style="width: 150px;">اسم المساق</div>
-                        <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
-                        <div class="small" style="width: 40px; text-align:center;">ش.</div>
-                        <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
-                        <div class="small" style="width: 70px; text-align:center;">السبت</div>
-                        <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
-                        <div class="small" style="width: 70px; text-align:center;">الاحد</div>
-                        <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
-                        <div class="small" style="width: 70px; text-align:center;">الاثنين</div>
-                        <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
-                        <div class="small" style="width: 70px; text-align:center;">الثلاثاء</div>
-                        <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
-                        <div class="small" style="width: 70px; text-align:center;">الاربعاء</div>
-                        <div class="bg-gray-txt" style="height: 15px; width: 1px;"></div>
-                        <div class="small" style="width: 70px; text-align:center;">الخميس</div>
-                    </div>
+                <div id="schedulesSlider" style="height: calc(100% - 112px); --curr: 0; --size: 0;">
+                    <div id="schedulesHeader" class="srow unit">
+                        <div class="small name">اسم المساق</div>
+                        <div class="sep"></div>
+                        <div class="small branch">ش.</div>
+                        <div class="sep"></div>
+                        <div class="small day">السبت</div>
+                        <div class="sep"></div>
+                        <div class="small day">الاحد</div>
+                        <div class="sep"></div>
+                        <div class="small day">الاثنين</div>
+                        <div class="sep"></div>
+                        <div class="small day">الثلاثاء</div>
+                        <div class="sep"></div>
+                        <div class="small day">الاربعاء</div>
+                        <div class="sep"></div>
+                        <div class="small day">الخميس</div>
+                        <div class="row-end"></div>
+                    </div>                
                     <div class="scroll" style="position: relative; height: calc(100% - 45px); max-height: calc(45px * var(--courses) + 8px * (var(--courses) - 1));">
                         <div id="schedules" class="crow transy gap-14" style="position: absolute; right: calc((-100% - 14px) * var(--curr) ); width: calc((100% * var(--size)) + 14px * (var(--size) - 1));">
                         </div>

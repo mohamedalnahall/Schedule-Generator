@@ -1,0 +1,96 @@
+@page {
+  size: landscape;
+  margin: 0;
+}
+
+@font-face {
+  font-family: NotoKufiArabic;
+  src: url(NotoKufiArabic.ttf);
+}
+
+* {
+  font-family: NotoKufiArabic;
+  font-size: 14px;
+}
+
+body {
+  --gray: #929292;
+  --gray-2: #656565;
+  margin: 0.4in;
+}
+
+h1 {
+  color: black;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.small * {
+  font-size: 12px;
+}
+
+.smaller {
+  font-size: 11px;
+}
+
+.smaller * {
+  font-size: 11px;
+}
+
+.rrow {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.srow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gap-8 {
+  gap: 8px
+}
+
+.gap-14 {
+  gap: 14px
+}
+
+.unit {
+  flex-shrink: 0;
+  height: 45px;
+  padding: 0 15px;
+  color: black;
+}
+
+.name {
+  width: 250px;
+}
+
+.branch {
+  width: 40px;
+  text-align: center;
+}
+
+.day {
+  width: 80px;
+  text-align: center;
+}
+
+.sep {
+  border-left: 1pt solid var(--gray);
+  width: 1pt;
+  height: 15px;
+}
+
+.hsep {
+  border-bottom: 1pt solid var(--gray);
+  width: caalc(100% - 30px);
+  height: 1pt;
+  margin: 0 15px;
+}
