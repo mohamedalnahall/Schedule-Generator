@@ -109,6 +109,11 @@ select {
     padding: 30px;
 }
 
+#schedulesPanel {
+    z-index: 100;
+}
+
+
 #schedulesPanel.open {
     height: min(calc(184px + 45px * var(--courses) + 8px * (var(--courses) - 1) + 45px), calc(100% + 23px)) !important;
     background-color: var(--white) !important;
@@ -341,59 +346,75 @@ header .themes>div>div {
     position: relative;
 }
 
-.slider>div:first-child>div {
-    background-color: var(--gray-txt);
-    margin: 0 1px;
-    width: 1px;
-    height: 15px;
-}
-
-.slider>div:first-child>div.coverd {
-    background-color: var(--main);
-    background: var(--main);
-    margin: 0;
-    width: 3px;
-    height: 15px;
-}
-
-#best_time_slider>div:nth-child(2)>div {
-    transform: translateX(-50%);
-}
-
-.slider>div:last-child {
-    width: calc(var(--end) - var(--start));
-    height: 3px;
+.slider .slider-selected {
     position: absolute;
-    right: var(--start);
-    top: -1px;
+    width: calc(var(--end) - var(--start) + 18px);
+    height: 18px;
+    top: 0;
+    right: calc(var(--start) - 9px);
 }
 
-.slider>div:last-child>div:first-child {
-    content: '';
-    background-color: var(--main);
-    background: var(--main);
-    width: 17px;
-    height: 17px;
+.slider .slider-selected .right-node,
+.slider .slider-selected .left-node {
+    position: absolute;
+    background-color: var(--white);
+    width: 18px;
+    height: 18px;
+    max-width: 18px;
+    max-height: 18px;
+    top: 0;
+    border-radius: 40px;
+    border: 2px solid var(--main);
+    cursor: pointer;
+}
+
+.slider .slider-selected .right-node {
     transform: translateX(50%);
-    position: absolute;
-    right: 0;
-    top: -7px;
-    border-radius: 40px;
-    cursor: pointer;
+    right: 9px;
+    z-index: 10;
 }
 
-.slider>div:last-child>div:last-child {
-    content: '';
-    background-color: var(--main);
-    background: var(--main);
-    width: 17px;
-    height: 17px;
+.slider .slider-selected .left-node {
     transform: translateX(-50%);
+    left: 9px;
+    z-index: 10;
+}
+
+.slider .slider-line {
+    height: 18px;
+    width: calc(100% + 18px);
+    margin-right: -9px;
+}
+
+.slider .slider-parts {
     position: absolute;
-    left: 0;
-    top: -7px;
-    border-radius: 40px;
-    cursor: pointer;
+    height: 18px;
+    width: 100%;
+    top: 0;
+}
+
+.slider .slider-parts>div {
+    border-left: 1px solid var(--gray-3);
+    width: 2px;
+    height: 10px;
+}
+
+.slider .slider-parts>div.coverd {
+    border-left: 2px solid var(--white);
+    margin: 0;
+    width: 2px;
+}
+
+.slider .slider-signs {
+    margin-top: 10px;
+}
+
+.slider .slider-signs>div.coverd {
+    color: var(--black);
+}
+
+#best_time_slider .slider-signs>div {
+    transform: translateX(-50%);
 }
 
 .selected {

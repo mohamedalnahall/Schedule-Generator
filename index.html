@@ -216,7 +216,13 @@
                             </svg>
                     </div>
                     <div id="best_time_slider" class="slider">
-                        <div class="bg-gray-txt srow" style="height: 1px;">
+                        <div class="slider-line bg-gray">
+                        </div>
+                        <div class="slider-selected bg-main" style="--start: 0%; --end: 50%;">
+                            <div class="right-node" onmousedown="nodeDrag(event, 1, 8, 1, '#best_time_slider', proxy.preferences.bestTimes, step=0.5, startValue=8)"></div>
+                            <div class="left-node" onmousedown="nodeDrag(event, 2, 8, 1, '#best_time_slider', proxy.preferences.bestTimes, step=0.5, startValue=8)"></div>
+                        </div>
+                        <div class="slider-parts srow">
                             <div class="coverd"></div>
                             <div class="coverd"></div>
                             <div class="coverd"></div>
@@ -227,20 +233,16 @@
                             <div></div>
                             <div></div>
                         </div>
-                        <div class="srow" style="margin-top: 21px;">
-                            <div style="transform: translateX(50%);">8</div>
-                            <div>9</div>
-                            <div>10</div>
-                            <div>11</div>
-                            <div>12</div>
-                            <div>13</div>
-                            <div>14</div>
-                            <div>15</div>
-                            <div>16</div>
-                        </div>
-                        <div class="bg-main" style="--start: 0%; --end: 50%;">
-                            <div onmousedown="nodeDrag(event, 1, 8, 1, '#best_time_slider', proxy.preferences.bestTimes, step=0.5, startValue=8)"></div>
-                            <div onmousedown="nodeDrag(event, 2, 8, 1, '#best_time_slider', proxy.preferences.bestTimes, step=0.5, startValue=8)"></div>
+                        <div class="slider-signs srow">
+                            <div class="transy coverd" style="transform: translateX(50%);">8</div>
+                            <div class="transy coverd">9</div>
+                            <div class="transy coverd">10</div>
+                            <div class="transy coverd">11</div>
+                            <div class="transy coverd">12</div>
+                            <div class="transy">13</div>
+                            <div class="transy">14</div>
+                            <div class="transy">15</div>
+                            <div class="transy">16</div>
                         </div>
                     </div>
                     <div class="rrow gap-8" style="align-items: start;">
@@ -257,27 +259,28 @@
                                 <path d="M22 12h-1"></path>
                             </svg>
                         </div>
-                        <div id="num_of_days_slider" class="slider" style="flex-grow: 2; margin-top: 1.25rem;">
-                                <div class="bg-gray-txt srow" style="height: 1px;">
-                                    <div class="coverd"></div>
-                                    <div class="coverd"></div>
-                                    <div class="coverd"></div>
-                                    <div class="coverd"></div>
-                                    <div class="coverd"></div>
-                                    <div></div>
-                                </div>
-                                <div class="srow" style="margin-top: 21px;">
-                                    <div style="transform: translateX(50%);">1</div>
-                                    <div>2</div>
-                                    <div>3</div>
-                                    <div>4</div>
-                                    <div>5</div>
-                                    <div>6</div>
-                                </div>
-                                <div class="bg-main" style="--start: 0%; --end: 80%;">
-                                    <span></span>
-                                    <div onmousedown="nodeDrag(event, 2, 5, 0, '#num_of_days_slider', proxy.preferences.numOfDays)"></div>
-                                </div>
+                        <div id="num_of_days_slider" class="slider" style="flex-grow: 2;">
+                            <div class="slider-line bg-gray">
+                            </div>
+                            <div class="slider-selected bg-main" style="--start: 0%; --end: 80%;">
+                                <div class="left-node" onmousedown="nodeDrag(event, 2, 5, 0, '#num_of_days_slider', proxy.preferences.numOfDays)"></div>
+                            </div>
+                            <div class="slider-parts srow">
+                                <div class="coverd"></div>
+                                <div class="coverd"></div>
+                                <div class="coverd"></div>
+                                <div class="coverd"></div>
+                                <div class="coverd"></div>
+                                <div></div>
+                            </div>
+                            <div class="slider-signs srow">
+                                <div class="transy coverd" style="transform: translateX(50%);">1</div>
+                                <div class="transy coverd">2</div>
+                                <div class="transy coverd">3</div>
+                                <div class="transy coverd">4</div>
+                                <div class="transy coverd">5</div>
+                                <div class="transy">6</div>
+                            </div>
                         </div>
                     </div>
                     <div class="rrow gap-8" style="align-items: start;">
@@ -294,27 +297,29 @@
                                 <path d="M22 12h-1"></path>
                             </svg>
                         </div>
-                        <div id="lectures_per_day_slider" class="slider" style="flex-grow: 2; margin-top: 1.25rem;">
-                                <div class="bg-gray-txt srow" style="height: 1px;">
-                                    <div></div>
-                                    <div class="coverd"></div>
-                                    <div class="coverd"></div>
-                                    <div class="coverd"></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                                <div class="srow" style="margin-top: 21px;">
-                                    <div style="transform: translateX(50%);">1</div>
-                                    <div>2</div>
-                                    <div>3</div>
-                                    <div>4</div>
-                                    <div>5</div>
-                                    <div>6</div>
-                                </div>
-                                <div class="bg-main" style="--start: 20%; --end: 60%;">
-                                    <div onmousedown="nodeDrag(event, 1, 5, 0, '#lectures_per_day_slider', proxy.preferences.lectuersPerDay)"></div>
-                                    <div onmousedown="nodeDrag(event, 2, 5, 0, '#lectures_per_day_slider', proxy.preferences.lectuersPerDay)"></div>
-                                </div>
+                        <div id="lectures_per_day_slider" class="slider" style="flex-grow: 2;">
+                            <div class="slider-line bg-gray">
+                            </div>
+                            <div class="slider-selected bg-main" style="--start: 20%; --end: 60%;">
+                                <div class="right-node" onmousedown="nodeDrag(event, 1, 5, 0, '#lectures_per_day_slider', proxy.preferences.lectuersPerDay)"></div>
+                                <div class="left-node" onmousedown="nodeDrag(event, 2, 5, 0, '#lectures_per_day_slider', proxy.preferences.lectuersPerDay)"></div>
+                            </div>
+                            <div class="slider-parts srow">
+                                <div></div>
+                                <div class="coverd"></div>
+                                <div class="coverd"></div>
+                                <div class="coverd"></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="slider-signs srow">
+                                <div class="transy" style="transform: translateX(50%);">1</div>
+                                <div class="transy coverd">2</div>
+                                <div class="transy coverd">3</div>
+                                <div class="transy coverd">4</div>
+                                <div class="transy">5</div>
+                                <div class="transy">6</div>
+                            </div>
                         </div>
                     </div>
                     <div class="rrow gap-8" style="align-items: start;">
@@ -331,29 +336,30 @@
                                 <path d="M22 12h-1"></path>
                             </svg>
                         </div>
-                        <div id="max_free_time_slider" class="slider" style="flex-grow: 2; margin-top: 1.25rem;">
-                                <div class="bg-gray-txt srow" style="height: 1px;">
-                                    <div class="coverd"></div>
-                                    <div class="coverd"></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                                <div class="srow" style="margin-top: 21px;">
-                                    <div style="transform: translateX(50%);">0</div>
-                                    <div>1</div>
-                                    <div>2</div>
-                                    <div>3</div>
-                                    <div>4</div>
-                                    <div>5</div>
-                                    <div>6</div>
-                                </div>
-                                <div class="bg-main" style="--start: 0%; --end: 25%;">
-                                    <span></span>
-                                    <div onmousedown="nodeDrag(event, 2, 6, 0, '#max_free_time_slider', proxy.preferences.maxFreeTime, step=0.5, startValue=0)"></div>
-                                </div>
+                        <div id="max_free_time_slider" class="slider" style="flex-grow: 2;">
+                            <div class="slider-line bg-gray">
+                            </div>
+                            <div class="slider-selected bg-main" style="--start: 0%; --end: 25%;">
+                                <div class="left-node" onmousedown="nodeDrag(event, 2, 6, 0, '#max_free_time_slider', proxy.preferences.maxFreeTime, step=0.5, startValue=0)"></div>
+                            </div>
+                            <div class="slider-parts srow">
+                                <div class="coverd"></div>
+                                <div class="coverd"></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="slider-signs srow">
+                                <div class="transy coverd" style="transform: translateX(50%);">0</div>
+                                <div class="transy coverd">1</div>
+                                <div class="transy">2</div>
+                                <div class="transy">3</div>
+                                <div class="transy">4</div>
+                                <div class="transy">5</div>
+                                <div class="transy">6</div>
+                            </div>
                         </div>
                     </div>
                 </div>

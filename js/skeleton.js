@@ -183,49 +183,58 @@ function openThemePanel(el) {
 
 function nodeDrag(e, x, parts, minDiff, sliderId, preferenceRef, step = 1, startValue = 1) {
     if (e.button === 0) {
-        const time_line = document.querySelector(`${sliderId}>div:first-child`);
-        const sel_time = document.querySelector(`${sliderId}>div:last-child`);
+        const slider_line = document.querySelector(`${sliderId} .slider-line`);
+        const slider_sel = document.querySelector(`${sliderId} .slider-selected`);
+        const slider_parts = document.querySelector(`${sliderId} .slider-parts`);
+        const slider_signs = document.querySelector(`${sliderId} .slider-signs`);
         const mouse_x = e.pageX;
-        const start = parseInt(sel_time.style.getPropertyValue("--start"));
-        const end = parseInt(sel_time.style.getPropertyValue("--end"));
+        const start = parseInt(slider_sel.style.getPropertyValue("--start"));
+        const end = parseInt(slider_sel.style.getPropertyValue("--end"));
         const partWidth = 100 / parts;
+
+        function highlightSelected(next, x) {
+            for (let i = 0; i < slider_parts.children.length; i++) {
+                if (x === 1? next > i * partWidth : next < i * partWidth) {
+                    slider_parts.children[i].className = "";
+                    slider_signs.children[i].classList.remove("coverd");
+                }
+                else if (x === 1? end >= i * partWidth : start <= i * partWidth) {
+                    slider_parts.children[i].className = "coverd";
+                    slider_signs.children[i].classList.add("coverd");
+                }
+            }
+        }
         if (x === 1) {
             document.onmousemove = (e) => {
-                let next = start + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
+                let next = start + (mouse_x - e.pageX) * 100 / slider_line.clientWidth;
                 next = (next < 0 ? 0 : (next > end - minDiff * partWidth) ? end - minDiff * partWidth : next);
-                sel_time.style.setProperty("--start", next + "%");
-                const children = time_line.children;
-                for (let i = 0; i < children.length; i++) {
-                    if (next > i * partWidth) children[i].className = "";
-                    else if (end > i * partWidth) children[i].className = "coverd";
-                }
+                slider_sel.style.setProperty("--start", next + "%");
+                highlightSelected(next, 1);
             }
             document.onmouseup = () => {
                 document.onmousemove = null;
                 document.onmouseup = null;
-                let start = parseFloat(sel_time.style.getPropertyValue("--start"));
+                let start = parseFloat(slider_sel.style.getPropertyValue("--start"));
                 start = Math.round(start / partWidth / step) * partWidth * step;
-                sel_time.style.setProperty("--start", start + "%");
+                slider_sel.style.setProperty("--start", start + "%");
+                highlightSelected(start, 1);
                 preferenceRef.from = startValue + (start/100) * parts;
             };
         }
         else if (x === 2) {
             document.onmousemove = (e) => {
-                let next = end + (mouse_x - e.pageX) * 100 / time_line.clientWidth;
+                let next = end + (mouse_x - e.pageX) * 100 / slider_line.clientWidth;
                 next = (next > 100 ? 100 : (next < start + minDiff * partWidth) ? start + minDiff * partWidth : next);
-                sel_time.style.setProperty("--end", next + "%");
-                const children = time_line.children;
-                for (let i = 0; i < children.length; i++) {
-                    if (next < i * partWidth) children[i].className = "";
-                    else if (start < i * partWidth) children[i].className = "coverd";
-                }
+                slider_sel.style.setProperty("--end", next + "%");
+                highlightSelected(next, 2);
             }
             document.onmouseup = () => {
                 document.onmousemove = null;
                 document.onmouseup = null;
-                let end = parseFloat(sel_time.style.getPropertyValue("--end"));
+                let end = parseFloat(slider_sel.style.getPropertyValue("--end"));
                 end = Math.round(end / partWidth / step) * partWidth * step;
-                sel_time.style.setProperty("--end", end + "%");
+                slider_sel.style.setProperty("--end", end + "%");
+                highlightSelected(end, 2);
                 preferenceRef.to = startValue + (end/100) * parts;
 
             };

@@ -12,7 +12,7 @@ body[theme='light ucas'] {
     --background: #eeeeee;
     --gray: #ececec;
     --gray-2: #e1e1e1;
-    --gray-3: #cacaca;
+    --gray-3: #bbb;
     --gray-txt: #808080;
     --gray-2-txt: #656565;
 
@@ -50,7 +50,7 @@ body[theme='light yellow'] {
     --background: #eeeeee;
     --gray: #ececec;
     --gray-2: #e1e1e1;
-    --gray-3: #cacaca;
+    --gray-3: #bbb;
     --gray-txt: #808080;
     --gray-2-txt: #656565;
 
@@ -88,7 +88,7 @@ body[theme='light green'] {
     --background: #eeeeee;
     --gray: #ececec;
     --gray-2: #e1e1e1;
-    --gray-3: #cacaca;
+    --gray-3: #bbb;
     --gray-txt: #808080;
     --gray-2-txt: #656565;
 
@@ -126,7 +126,7 @@ body[theme='light blue'] {
     --background: #eeeeee;
     --gray: #ececec;
     --gray-2: #e1e1e1;
-    --gray-3: #cacaca;
+    --gray-3: #bbb;
     --gray-txt: #808080;
     --gray-2-txt: #656565;
 
