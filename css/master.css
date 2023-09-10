@@ -229,6 +229,10 @@ select {
     display: none;
 }
 
+header {
+    z-index: 200;
+}
+
 header>div:first-child>a {
     height: 30px;
     padding: 0 15px;
@@ -263,7 +267,7 @@ header>div:first-child>a:hover>svg {
     z-index: 100;
 }
 
-body[theme='light ucas'] #theme-selector.opend,
+body[theme='light contrast'] #theme-selector.opend,
 body[theme='light yellow'] #theme-selector.opend,
 body[theme='light green'] #theme-selector.opend,
 body[theme='light blue'] #theme-selector.opend {
@@ -310,6 +314,13 @@ header .themes>div>div {
 .word-line>div {
     height: 1px;
     width: 50%;
+}
+
+.hsep {
+    border-bottom: 1px solid var(--gray-3);
+    width: calc(100% - 30px);
+    height: 1px;
+    margin: 0 15px;
 }
 
 .unwanted {
@@ -468,18 +479,31 @@ header .themes>div>div {
 }
 
 /* icon button */
+.i-btn,
+.close-btn {
+    background-color: var(--gray);
+    transition: 100ms;
+}
+
+.i-btn:hover,
+.close-btn:hover {
+    background-color: var(--tmain) !important;
+    background: var(--tmain) !important;
+    stroke: var(--main-txt) !important;
+}
+
 .i-btn {
     width: 30px;
     height: 30px;
     padding: 3px;
     border-radius: 8px;
-    background-color: var(--gray);
 }
 
-.i-btn:hover {
-    background-color: var(--tmain) !important;
-    background: var(--tmain) !important;
-    stroke: var(--main-txt) !important;
+.close-btn {
+    width: 35px;
+    height: 35px;
+    padding: 8px;
+    border-radius: 99px;
 }
 
 .dialog>div:last-child {
@@ -502,12 +526,12 @@ header .themes>div>div {
 }
 
 #addCoursePanel>div:last-child {
-    width: 600px;
+    width: 630px;
     height: 600px;
 }
 
 #addCoursePanel.hidden>div:last-child {
-    width: 575px;
+    width: 605px;
     height: 575px;
 }
 
@@ -546,15 +570,15 @@ header .themes>div>div {
 
 #branchDetails {
     width: 100%;
-    height: 100%;
+    height: 296px;
     border: 1px solid var(--gray-3);
     border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    padding: 25px;
+    border-top-left-radius: 15px;
+    padding: 15px;
 }
 
 #branchDetails select {
-    width: 70px;
+    width: 85px;
     border: none;
     text-align: center;
     border-radius: 0;

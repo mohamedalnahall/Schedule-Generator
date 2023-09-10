@@ -34,7 +34,7 @@ const handler = {
                 newCourse.id = prop;
                 newCourse.className = "unit bg-gray srow";
                 newCourse.innerHTML =
-                    `<span class="c-black ellipsis">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
+                    `<span class="c-gray-3 ellipsis">${newCourse.id}</span><div class="crow"><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="showEditCourse(this.parentElement.parentElement.id)")>
                         <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
                         <path d="M13.5 6.5l4 4"></path>
                     </svg><svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" style="margin-left: -7px;" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round" onclick="delete proxy.courses[this.parentElement.parentElement.id];">
@@ -50,28 +50,34 @@ const handler = {
         } else if (target === data && prop === "courses") {
             data.courses = {};
             document.getElementById("courses").innerHTML = 
-            `<div id="coursesSeparator" style="margin-top: -14px;"></div>
-            <button class="unit bg-gray srow" onclick="showAddCourse()">
-                <span class="c-black">اضافة مساق</span>
-                <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5l0 14"></path>
-                    <path d="M5 12l14 0"></path>
+            `
+            <div id="coursesSeparator" style="margin-top: -14px;"></div>
+            <button class="unit bg-gray c-gray-3 srow transy" onclick="showAddCourse()">
+                اضافة مساق
+                <svg class="button-icon transy" style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-3-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                    <path d="M9 12h6"></path>
+                    <path d="M12 9v6"></path>
                 </svg>
             </button>                    
             <div class="word-line srow">
                 <div class="bg-gray-3"></div>
                 <div class="bg-gray-3"></div>
             </div>
-            <button for="json-selector" class="unit bg-gray srow pointer" onclick="uploadJson()">
-                <span class="c-black">تحميل المساقات</span>
-                <svg style="margin-left: -7px;" height="24" fill="var(--gray-txt)" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.823 15.122c-.517 0-.816.491-.816 1.146 0 .661.311 1.126.82 1.126.517 0 .812-.49.812-1.146 0-.604-.291-1.126-.816-1.126z"/>
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM8.022 16.704c0 .961-.461 1.296-1.2 1.296-.176 0-.406-.029-.557-.08l.086-.615c.104.035.239.06.391.06.319 0 .52-.145.52-.67v-2.122h.761v2.131zm1.459 1.291c-.385 0-.766-.1-.955-.205l.155-.631c.204.105.521.211.846.211.35 0 .534-.146.534-.365 0-.211-.159-.331-.564-.476-.562-.195-.927-.506-.927-.996 0-.576.481-1.017 1.277-1.017.38 0 .659.08.861.171l-.172.615c-.135-.065-.375-.16-.705-.16s-.491.15-.491.325c0 .215.19.311.627.476.596.22.876.53.876 1.006.001.566-.436 1.046-1.362 1.046zm3.306.005c-1.001 0-1.586-.755-1.586-1.716 0-1.012.646-1.768 1.642-1.768 1.035 0 1.601.776 1.601 1.707C14.443 17.33 13.773 18 12.787 18zm4.947-.055h-.802l-.721-1.302a12.64 12.64 0 0 1-.585-1.19l-.016.005c.021.445.031.921.031 1.472v1.016h-.701v-3.373h.891l.701 1.236c.2.354.4.775.552 1.155h.014c-.05-.445-.065-.9-.065-1.406v-.985h.702v3.372zM14 9h-1V4l5 5h-4z"/>
+            <button for="json-selector" class="unit bg-gray c-gray-3 srow transy" onclick="uploadJson()">
+                تحميل المساقات
+                <svg class="button-icon transy" style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-3-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                    <path d="M12 11v6"></path>
+                    <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
                 </svg>
             </button>
-            <button class="unit bg-gray srow" onclick="downloadJson()">
-                <span class="c-black">حفظ المساقات</span>
-                <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="var(--gray-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <button class="unit bg-gray c-gray-3 srow transy" onclick="downloadJson()">
+                حفظ المساقات
+                <svg class="button-icon transy" style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-3-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
                     <path d="M7 11l5 5l5 -5"></path>
@@ -378,6 +384,7 @@ function showAddCourse() {
     addCoursePanel.querySelector("#addCoursePanel>div>button[onclick='editCourse()']").style.display = "none";
     addCoursePanel.querySelector("#addCoursePanel>div>button[onclick='addCourse()']").style.display = "block";
     addCoursePanel.classList.remove("hidden");
+    addBranch(document.getElementById("branches").lastElementChild);
 }
 
 function showEditCourse(id) {
@@ -731,12 +738,12 @@ function renderSchedules() {
             let newRow = document.createElement("div");
             newRow.id = course + " " + i;
             newRow.className = "unit bg-gray srow";
-            newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small name">${course}</div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="c-gray-3 small name">${course}</div>`));
             newRow.appendChild(createElementFromHTML(`<div class="sep"></div>`));
-            newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small branch">${data.schedules[i].branches[course]}</div>`));
+            newRow.appendChild(createElementFromHTML(`<div class="c-gray-3 small branch">${data.schedules[i].branches[course]}</div>`));
             newRow.appendChild(createElementFromHTML(`<div class="sep"></div>`));
             for (const day of days) {
-                newRow.appendChild(createElementFromHTML(`<div class="c-gray-2 small ${day} day"></div>`));
+                newRow.appendChild(createElementFromHTML(`<div class="c-gray-3 small ${day} day"></div>`));
                 if (day != "th") newRow.appendChild(createElementFromHTML(`<div class="sep"></div>`));
                 else newRow.appendChild(createElementFromHTML(`<div class="row-end"></div>`));
             }

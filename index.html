@@ -25,7 +25,7 @@
                 </svg>
                 <h1>مولد الجداول</h1>
                 <a href="https://github.com/mohamedalnahall/Schedule-Generator" class="small crow c-gray-2 bg-gray-2">بواسطة __ محمد مدحت النحال
-                    <svg xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;" width="22" height="17" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="padding-right: 5px;" width="22" height="17" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
                     </svg>
                 </a>
@@ -33,7 +33,7 @@
             <div id="theme-selector" class="column gap-14 bg-gray-2 pointer small" style="height: 30px; transition: height; transition-duration: var(--transition);" onclick="openThemePanel(this);">
                     <div class="srow" style="margin-top: 3px;">
                         <div class="crow">
-                            <svg class="transy" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="transy" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M3 21v-4a4 4 0 1 1 4 4h-4"></path>
                                 <path d="M21 3a16 16 0 0 0 -12.8 10.2"></path>
                                 <path d="M21 3a16 16 0 0 1 -10.2 12.8"></path>
@@ -43,7 +43,7 @@
                                 المظهر
                             </div>
                         </div>
-                        <svg class="arrow transy" style="transform-origin: center;" xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="arrow transy" style="transform-origin: center;" xmlns="http://www.w3.org/2000/svg"width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M6 9l6 6l6 -6"></path>
                         </svg>
                     </div>
@@ -53,8 +53,8 @@
                             <span>فاتح</span>
                             <div class="bg-gray-3"></div>
                         </span>
-                        <div class="srow transy" onclick="document.body.setAttribute('theme','light ucas')">مظهر يوكاس
-                            <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','light contrast')">مظهر التباين
+                            <div style="background-color: black; border: 1px solid white;"></div>
                         </div>
                         <div class="srow transy" onclick="document.body.setAttribute('theme','light yellow')">مظهر اصفر
                             <div style="background-color: #ffc700;"></div>
@@ -63,15 +63,15 @@
                             <div style="background-color: #27df55;"></div>
                         </div>
                         <div class="srow transy" onclick="document.body.setAttribute('theme','light blue')">مظهر ازرق
-                            <div style="background: #1c90f0;"></div>
+                            <div style="background: #4578ea;"></div>
                         </div>
                         <span class="word-line srow">
                             <div class="bg-gray-3"></div>
                             <span>غامق</span>
                             <div class="bg-gray-3"></div>
                         </span>
-                        <div class="srow transy" onclick="document.body.setAttribute('theme','dark ucas')">مظهر يوكاس
-                            <div style="background: linear-gradient(to right, #71c158, #1c6ead);"></div>
+                        <div class="srow transy" onclick="document.body.setAttribute('theme','dark contrast')">مظهر التباين
+                            <div style="background-color: white; border: 1px solid black;"></div>
                         </div>
                         <div class="srow transy" onclick="document.body.setAttribute('theme','dark yellow')">مظهر اصفر
                             <div style="background-color: #dbac00;"></div>
@@ -86,8 +86,8 @@
                         <span></span>  
                     </div>
             </div>
-            <button id="settings-button" class="rrow gap-8 bg-gray-2 small transy" onclick="showSettings()">
-                <svg class="button-icon transy" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <button id="settings-button" class="rrow gap-8 bg-gray-2 c-gray-2 small transy" onclick="showSettings()">
+                <svg class="button-icon transy" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-2-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"></path>
                     <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
@@ -104,27 +104,32 @@
                 </div>
                 <div id="courses" class="scroll column gap-14">
                     <div id="coursesSeparator" style="margin-top: -14px;"></div>
-                    <button class="unit bg-gray srow" onclick="showAddCourse()">
-                        <span class="c-black">اضافة مساق</span>
-                        <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1" stroke="var(--black)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 5l0 14"></path>
-                            <path d="M5 12l14 0"></path>
+                    <button class="unit bg-gray c-gray-3 srow transy" onclick="showAddCourse()">
+                        اضافة مساق
+                        <svg class="button-icon transy" style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-3-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                            <path d="M9 12h6"></path>
+                            <path d="M12 9v6"></path>
                         </svg>
                     </button>                    
                     <div class="word-line srow">
                         <div class="bg-gray-3"></div>
                         <div class="bg-gray-3"></div>
                     </div>
-                    <button for="json-selector" class="unit bg-gray srow pointer" onclick="uploadJson()">
-                        <span class="c-black">تحميل المساقات</span>
-                        <svg style="margin-left: -7px;" height="24" fill="var(--gray-txt)" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.823 15.122c-.517 0-.816.491-.816 1.146 0 .661.311 1.126.82 1.126.517 0 .812-.49.812-1.146 0-.604-.291-1.126-.816-1.126z"/>
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM8.022 16.704c0 .961-.461 1.296-1.2 1.296-.176 0-.406-.029-.557-.08l.086-.615c.104.035.239.06.391.06.319 0 .52-.145.52-.67v-2.122h.761v2.131zm1.459 1.291c-.385 0-.766-.1-.955-.205l.155-.631c.204.105.521.211.846.211.35 0 .534-.146.534-.365 0-.211-.159-.331-.564-.476-.562-.195-.927-.506-.927-.996 0-.576.481-1.017 1.277-1.017.38 0 .659.08.861.171l-.172.615c-.135-.065-.375-.16-.705-.16s-.491.15-.491.325c0 .215.19.311.627.476.596.22.876.53.876 1.006.001.566-.436 1.046-1.362 1.046zm3.306.005c-1.001 0-1.586-.755-1.586-1.716 0-1.012.646-1.768 1.642-1.768 1.035 0 1.601.776 1.601 1.707C14.443 17.33 13.773 18 12.787 18zm4.947-.055h-.802l-.721-1.302a12.64 12.64 0 0 1-.585-1.19l-.016.005c.021.445.031.921.031 1.472v1.016h-.701v-3.373h.891l.701 1.236c.2.354.4.775.552 1.155h.014c-.05-.445-.065-.9-.065-1.406v-.985h.702v3.372zM14 9h-1V4l5 5h-4z"/>
+                    <button for="json-selector" class="unit bg-gray c-gray-3 srow transy" onclick="uploadJson()">
+                        تحميل المساقات
+                        <svg class="button-icon transy" style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-3-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                            <path d="M12 11v6"></path>
+                            <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
                         </svg>
                     </button>
-                    <button class="unit bg-gray srow" onclick="downloadJson()">
-                        <span class="c-black">حفظ المساقات</span>
-                        <svg style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="var(--gray-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <button class="unit bg-gray c-gray-3 srow transy" onclick="downloadJson()">
+                        حفظ المساقات
+                        <svg class="button-icon transy" style="margin-left: -7px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="var(--gray-3-txt)" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
                             <path d="M7 11l5 5l5 -5"></path>
@@ -472,9 +477,9 @@
         <div class="column gap-14 transy" style="max-width: 520px;">
             <div class="srow">
                 <h2>الاعدادات</h2>
-                <svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" onclick="hideSettings()" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 6l-12 12"></path>
-                <path d="M6 6l12 12"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" class="pointer close-btn" onclick="hideSettings()" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6l-12 12"></path>
+                    <path d="M6 6l12 12"></path>
                 </svg>
             </div>
             <div id="noteSlot"></div>
@@ -527,14 +532,16 @@
     <div id="addCoursePanel" class="dialog hidden">
         <div style="width: 100vw; height: 100vh; position: absolute; top: 0; right: 0;" onclick="hideAddCourse()"></div>
         <div class="column gap-14 transy">
-            <div class="rrow">
-                <svg xmlns="http://www.w3.org/2000/svg" class="pointer i-btn" onclick="hideAddCourse()" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 6l-12 12"></path>
-                <path d="M6 6l12 12"></path>
+            <div class="srow">
+                <h2>اضافة مساق</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" class="pointer close-btn" onclick="hideAddCourse()" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6l-12 12"></path>
+                    <path d="M6 6l12 12"></path>
                 </svg>
             </div>
             <input id="courseName" type="text" class="unit bg-gray c-black transy" placeholder="اسم المساق" required onfocus="this.classList.remove('error')">
-            <div class="word-line srow"><div class="bg-gray-3"></div><div class="bg-gray-3"></div></div>
+            <div class="hsep"></div>
+            <!-- <div class="word-line srow"><div class="bg-gray-3"></div><div class="bg-gray-3"></div></div> -->
             <h2 style="margin-right: 15px;">الشعب</h2>
             <div class="crow" style="align-items: flex-start; height: 321px;">
                 <div id="branches" class="column gap-14 scroll" style="min-width: 180px; height: 280px; padding: 0;">
@@ -557,17 +564,18 @@
                         <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
                         </svg>
                     </div>
-                    <div class="srow" style="padding: 0 15px 0 64px;">
-                        <div class="crow" style="width: 70px;">اليوم</div>
+                    <div class="srow" style="padding: 0 15px 0 60px;">
+                        <div class="crow" style="width: 85px;">اليوم</div>
                         <div class="bg-gray-txt" style="height: 10px; width: 1px;"></div>
-                        <div class="crow" style="width: 70px;">من</div>
+                        <div class="crow" style="width: 85px;">من</div>
                         <div class="bg-gray-txt" style="height: 10px; width: 1px;"></div>
-                        <div class="crow" style="width: 70px;">الى</div>
+                        <div class="crow" style="width: 85px;">الى</div>
                     </div>
                     <div id="timeSlots" class="column gap-14 scroll">
                     </div>
                 </div>
             </div>
+            <div></div>
             <button class="unit bg-main" onclick="addCourse()"><h2 class="c-over-main">اضافة</h2></button>
             <button class="unit bg-main" onclick="editCourse()"><h2 class="c-over-main">تعديل</h2></button>
         </div>

@@ -90,7 +90,7 @@ h1 {
 
 .hsep {
   border-bottom: 1pt solid var(--gray);
-  width: caalc(100% - 30px);
+  width: calc(100% - 30px);
   height: 1pt;
   margin: 0 15px;
 }
